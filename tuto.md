@@ -11,13 +11,13 @@ Nous allons donc créer un petit jeu avec des carrés animés.
 Mais tout d'abord c'est quoi SugarCubes (SC pour simplifier) ?
 
 # SugarCubes kesako ?
-SugarCubes est un nouveau langage de programmation ou plutôt un outil pour pouvoir faire du parallélisme dans son programme. 
-Par exemple un jeu de simulation.
+SugarCubes est une bibliothèque qui permet de gérer des evenements en   parallèle dans son programme. 
+Par exemple, dans un jeu de simulation, il y a plusieurs evenements qui se passent en même temps.
+Pour en savoir plus : https://github.com/LordManta/SugarCubesJS
 
 #  jeu les miniSweets 
 Création d'un petit jeu les miniSweets
-J'ai décidé de coder ce jeu en javascript mais vous pouvez le faire en java, et peut être python. 
-Pour le savoir allez voir le site de JF Susini pour plus de détails
+J'ai décidé de coder ce jeu en JavaScript.
 
 Titre du jeu : les miniSweets
 Scénario du jeu : Lorsque deux miniSweets se rencontrent, ils changent de couleur. 
