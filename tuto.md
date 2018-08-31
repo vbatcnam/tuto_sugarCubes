@@ -1,5 +1,4 @@
-Créer mon premier cube avec SC
-==============================
+# Créer mon premier cube avec SC
 
 Je vais partager mon expérience d'apprentissage de SugarCubes (SC) à travers ce tuto qui ressemblera plus à un blog ou un journal sous forme d'un dialogue entre son créateur (JF Susini) et son élève (moi).
 
@@ -18,10 +17,10 @@ Pour vous expliquer comment fonctionne SC, j'ai préféré faire un truc tout si
 Nous allons donc créer ensemble un cube avec le langage SugarCube.
 Mais tout d'abord c'est quoi SugarCubes (SC pour simplifier) ?
 
-======================= SugarCubes kesako ? ========================
+# SugarCubes kesako ?
 SC est un nouveau langage de programmation ou plutôt un outil pour pouvoir faire du parallélisme dans son programme. 
 
-====================== jeu les miniCubes =============================
+#  jeu les miniCubes 
 Création d'un petit jeu les miniCubes
 J'ai décidé de coder ce jeu en javascript mais vous pouvez le faire en java, et peut être python. 
 Pour le savoir allez voir le site de son créateur JF Susini :
@@ -39,6 +38,10 @@ Ces rayures, pois ou taches sont donc ajouté au patrimoine génétique et sera 
 Jusque là, je suppose qu'il n'y a rien de compliqué : 
 
 Il y a une classe miniCube, des objets issus de cette classe, et des Cubes (objet de type SC).
+
+```javascript 
+SC.actionOn(evt, actionDeclancheSiEvtPresent, actionDeclancheSiEvtAbsant, nbreDinstant) 
+```
 
 Voir le fichier MiniCube.js
 
