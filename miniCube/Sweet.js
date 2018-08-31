@@ -1,4 +1,4 @@
-class MiniCube{
+class Sweet{
 	constructor(obj_parent1, obj_parent2, couleurExaSiEncetre, x, y){
 		if(obj_parent1)
 			this.parent1 = obj_parent1;
@@ -14,9 +14,10 @@ class MiniCube{
 }
 
 //comportements des cubes
+var JeSuisIci = SC.evt("je suis ici");
 
 //miniCubes originels.
-var miniCubeR = new MiniCube(null, null, "ff0000", 10, 10);
-var miniCubeV = new MiniCube(null, null, "008000", 10, 10);
-var miniCubeB = new MiniCube(null, null, "0000ff", 10, 10);
+var miniSweetR = new Sweet(null, null, "ff0000", 10, 10);
+var miniSweetV = new Sweet(null, null, "008000", 10, 10);
+var miniSweetB = new Sweet(null, null, "0000ff", 10, 10);
 

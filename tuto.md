@@ -1,51 +1,55 @@
 # Créer mon premier cube avec SC
 
-Je vais partager mon expérience d'apprentissage de SugarCubes (SC) à travers ce tuto qui ressemblera plus à un blog ou un journal sous forme d'un dialogue entre son créateur (JF Susini) et son élève (moi).
+## préembule
 
-Pourquoi ce tuto alors que je sais à peine utiliser SC ?
-Et bien parce que lorsqu'on crée un tuto d'un langage que l'on maîtrise, on n'est plus débutant et on oublie certaines étapes qui nous nous apparaissent évidente, alors qu'elles ne l'étaient pas lorsqu'on débutait.
+Je vais partager mon expérience d'apprentissage de SugarCubes.
 
-Vous allez donc pouvoir  me suivre dans mon apprentissage et ainsi voir au fil des lignes, mon évolution. J’espère ainsi que vous pourrez évoluer plus facilement.
+Pour vous expliquer comment fonctionne SC, j'ai préféré faire un jeu tout simple pour ne pas se perdre au milieux d'un long code en JS.
 
-Je souhaite donc créer un petit jeu avec des cubes de guimauve animés : Petit clin d’œil au nom de SugarCube.
+Nous allons donc créer un petit jeu avec des carrés animés.
 
-Avant cela, j'ai créé un casse brique (que vous pouvez voir sur gitUb)
-et le début d'un mini monde (également sur gitUb)
-
-Pour vous expliquer comment fonctionne SC, j'ai préféré faire un truc tout simple pour ne pas se perdre dans un gros programme.
-
-Nous allons donc créer ensemble un cube avec le langage SugarCube.
 Mais tout d'abord c'est quoi SugarCubes (SC pour simplifier) ?
 
 # SugarCubes kesako ?
-SC est un nouveau langage de programmation ou plutôt un outil pour pouvoir faire du parallélisme dans son programme. 
+SugarCubes est un nouveau langage de programmation ou plutôt un outil pour pouvoir faire du parallélisme dans son programme. 
+Par exemple un jeu de simulation.
 
-#  jeu les miniCubes 
-Création d'un petit jeu les miniCubes
+#  jeu les miniSweets 
+Création d'un petit jeu les miniSweets
 J'ai décidé de coder ce jeu en javascript mais vous pouvez le faire en java, et peut être python. 
-Pour le savoir allez voir le site de son créateur JF Susini :
+Pour le savoir allez voir le site de JF Susini pour plus de détails
 
-Titre du jeu : les miniCubes
-Scénario du jeu : Des miniCubes se balladent et rencontrent d'autres miniCubes.
-En s'accouplant, ces miniCubes font naître des miniCubes :
-1 miniCube jaune et un miniCube bleu donnent soit :
-	un miniCube vert 
-	un miniCube jaune 
-	un miniCube bleu 
-Il arrive parfoit (hasard de la génétique ?) qu'un miniCube jaune et un miniCube bleu donne un miniCube avec une des couleurs sitées ci dessus mais avec des rayures, des pois, ou des taches.
-Ces rayures, pois ou taches sont donc ajouté au patrimoine génétique et sera transmis aux miniCubes suivants.
+Titre du jeu : les miniSweets
+Scénario du jeu : Lorsque deux miniSweets se rencontrent, ils changent de couleur. 
+Par exemple : si un miniSweet bleu rencontre un miniSweet rouge, ils deviennent violet.
 
-Jusque là, je suppose qu'il n'y a rien de compliqué : 
+Pour cela, nous créons une classe Sweet, des objets issus de cette classe, et des Cubes (objet de type SC). Cf miniSweets.js
 
-Il y a une classe miniCube, des objets issus de cette classe, et des Cubes (objet de type SC).
-
+## La classe :
 ```javascript 
-SC.actionOn(evt, actionDeclancheSiEvtPresent, actionDeclancheSiEvtAbsant, nbreDinstant) 
+class MiniCube{
+	constructor(obj_parent1, obj_parent2, couleurExaSiEncetre, x, y){
+		if(obj_parent1)
+			this.parent1 = obj_parent1;
+		if(obj_parent2)
+			this.parent2 = obj_parent2;
+		if(couleurSiEncetre)
+			this.couleur = couleurSiEncetre;
+		else 
+			this.couleur = this.parent1.couleur + this.parent2.couleur; //moyenne des couleurs des parents
+		this.x = x;
+		this.y = y;
+	}
+}
 ```
 
-Voir le fichier MiniCube.js
+Dans sugarCubes, les cubes ont des événements : Ce sont des messages qu'ils envoient aux autres cubes.
 
+```javascript 
+var JeSuisIci = SC.evt("je suis ici");
+```
 
+Ici, chaque cube dit aux autres qu'ils sont 
 
 Pour créer un cube dans SC, il faut écrire 
 var monCube = SC.cube( objet, progDeObjet);
