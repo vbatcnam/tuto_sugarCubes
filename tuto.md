@@ -17,12 +17,17 @@ SC permet d’exécuter plus facilement du code (içi javascript) en parallèle.
 
 La méthode d’exécution de SC c'est de rythmer l’exécution par une série d'instants : 
 A chaque instant SC exécute un petit bout de code parallèle.
-Par exemple pour les sweets, je veux qu'ils avancent tout en sgnalant leur position aux autres sweets.  
+Par exemple pour les sweets, je veux qu'ils avancent tout en signalant leur position aux autres sweets. 
+ 
 	prog1 => Avance
+	
 	prg2 => signaleToi
+	
 A chaque instant SC execute :
 	une étape de Avance,
+	
 	une étape de signaleToi,
+	
 ensuite il reprend une étape de la suite de Avance, puis une étape de la suite de signaleToi et ainsi de suite
 
 ## Codage du jeu les miniSweets ?
