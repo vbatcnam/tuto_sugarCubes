@@ -35,7 +35,7 @@ A chaque instant SC execute :
 	
 	et ainsi de suite
 
-## Codage du jeu les miniSweets ?
+## Codage du jeu les miniSweets 
 Je crée un fichier index.html (voir le fichier pour les détails)
 Je n'oublie surtout pas d'écrire
 ```html 
@@ -61,11 +61,11 @@ La syntaxe est :
 var prog = instructionSugarCubes;
 ```
 
-Comme je veux que mes sweets avancent en signalant leur position aux autres sweets.
+Comme je veux que mes sweets avancent en signalant leur position aux autres sweets, mon instruction sera donc :
 
-Mon instruction sera donc :
 	avance
 	signale ta postion
+	
 il y a donc 2 instructions que je veux faire en même temps (en parallèle). 
 
 Je vais donc utiliser la syntaxe SC.par();
@@ -81,23 +81,20 @@ var monAction1 = SC.action(functionJS_JAvance);
 ```
 
 Je dois donc créer une fonction qui fait avancer mon sweet.
-Je l'écris dans la classe Sweet car elle sera commune à tous les sweets. CF Sweets.js
+Je l'écris dans la classe Sweet car elle sera commune à tous les sweets. (CF Sweets.js)
 
 ### l'instruction *JeMeSignale*
 Il faut générer l’événement avec SC.generate() : je vais utiliser la syntaxe 
 ```javascript 
 SC.generate(evt, valeurAssocieAEvt, nbreDinstant)
 ```
-Attention ! Il faut mettre l’événement dans un variable pour que les autres sweets puissent l’écouter. (si l'evt est là alors faire cela)
-Il faut créer l'evt bien avant de le générer. CF Sweets.js
+Attention ! Il faut mettre l’événement dans une variable pour que les autres sweets puissent l’écouter :
 
-Attention ! Cela se complique :
-Si j'ecris
-```javascript 
-var evtDuCube = SC.evt("Je suis ici"));
-```
+	Si l'evt est là 
+		alors faire cela
+Il faut créer l'evt bien avant de le générer. (CF Sweets.js)
 
-### Cela donnerait :
+### Cela donne :
 ```javascript 
 SC.par(
 	SC.action(functionJS_JAvance), 
@@ -112,9 +109,9 @@ var comportementDeMonCube = SC.par(
 	SC.generate(evtDuCube)
 );
 ```
-comportementDeMonCube va s’exécuter une seule fois, puis va s’arrêter.
-Or je veux que mon sweet se déplace et "parle" tout le temps.
-je dois donc renseigner *nbreDinstant* avec *forever*
+*comportementDeMonCube* va s’exécuter une seule fois, puis va s’arrêter.
+
+Or je veux que mon sweet se déplace et "parle" tout le temps. je dois donc renseigner *nbreDinstant* avec *forever*
 il me manque le paramètre *valeurAssocieAEvt*
 
 
