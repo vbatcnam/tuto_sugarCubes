@@ -24,6 +24,7 @@ Par exemple pour les sweets, je veux qu'ils avancent tout en signalant leur posi
 	prg2 => signaleToi
 	
 A chaque instant SC execute :
+	
 	une étape de Avance,
 	
 	une étape de signaleToi,
