@@ -14,7 +14,7 @@ class Sweet{
 		this.y = y;
 	}
 	
-	move(){}
+	move(){}// à coder
 }
 
 /** je crée mes objets*/
@@ -24,17 +24,16 @@ var miniSweetR = new Sweet(null, null, "ff0000", 10, 10);
 var miniSweetV = new Sweet(null, null, "008000", 10, 10);
 var miniSweetB = new Sweet(null, null, "0000ff", 10, 10);
 
+
 /** Utilisation de SugarCubes */
 /** ========================= */
 
-//================================================================
-//							le cube 
-//================================================================
+/** Dans sugarCubes, les cubes ont des événements : Ce sont des messages qu'ils envoient aux autres cubes. */
 
-//L'événement du sweet à créer en tout premier 
+//L'événement du cube à créer en tout premier 
 var ImHere = SC.evt("je suis ici");
 
-//le comportement du sweet
+//le comportement du cube
 var progSweet = SC.par(
 	SC.action(move), 
 	SC.generate(ImHere)
@@ -43,24 +42,9 @@ var progSweet = SC.par(
 
 
 
-/** Utilisation de SugarCubes
-	=========================
-	Je crée mon cube SC ainsi
-	var monCube = SC.cube( objet, progDeObjet);
+/** brouillon
+	
 
-	Je crée le premier cube : 
-var cubeR = SC.cube( miniSweetR, progDeObjet);
-	La pour progObjet
-*/	
-/**Dans sugarCubes, les cubes ont des événements : Ce sont des messages qu'ils envoient aux autres cubes.
 
-Ici, chaque cube dit aux autres qu'ils sont 
-
-Pour créer un cube dans SC, il faut écrire 
-var monCube = SC.cube( objet, progDeObjet);
-var monCube = SC.cube( objet, progDeObjet);
-
-//comportements des cubes
-var JeSuisIci = SC.evt("je suis ici");
 */
 
