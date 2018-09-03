@@ -35,7 +35,7 @@ A chaque instant SC execute :
 	
 	et ainsi de suite
 
-## Codage du jeu les miniSweets ?
+## Codage du jeu les miniSweets 
 Je crée un fichier index.html (voir le fichier pour les détails)
 Je n'oublie surtout pas d'écrire
 ```html 
