@@ -61,9 +61,7 @@ La syntaxe est :
 var prog = instructionSugarCubes;
 ```
 
-Comme je veux que mes sweets avancent en signalant leur position aux autres sweets.
-
-Mon instruction sera donc :
+Comme je veux que mes sweets avancent en signalant leur position aux autres sweets, mon instruction sera donc :
 	avance
 	signale ta postion
 il y a donc 2 instructions que je veux faire en même temps (en parallèle). 
