@@ -94,7 +94,7 @@ Attention ! Il faut mettre l’événement dans une variable pour que les autres
 		alors faire cela
 Il faut créer l'evt bien avant de le générer. (CF Sweets.js)
 
-### Cela donnerait :
+### Cela donne :
 ```javascript 
 SC.par(
 	SC.action(functionJS_JAvance), 
