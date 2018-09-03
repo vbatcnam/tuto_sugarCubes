@@ -1,6 +1,6 @@
 # Créer mon premier jeu avec SC
 
-## préambule
+## Préambule
 Pour vous expliquer comment fonctionne SugarCubes, on va créer un petit jeu avec des carrés animés : les miniSweets.
 Lorsque deux miniSweets se rencontrent, ils changent de couleur. 
 Par exemple : si un miniSweet bleu rencontre un miniSweet rouge, ils deviennent violet.
@@ -8,7 +8,7 @@ Par exemple : si un miniSweet bleu rencontre un miniSweet rouge, ils deviennent 
 Mais tout d'abord c'est quoi SugarCubes (SC pour simplifier)?
 Je vous conseil fortement de lire le  README.md  sur https://github.com/LordManta/SugarCubesJS
 
-# SugarCubes kesako ?
+## SugarCubes kesako ?
 Voir http://jeanferdysusini.free.fr/index.php?action=SCJS
 
 En résumé, SugarCubes est une bibliothèque qui permet de gérer des événements en   parallèle dans son programme. 
@@ -25,7 +25,7 @@ A chaque instant SC execute :
 	une étape de signaleToi,
 ensuite il reprend une étape de la suite de Avance, puis une étape de la suite de signaleToi et ainsi de suite
 
-# Codage du jeu les miniSweets ?
+## Codage du jeu les miniSweets ?
 Je crée un fichier index.html (voir le fichier pour les détails)
 Je n'oublie surtout pas d'écrire
 ```html 
@@ -42,7 +42,7 @@ var monCube = SC.cube( objet, progDeObjet);
 
 *objet* on sait le renseigner mais *progDeObjet* ...
 
-# progDeObjet CKOI ?
+## progDeObjet CKOI ?
 progDeObjet c'est un programme qui se lance tout seul sans qu'on aie besoin de l'appeler. C'est ce qu'on appelle le comportement du cube.
 Ici, les minSweets se déplacent aléatoirement sur la surface du view port tout en indiquant aux autres sweets leur position. 
 
@@ -63,7 +63,7 @@ Je vais donc utiliser la syntaxe SC.par();
 var monInstruction = SC.par(JAvance, JeMeSignale);
 ```
 
-## l'instruction *JAvance*
+### l'instruction *JAvance*
 Pour l'instruction *JAvance* j'utilise la syntaxe *SC.action()*
  
 ```javascript 
@@ -73,7 +73,7 @@ var monAction1 = SC.action(functionJS_JAvance);
 Je dois donc créer une fonction qui fait avancer mon sweet.
 Je l'écris dans la classe Sweet car elle sera commune à tous les sweets. CF Sweets.js
 
-## l'instruction *JeMeSignale*
+### l'instruction *JeMeSignale*
 Il faut générer l’événement avec SC.generate() : je vais utiliser la syntaxe 
 ```javascript 
 SC.generate(evt, valeurAssocieAEvt, nbreDinstant)
@@ -87,7 +87,7 @@ Si j'ecris
 var evtDuCube = SC.evt("Je suis ici"));
 ```
 
-## Cela donnerait :
+### Cela donnerait :
 ```javascript 
 SC.par(
 	SC.action(functionJS_JAvance), 
@@ -108,7 +108,7 @@ je dois donc renseigner *nbreDinstant* avec *forever*
 il me manque le paramètre *valeurAssocieAEvt*
 
 
-##valeurAssocieAEvt
+### valeurAssocieAEvt
 lorsque le sweet envoie son signal je suis içi, les 
 
 
