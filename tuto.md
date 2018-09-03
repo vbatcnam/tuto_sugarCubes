@@ -1,55 +1,116 @@
-# Créer mon premier cube avec SC
+# Créer mon premier jeu avec SC
 
-## préembule
-
-Je vais partager mon expérience d'apprentissage de SugarCubes.
-
-Pour vous expliquer comment fonctionne SC, j'ai préféré faire un jeu tout simple pour ne pas se perdre au milieux d'un long code en JS.
-
-Nous allons donc créer un petit jeu avec des carrés animés.
-
-Mais tout d'abord c'est quoi SugarCubes (SC pour simplifier) ?
-
-# SugarCubes kesako ?
-SugarCubes est une bibliothèque qui permet de gérer des evenements en   parallèle dans son programme. 
-Par exemple, dans un jeu de simulation, il y a plusieurs evenements qui se passent en même temps.
-Pour en savoir plus : https://github.com/LordManta/SugarCubesJS
-
-#  jeu les miniSweets 
-Création d'un petit jeu les miniSweets
-J'ai décidé de coder ce jeu en JavaScript.
-
-Titre du jeu : les miniSweets
-Scénario du jeu : Lorsque deux miniSweets se rencontrent, ils changent de couleur. 
+## préambule
+Pour vous expliquer comment fonctionne SugarCubes, on va créer un petit jeu avec des carrés animés : les miniSweets.
+Lorsque deux miniSweets se rencontrent, ils changent de couleur. 
 Par exemple : si un miniSweet bleu rencontre un miniSweet rouge, ils deviennent violet.
 
-Pour cela, nous créons une classe Sweet, des objets issus de cette classe, et des Cubes (objet de type SC). Cf miniSweets.js
+Mais tout d'abord c'est quoi SugarCubes (SC pour simplifier)?
+Je vous conseil fortement de lire le  README.md  sur https://github.com/LordManta/SugarCubesJS
 
-## La classe :
-```javascript 
-class MiniCube{
-	constructor(obj_parent1, obj_parent2, couleurExaSiEncetre, x, y){
-		if(obj_parent1)
-			this.parent1 = obj_parent1;
-		if(obj_parent2)
-			this.parent2 = obj_parent2;
-		if(couleurSiEncetre)
-			this.couleur = couleurSiEncetre;
-		else 
-			this.couleur = this.parent1.couleur + this.parent2.couleur; //moyenne des couleurs des parents
-		this.x = x;
-		this.y = y;
-	}
-}
+# SugarCubes kesako ?
+Voir http://jeanferdysusini.free.fr/index.php?action=SCJS
+
+En résumé, SugarCubes est une bibliothèque qui permet de gérer des événements en   parallèle dans son programme. 
+Par exemple, dans un jeu de simulation, il y a plusieurs événements qui se passent en même temps.
+SC permet d’exécuter plus facilement du code (içi javascript) en parallèle.
+
+La méthode d’exécution de SC c'est de rythmer l’exécution par une série d'instants : 
+A chaque instant SC exécute un petit bout de code parallèle.
+Par exemple pour les sweets, je veux qu'ils avancent tout en sgnalant leur position aux autres sweets.  
+	prog1 => Avance
+	prg2 => signaleToi
+A chaque instant SC execute :
+	une étape de Avance,
+	une étape de signaleToi,
+ensuite il reprend une étape de la suite de Avance, puis une étape de la suite de signaleToi et ainsi de suite
+
+# Codage du jeu les miniSweets ?
+Je crée un fichier index.html (voir le fichier pour les détails)
+Je n'oublie surtout pas d'écrire
+```html 
+<script src="http://jeanferdysusini.free.fr/SugarCubes.js"></script>
 ```
+sinon ça ne marche pas !
 
-Dans sugarCubes, les cubes ont des événements : Ce sont des messages qu'ils envoient aux autres cubes.
+Ensuite je crée un fichier Sweets.js dans le quel je crée la classe Sweet, des objets issus de cette classe. CF Sweets.js
 
+Ensuite, dans ce même fichier, je crée mes cubes SC. La syntaxe est :
 ```javascript 
-var JeSuisIci = SC.evt("je suis ici");
-```
-
-Ici, chaque cube dit aux autres qu'ils sont 
-
-Pour créer un cube dans SC, il faut écrire 
 var monCube = SC.cube( objet, progDeObjet);
+```
+
+*objet* on sait le renseigner mais *progDeObjet* ...
+
+# progDeObjet CKOI ?
+progDeObjet c'est un programme qui se lance tout seul sans qu'on aie besoin de l'appeler. C'est ce qu'on appelle le comportement du cube.
+Ici, les minSweets se déplacent aléatoirement sur la surface du view port tout en indiquant aux autres sweets leur position. 
+
+La syntaxe est : 
+```javascript 
+var prog = instructionSugarCubes;
+```
+
+Comme je veux que mes sweets avancent en signalant leur position aux autres sweets.
+
+Mon instruction sera donc :
+	avance
+	signale ta postion
+il y a donc 2 instructions que je veux faire en même temps (en parallèle). 
+
+Je vais donc utiliser la syntaxe SC.par();
+```javascript 
+var monInstruction = SC.par(JAvance, JeMeSignale);
+```
+
+## l'instruction *JAvance*
+Pour l'instruction *JAvance* j'utilise la syntaxe *SC.action()*
+ 
+```javascript 
+var monAction1 = SC.action(functionJS_JAvance);
+```
+
+Je dois donc créer une fonction qui fait avancer mon sweet.
+Je l'écris dans la classe Sweet car elle sera commune à tous les sweets. CF Sweets.js
+
+## l'instruction *JeMeSignale*
+Il faut générer l’événement avec SC.generate() : je vais utiliser la syntaxe 
+```javascript 
+SC.generate(evt, valeurAssocieAEvt, nbreDinstant)
+```
+Attention ! Il faut mettre l’événement dans un variable pour que les autres sweets puissent l’écouter. (si l'evt est là alors faire cela)
+Il faut créer l'evt bien avant de le générer. CF Sweets.js
+
+Attention ! Cela se complique :
+Si j'ecris
+```javascript 
+var evtDuCube = SC.evt("Je suis ici"));
+```
+
+## Cela donnerait :
+```javascript 
+SC.par(
+	SC.action(functionJS_JAvance), 
+	SC.generate(evtDuCube, valeurAssocieAEvt, nbreDinstant)
+);
+```
+
+On peut donc encoder le comportement de notre sweet :
+```javascript 
+var comportementDeMonCube = SC.par(
+	SC.action(functionJS_JAvance), //défini dans la classe Sweet
+	SC.generate(evtDuCube)
+);
+```
+comportementDeMonCube va s’exécuter une seule fois, puis va s’arrêter.
+Or je veux que mon sweet se déplace et "parle" tout le temps.
+je dois donc renseigner *nbreDinstant* avec *forever*
+il me manque le paramètre *valeurAssocieAEvt*
+
+
+##valeurAssocieAEvt
+lorsque le sweet envoie son signal je suis içi, les 
+
+
+
+
