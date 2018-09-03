@@ -28,7 +28,11 @@ A chaque instant SC execute :
 	
 	une étape de signaleToi,
 	
-ensuite il reprend une étape de la suite de Avance, puis une étape de la suite de signaleToi et ainsi de suite
+	ensuite il reprend une étape de la suite de Avance, 
+
+	puis une étape de la suite de signaleToi 
+	
+	et ainsi de suite
 
 ## Codage du jeu les miniSweets ?
 Je crée un fichier index.html (voir le fichier pour les détails)
