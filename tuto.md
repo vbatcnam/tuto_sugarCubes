@@ -21,19 +21,25 @@ Par exemple pour les sweets, je veux qu'ils avancent tout en signalant leur posi
  
 	prog1 => Avance
 	
-	prg2 => signaleToi
+	prg2 => redessineEtAfficheToi
+	
+	prg3 => signaleToi
 	
 A chaque instant SC execute :
 	
 	une étape de Avance,
 	
+	une étape de redessineEtAfficheToi,
+	
 	une étape de signaleToi,
 	
 	ensuite il reprend une étape de la suite de Avance, 
 
+	puis une étape de la suite de redessineEtAfficheToi 
+	
 	puis une étape de la suite de signaleToi 
 	
-	et ainsi de suite
+	et ainsi de suite.
 
 ## Codage du jeu les miniSweets 
 Je crée un fichier index.html (voir le fichier pour les détails)
@@ -45,7 +51,13 @@ sinon ça ne marche pas !
 
 Ensuite je crée un fichier Sweets.js dans le quel je crée la classe Sweet, des objets issus de cette classe. CF Sweets.js
 
-Ensuite, dans ce même fichier, je crée mes cubes SC. La syntaxe est :
+Attention ! 
+Il faut rajouter une propriété this.me = this qui va servir pour SugarCubes.
+Pourquoi ?
+Heu là je laisse parler JF Susini...
+
+
+Dans ce même fichier, je crée mes cubes SC. La syntaxe est :
 ```javascript 
 var monCube = SC.cube( objet, progDeObjet);
 ```
@@ -54,7 +66,7 @@ var monCube = SC.cube( objet, progDeObjet);
 
 ## progDeObjet CKOI ?
 progDeObjet c'est un programme qui se lance tout seul sans qu'on aie besoin de l'appeler. C'est ce qu'on appelle le comportement du cube.
-Ici, les minSweets se déplacent aléatoirement sur la surface du view port tout en indiquant aux autres sweets leur position. 
+Ici, les minSweets se déplacent aléatoirement sur la surface du viewport tout en indiquant aux autres sweets leur position. 
 
 La syntaxe est : 
 ```javascript 
@@ -64,60 +76,115 @@ var prog = instructionSugarCubes;
 Comme je veux que mes sweets avancent en signalant leur position aux autres sweets, mon instruction sera donc :
 
 	avance
-	signale ta postion
+	redessine et affiche toi à la nouvelle position
+	signale ta position
 	
-il y a donc 2 instructions que je veux faire en même temps (en parallèle). 
+il y a donc 3 instructions que je veux faire en même temps (en parallèle). 
 
-Je vais donc utiliser la syntaxe SC.par();
+Je vais donc utiliser la syntaxe SC.par(instruction1, instruction2, instruction3);
+
 ```javascript 
-var monInstruction = SC.par(JAvance, JeMeSignale);
+var monInstruction = SC.par(JeMeDessineEtJeMAffiche, JAvance, JeMeSignale);
 ```
+
+### l'instruction *JeMeDessineEtJeMAffiche*
+Pour l'instruction *JeMeDessineEtJeMAffiche* j'utilise la syntaxe *SC.action(fonctionAExecuter, nbreDeFois_parDefaut1Fois )*
+Je veux que mes miniSweets s'affichent tout le temps
+
+```javascript 
+var monAction1 = SC.action(functionJS_draw, SC.forever);
+```
+
+Comme je veux utiliser la fonction *functionJS_draw* qui se trouve dans l'objet du cube et qui s'apelle *draw* j'utilise la syntaxe *SC.my("draw");*
+
+J'ai ainsi :
+```javascript 
+var monAction1 = SC.action(SC.my("draw"), SC.forever);
+```
+
+#### SC.my ça sert à quoi ?
+Ca sert à aller chercher une propriété de l'objet du cube. 
+
 
 ### l'instruction *JAvance*
 Pour l'instruction *JAvance* j'utilise la syntaxe *SC.action()*
- 
+
 ```javascript 
-var monAction1 = SC.action(functionJS_JAvance);
+var monAction2 = SC.action(SC.my("move"), SC.forever);
 ```
 
-Je dois donc créer une fonction qui fait avancer mon sweet.
-Je l'écris dans la classe Sweet car elle sera commune à tous les sweets. (CF Sweets.js)
-
 ### l'instruction *JeMeSignale*
-Il faut générer l’événement avec SC.generate() : je vais utiliser la syntaxe 
+Les instructions ci-dessus servaient à faire des action : C'est-à-dire à lander des fonctions.
+
+Cette instruction ne lance pas de fonction ; Elle génére un evevnement.
+
+####Pourquoi ne fait-on pas une fonctionJS "signaleToi" ?
+
+Parce qu'on veut que cet événement soit entendu par tous les autres cubes. C'est en quelque sorte du broadcast ;)
+
+Il faut générer donc l’événement avec SC.generate() : je vais utiliser la syntaxe 
 ```javascript 
-SC.generate(evt, valeurAssocieAEvt, nbreDinstant)
+SC.generate(evt, valeurAssocieAEvt, nbreDInstant)
 ```
 Attention ! Il faut mettre l’événement dans une variable pour que les autres sweets puissent l’écouter :
 
 	Si l'evt est là 
 		alors faire cela
 Il faut créer l'evt bien avant de le générer. (CF Sweets.js)
+```javascript 
+var EvtDuSweet = SC.evt("Me voici");// la phrase entre "" sert pour le debug
+```
 
-### Cela donne :
+####Pourquoi ?
+Je laisse JF Susini (JFS) l'expliquer ;)
+
+Pour en savoir plus sur les evt :
+https://github.com/LordManta/SugarCubesJS
+
+### Nous en étions là :
 ```javascript 
 SC.par(
-	SC.action(functionJS_JAvance), 
-	SC.generate(evtDuCube, valeurAssocieAEvt, nbreDinstant)
+	SC.action(SC.my("move"), SC.forever), //comme c'est parallèle il n'y a pas d'ordre
+	SC.action(SC.my("draw"), SC.forever), //comme c'est parallèle il n'y a pas d'ordre
+	SC.generate(EvtDuSweet, valeurAssocieAEvt, SC.forever)//comme c'est parallèle il n'y a pas d'ordre
 );
 ```
 
 On peut donc encoder le comportement de notre sweet :
 ```javascript 
 var comportementDeMonCube = SC.par(
-	SC.action(functionJS_JAvance), //défini dans la classe Sweet
-	SC.generate(evtDuCube)
+	SC.action(SC.my("move"), SC.forever),
+	SC.action(SC.my("draw"), SC.forever), 
+	SC.generate(MeVoici, valeurAssocieAEvt, SC.forever)
 );
 ```
-*comportementDeMonCube* va s’exécuter une seule fois, puis va s’arrêter.
 
-Or je veux que mon sweet se déplace et "parle" tout le temps. je dois donc renseigner *nbreDinstant* avec *forever*
 il me manque le paramètre *valeurAssocieAEvt*
 
 
-### valeurAssocieAEvt
-lorsque le sweet envoie son signal je suis içi, les 
+### valeurAssocieAEvt CKOI ?
+Tous mes miniSweets vont envoyer le signal à tout les autres miniSweets
+"MeVoici"
+C'est beau... mais qui me parle ? 
+Que me veut-on ?
 
+Chaque miniSweet doit envoyer aux autres le signal + une info qu'il va prendre dans son propre objet du cube.
+Pour cela, j'utilise utilise SC.my().
+Par facilité (voir JFS pour plus d'infos) j'utilise le fameux this.me qui contient tout l'objet (this.me=this)
+
+Ce *SC.my('me')* je le met comme à la place de *valeurAssocieAEvt*  
+```javascript 
+SC.generate(MeVoici, SC.my('me'), SC.forever)
+```
+
+Nous avons maintenant notre comportement au complet :)
+```javascript 
+var comportementDeMonCube = SC.par(
+	SC.action(SC.my("move"), SC.forever),
+	SC.action(SC.my("draw"), SC.forever), 
+	SC.generate(MeVoici, SC.my('me'), SC.forever)
+);
+```
 
 
 

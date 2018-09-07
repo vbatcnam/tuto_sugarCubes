@@ -12,8 +12,10 @@ class Sweet{
 			this.couleur = this.parent1.couleur + this.parent2.couleur; //moyenne des couleurs des parents
 		this.x = x;
 		this.y = y;
+		this.me = this // sert pour SugarCubes
 	}
 	
+	draw(){}// à coder : sert à l'affichage
 	move(){}// à coder
 }
 
@@ -31,12 +33,13 @@ var miniSweetB = new Sweet(null, null, "0000ff", 10, 10);
 /** Dans sugarCubes, les cubes ont des événements : Ce sont des messages qu'ils envoient aux autres cubes. */
 
 //L'événement du cube à créer en tout premier 
-var ImHere = SC.evt("je suis ici");
+var MeVoici = SC.evt("Me voici");
 
 //le comportement du cube
 var progSweet = SC.par(
-	SC.action(move), 
-	SC.generate(ImHere)
+	SC.action(SC.my("move"), SC.forever),
+	SC.action(SC.my("draw"), SC.forever), 
+	SC.generate(MeVoici, SC.my('me'), SC.forever)
 );
 
 
