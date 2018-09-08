@@ -6,16 +6,32 @@ class Sweet{
 			this.parent1 = obj_parent1;
 		if(obj_parent2)
 			this.parent2 = obj_parent2;
-		if(couleurSiEncetre)
-			this.couleur = couleurSiEncetre;
+		if(couleurExaSiEncetre)
+			this.couleur = couleurExaSiEncetre;
 		else 
 			this.couleur = this.parent1.couleur + this.parent2.couleur; //moyenne des couleurs des parents
 		this.x = x;
 		this.y = y;
+		this.width = 100;
+		this.height = 100;
 		this.me = this // sert pour SugarCubes
 	}
 	
-	draw(){}// à coder : sert à l'affichage
+	draw(){
+		let color = "#"+this.couleur
+		let lienSVG = "http://www.w3.org/2000/svg"
+		let zoneDeJeu = document.getElementById("zoneDeJeu");
+		let svg = document.createElementNS(lienSVG,"svg");
+		let rect = document.createElementNS(lienSVG,"rect");;
+		rect.setAttribute( 'x', this.x);
+		rect.setAttribute( 'y', this.y);
+		rect.setAttribute( 'width', this.width);
+		rect.setAttribute( 'height', this.height);
+		rect.setAttribute( 'rx', "15");
+		rect.setAttribute( 'fill', color);
+		svg.appendChild(rect);
+		zoneDeJeu.appendChild(svg);
+	}// à coder : sert à l'affichage
 	move(){}// à coder
 }
 
@@ -45,9 +61,9 @@ var progSweet = SC.par(
 
 
 
-/** brouillon
-	
+/** brouillon et tests */
+	miniSweetR.draw();
 
 
-*/
+
 
