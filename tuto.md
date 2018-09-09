@@ -186,5 +186,14 @@ var comportementDeMonCube = SC.par(
 );
 ```
 
+## La machine de SugarCubes
+La machine (ou le moteur) sont des sortes de mondes indépendants.
+Chaque machine a sa propre horloge.
 
+Dans mon programme, je doit donc créer une machine qui sera le mone des miniSweets :  Je vais donc appeler ma machine, monde. 
+La syntaxe pour créer une machineSC est :
+
+```javascript 
+
+```
 
