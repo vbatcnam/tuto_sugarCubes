@@ -12,6 +12,8 @@ class Sweet{
 			this.couleur = this.parent1.couleur + this.parent2.couleur; //moyenne des couleurs des parents
 		this.x = x;
 		this.y = y;
+		this.dx = 2;
+		this.dy = -2;
 		this.width = 100;
 		this.height = 100;
 		this.me = this // sert pour SugarCubes
@@ -31,11 +33,55 @@ class Sweet{
 		rect.setAttribute( 'fill', color);
 		svg.appendChild(rect);
 		zoneDeJeu.appendChild(svg);
-	}// à coder : sert à l'affichage
-	move(){}// à coder
+	}
+	
+	move(){
+		this.x += this.dx;
+		this.y += this.dy;
+	}
+	
+	gereRencontre(objetRencontre){
+		if( this.x > objetRencontre.x
+			&& this.x <= objetRencontre.x + objetRencontre.width 
+			&& this.y >= objetRencontre.y 
+			&& this.y < objetRencontre.y + objetRencontre.height
+		){
+			//on change l'axe de déplacement
+			this.dy = -this.dy;
+			//on change les couleurs des objets
+			fromDetection(objetRencontre.couleur);
+		}
+	}
+	gereBordureViewPort(){
+		if( this.x >= viewPort.w 
+			|| this.x <= 0
+			|| this.y >= viewPort.h 
+			|| this.y <= 0
+		){
+			this.dy = -this.dy;
+		}
+	}
+	
+	melangeCouleurs(couleurDeObjetRencontre){
+		//on transforme les couleurs "#FF0000" en objet Couleur avec pour variables this.ai_r, this.ai_v, this.ai_b} 
+		let couleurOrigineSweet1 = Couleur.fromRVB_hexa(this.couleur);
+		let couleurOrigineSweet21 = Couleur.fromRVB_hexa(couleurDeObjetRencontre);
+		
+		//on calcule la moyenne des r,v,b
+		let moyenne = Couleur.getMoyenne(couleurOrigineSweet1, couleurOrigineSweet2)
+		
+		//on change les couleurs
+		couleurOrigineSweet1.ai_r = moyenne.r;
+			
+			this.color = objetRencontre.color ; 
+			objetRencontre.color = 
+	}
 }
 
 /** je crée mes objets*/
+
+//le viewPort
+var viewPort = {'w':innerWidth, 'h':innerHeight};
 
 //les miniSweets originels.
 var miniSweetR = new Sweet(null, null, "ff0000", 10, 10);
@@ -58,11 +104,16 @@ var progSweet = SC.par(
 	SC.generate(MeVoici, SC.my('me'), SC.forever)
 );
 
+//le moteur qui exécute les programmes
+//-------------------------------------
+var monde = SC.machine(30);// toutes les 30 millisecondes il y a une macro étape (ou instant)
 
+//On ajoute le programme du cube à la machine
+monde.addProgram(progSweet);
 
 
 /** brouillon et tests */
-	miniSweetR.draw();
+	//miniSweetR.draw();
 
 
 
