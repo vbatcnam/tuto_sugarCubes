@@ -194,6 +194,18 @@ Dans mon programme, je doit donc créer une machine qui sera le mone des miniSwe
 La syntaxe pour créer une machineSC est :
 
 ```javascript 
-
+var monde = SC.machine(nbreInstantsEnMiliSecondes)
 ```
 
+Ensuite il faut ajouter le programme du cube :
+```javascript 
+monde.addProgram(progDuCube)
+```
+
+Ce qui fait :
+```javascript 
+monde.addProgram(comportementDeMonCube)
+```
+
+### ok ! Et comment lance-t-on la machine ?
+En fait elle se lance automatiquement dès qu'on lui ajoute un programme.
