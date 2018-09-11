@@ -200,7 +200,7 @@ SC.cube( objetJS, comportementDuCube)
 ```
 
 ## La machine de SugarCubes
-DAns SugarCubes, les machines (ou moteurs) sont des sortes de mondes indépendants.
+Dans SugarCubes, les machines (ou moteurs) sont des sortes de mondes indépendants.
 Chaque machine a sa propre horloge. (voir JFS pour plus d'infos)
 
 Dans mon programme, je doit donc créer une machine qui sera le monde des miniSweets :  Je vais donc appeler ma machine, *monde*.

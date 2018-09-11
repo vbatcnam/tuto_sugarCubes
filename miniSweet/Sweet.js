@@ -1,15 +1,8 @@
 /** je crée la classe*/
 
 class Sweet{
-	constructor(obj_parent1, obj_parent2, couleurExaSiEncetre, x, y){
-		if(obj_parent1)
-			this.parent1 = obj_parent1;
-		if(obj_parent2)
-			this.parent2 = obj_parent2;
-		if(couleurExaSiEncetre)
-			this.couleur = couleurExaSiEncetre;
-		else 
-			this.couleur = this.parent1.couleur + this.parent2.couleur; //moyenne des couleurs des parents
+	constructor(couleur, x, y){
+		this.couleur = couleur;
 		this.x = x;
 		this.y = y;
 		this.dx = 2;
@@ -94,9 +87,9 @@ class Sweet{
 var viewPort = {'w':innerWidth, 'h':innerHeight};
 
 //les miniSweets originels.
-var miniSweet1 = new Sweet(null, null, "ff0000", 10, 10);
-var miniSweet2 = new Sweet(null, null, "008000", 40, 20);
-var miniSweet3 = new Sweet(null, null, "0000ff", 60, 30);
+var miniSweet1 = new Sweet("ff0000", 10, 10);
+var miniSweet2 = new Sweet("008000", 40, 20);
+var miniSweet3 = new Sweet("0000ff", 60, 30);
 
 
 /** Utilisation de SugarCubes */
