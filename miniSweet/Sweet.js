@@ -40,6 +40,7 @@ class Sweet{
 		this.y += this.dy;
 	}
 	
+	//pour plus tard
 	gereRencontre(objetRencontre){
 		if( this.x > objetRencontre.x
 			&& this.x <= objetRencontre.x + objetRencontre.width 
@@ -52,6 +53,8 @@ class Sweet{
 			fromDetection(objetRencontre.couleur);
 		}
 	}
+	
+	//pour plus tard
 	gereBordureViewPort(){
 		if( this.x >= viewPort.w 
 			|| this.x <= 0
@@ -61,7 +64,8 @@ class Sweet{
 			this.dy = -this.dy;
 		}
 	}
-	
+
+	//pour plus tard
 	melangeCouleurs(couleurDeObjetRencontre){
 		//on transforme les couleurs "#FF0000" en objet Couleur avec pour variables this.ai_r, this.ai_v, this.ai_b} 
 		let couleurSweet1 = Couleur.fromRVB_hexa(this.couleur);
@@ -91,8 +95,8 @@ var viewPort = {'w':innerWidth, 'h':innerHeight};
 
 //les miniSweets originels.
 var miniSweet1 = new Sweet(null, null, "ff0000", 10, 10);
-var miniSweet2 = new Sweet(null, null, "008000", 10, 10);
-var miniSweet3 = new Sweet(null, null, "0000ff", 10, 10);
+var miniSweet2 = new Sweet(null, null, "008000", 40, 20);
+var miniSweet3 = new Sweet(null, null, "0000ff", 60, 30);
 
 
 /** Utilisation de SugarCubes */
@@ -125,7 +129,11 @@ monde.addProgram(cubeSweet2);
 monde.addProgram(cubeSweet3);
 
 
-/** brouillon et tests */
+/** brouillon et tests 
+	Bonjour,
+	En exécutant mon programme j'ai un comportement rigolo : les cubes s'affichent de plus en plus tronqués...
+	C'est interagissant mais  n'est pas e que je voulais...
+*/
 	//miniSweetR.draw();
 
 

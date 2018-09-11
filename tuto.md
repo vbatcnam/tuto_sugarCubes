@@ -114,13 +114,13 @@ var monAction2 = SC.action(SC.my("move"), SC.forever);
 ```
 
 ### l'instruction *JeMeSignale*
-Les instructions ci-dessus servaient à faire des action : C'est-à-dire à lander des fonctions.
+Les instructions ci-dessus servaient à faire des actions : C'est-à-dire à lancer des fonctions.
 
-Cette instruction ne lance pas de fonction ; Elle génére un evevnement.
+En revanche,l'instruction *JeMeSignale* ne lance pas de fonction mais génère un événement.
 
 ####Pourquoi ne fait-on pas une fonctionJS "signaleToi" ?
 
-Parce qu'on veut que cet événement soit entendu par tous les autres cubes. C'est en quelque sorte du broadcast ;)
+Parce qu'on veut que cet événement soit entendu par tous les autres cubes. C'est en quelque sorte du broadcaste ;) enfin je crois... 
 
 Il faut générer donc l’événement avec SC.generate() : je vais utiliser la syntaxe 
 ```javascript 
@@ -136,7 +136,7 @@ var EvtDuSweet = SC.evt("Me voici");// la phrase entre "" sert pour le debug
 ```
 
 ####Pourquoi ?
-Je laisse JF Susini (JFS) l'expliquer ;)
+Je ne sais pas encore ;)
 
 Pour en savoir plus sur les evt :
 https://github.com/LordManta/SugarCubesJS
