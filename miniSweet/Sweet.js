@@ -3,7 +3,7 @@
 class Sweet{
 	constructor(id, couleur, x, y){
 		this.id = id;
-		this.couleur = couleur;
+		this.couleur = "#" + couleur;
 		this.x = x;
 		this.y = y;
 		this.dx = 2;
@@ -14,26 +14,26 @@ class Sweet{
 	}
 	
 	draw(){
+		let color;
+		let rect;
 		if(! document.getElementById(this.id))
 		{
-			let color = "#"+this.couleur
-			let lienSVG = "http://www.w3.org/2000/svg"
+			let lienSVG = "http://www.w3.org/2000/svg";
 			let zoneDeJeu = document.getElementById("zoneDeJeu");
-			let rect = document.createElementNS(lienSVG,"rect");;
+			rect = document.createElementNS(lienSVG,"rect");
 			rect.id = this.id;
-			rect.setAttribute( 'x', this.x);
-			rect.setAttribute( 'y', this.y);
 			rect.setAttribute( 'width', this.width);
 			rect.setAttribute( 'height', this.height);
 			rect.setAttribute( 'rx', "15");
-			rect.setAttribute( 'fill', color);
 			zoneDeJeu.appendChild(rect);
+		}else{
+			rect = document.getElementById(this.id);
 		}
-		else{
-			let rect = document.getElementById(this.id);
-			rect.setAttribute( 'x', this.x);
-			rect.setAttribute( 'y', this.y);
-		}
+		rect.setAttribute( 'x', this.x);
+		rect.setAttribute( 'y', this.y);
+		rect.setAttribute( 'fill', this.couleur);// le # y est dejà
+		console.log("ma couleur est : " + this.couleur);
+
 	}
 	
 	move(){
@@ -47,11 +47,15 @@ class Sweet{
 			obj_all[MeVoici] contient 3 cubes
 		*/
 		for(let cube of obj_all[MeVoici]){
-			if( this.x > obj_all[MeVoici][0].x
+			if( this.x > cube.x
 				&& this.x <= cube.x + cube.width 
 				&& this.y >= cube.y 
 				&& this.y < cube.y + cube.height
 			){
+				console.log("coucou");
+				/**  fait coucou tout le long de la rencontre or je ne le eut qu'une seule fois
+					tester quand il entre en contact et quand il quitte le contact
+				*/
 				//on change les couleurs des objets
 				this.melangeCouleurs(cube);
 			}
@@ -70,15 +74,24 @@ class Sweet{
 	//pour plus tard
 	melangeCouleurs(objetRencontre){
 		//on transforme les couleurs "#FF0000" en objet Couleur avec pour variables this.ai_r, this.ai_v, this.ai_b} 
-		let couleurSweet1 = Couleur.fromRVB_hexa(this.couleur);
-		let couleurSweet2 = Couleur.fromRVB_hexa(objetRencontre.couleur);
-		
+		let couleurSweet1 = Couleur.fromRVB_hexa(Couleur.fromDetection(this.couleur));
+		let couleurSweet2 = Couleur.fromRVB_hexa(Couleur.fromDetection(objetRencontre.couleur));
+		console.log("ma couleur");
+		console.log(couleurSweet1.ai_r);
+		console.log(couleurSweet1.ai_v);
+		console.log(couleurSweet1.ai_b);
+		console.log("============================");
+		console.log("ta couleur");
+		console.log(couleurSweet2.ai_r);
+		console.log(couleurSweet2.ai_v);
+		console.log(couleurSweet2.ai_b);
 		//on calcule la moyenne des r,v,b
 		let moyenne = Couleur.getMoyenne(couleurSweet1, couleurSweet2)
 		
 		//on change les couleurs
-		this.color = moyenne.toRVB_hexa() ; 
-		objetRencontre.color = moyenne.toRVB_hexa();
+		this.couleur = moyenne.toRVB_hexa();
+		console.log("nouvelle couleur : " + this.couleur);
+		objetRencontre.couleur = moyenne.toRVB_hexa();
 	}
 }
 
