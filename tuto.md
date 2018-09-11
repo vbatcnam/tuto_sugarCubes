@@ -221,3 +221,75 @@ monde.addProgram(cube)
 En fait elle se lance automatiquement dès qu'on lui ajoute un cube.
 
 Et maintenant je teste mon programme :)
+Mes sweets se déplacent et rebondissent sur les bordures du viewPort.
+Pour l'instant il n'interagissent pas entre eux.
+Or je vousdrais que mes sweets changent de couleur lorsqu'ils rencontrent un autre sweet.
+
+Mais comment un sweet peut savoir qu'il en rencontre un autre ?
+Rappelons nous de la condition plus haut dans le chapitre sur les évenements : 
+
+Si l'evt est là 
+		alors faire cela
+
+Et bien c'est le moment de le faire :)
+
+si l'evt est là et que celui qui l’émet est en contacte avec toi 
+	alors change de couleur
+
+Pour cela, je vais utiliser *actionOn()*. La syntaxe est :
+```javascript 
+SC.actionOn(evt, actionDeclancheSiEvtPresent, actionDeclancheSiEvtAbsant, nbreDinstant) 
+```
+
+Lorsque l'on utilise *actionOn* SugarCube appelle la fonction *actionDeclancheSiEvtPresent* et met en premier paramètre, de cette fonction, les événements reçus. 
+
+Nommons le paramètre de la fonction JS *actionDeclancheSiEvtPresent* *obj_all*
+
+#### Et c'est quoi ce paramètre ?
+C'est un objet avec autant de clé qu'il y d’événements.
+ 
+Ici dans mon jeu il n'y a qu'un événement que tous mes sweets émettent c'est *MeVoici*
+
+Donc dans ma fonction de l'objet js je met donc un paramètre (que je décide de nommer *obj_all* 
+
+#### Quelles sont les infos qui ont été émises avec l’événement *MeVoici* ?
+
+Rappelons-nous de :
+```javascript 
+	SC.generate(EvtDuSweet, valeurAssocieAEvt, SC.forever)
+);
+
+C'est *valeurAssocieAEvt* qui sera envoyé comme info.
+
+*valeurAssocieAEvt* remplacera le paramètre de ma fonction JS *obj_all* 
+
+```
+Dans le cas de mon jeu *les miniSweets* :
+```javascript 
+	SC.generate(MeVoici, SC.my('me'), SC.forever)
+);
+```
+
+C'est *SC.my('me')* qui sera envoyé comme info.
+
+*SC.my('me')* est un objet, d'où mon idée d'apeller le paramètre de ma fonction JS *obj_all* 
+
+
+#### Mais comment aller chercher les infos qui ont été émises avec l’événement ?
+
+*obj_all[EvtDuSweet]* contiendra un array de toutes les valeurs émises cet événement
+
+Pour les *minisweets* :
+
+*obj_all[MeVoici]* contiendra un array de tous les cubes qui ont émis cet événement.
+
+Je dois donc modifier le comportement de mon cube
+
+```javascript 
+var comportementDeMonCube = SC.par(
+	SC.action(SC.my("move"), SC.forever),
+	SC.action(SC.my("draw"), SC.forever), 
+	SC.generate(MeVoici, SC.my('me'), SC.forever),
+	SC.actionOn(MeVoici, SC.my("gereRencontre"), undefined, SC.forever)
+);
+```
