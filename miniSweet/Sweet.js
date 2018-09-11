@@ -42,18 +42,22 @@ class Sweet{
 		this.y += this.dy;
 	}
 	
-	//pour plus tard
-	gereRencontre(objetRencontre){
-		if( this.x > objetRencontre.x
-			&& this.x <= objetRencontre.x + objetRencontre.width 
-			&& this.y >= objetRencontre.y 
-			&& this.y < objetRencontre.y + objetRencontre.height
-		){
-			//on change les couleurs des objets
-			fromDetection(objetRencontre.couleur);
+	gereRencontre(obj_all){
+		/** 
+			obj_all[MeVoici] contient 3 cubes
+		*/
+		for(let cube of obj_all[MeVoici]){
+			if( this.x > obj_all[MeVoici][0].x
+				&& this.x <= cube.x + cube.width 
+				&& this.y >= cube.y 
+				&& this.y < cube.y + cube.height
+			){
+				//on change les couleurs des objets
+				this.melangeCouleurs(cube);
+			}
 		}
 	}
-	
+
 	//pour plus tard
 	gereBordureViewPort(){
 		if(this.x + this.width >= viewPort.w || this.x <= 0){
@@ -64,25 +68,17 @@ class Sweet{
 	}
 
 	//pour plus tard
-	melangeCouleurs(couleurDeObjetRencontre){
+	melangeCouleurs(objetRencontre){
 		//on transforme les couleurs "#FF0000" en objet Couleur avec pour variables this.ai_r, this.ai_v, this.ai_b} 
 		let couleurSweet1 = Couleur.fromRVB_hexa(this.couleur);
-		let couleurSweet2 = Couleur.fromRVB_hexa(couleurDeObjetRencontre);
+		let couleurSweet2 = Couleur.fromRVB_hexa(objetRencontre.couleur);
 		
 		//on calcule la moyenne des r,v,b
 		let moyenne = Couleur.getMoyenne(couleurSweet1, couleurSweet2)
 		
 		//on change les couleurs
-		couleurSweet1.ai_r = moyenne.r;
-		couleurSweet1.ai_v = moyenne.v;
-		couleurSweet1.ai_b = moyenne.b;
-		
-		couleurSweet2.ai_r = moyenne.r;
-		couleurSweet2.ai_v = moyenne.v;
-		couleurSweet2.ai_b = moyenne.b;
-			
-			this.color = couleurSweet1.toRVB_hexa() ; 
-			objetRencontre.color = couleurSweet2.toRVB_hexa();
+		this.color = moyenne.toRVB_hexa() ; 
+		objetRencontre.color = moyenne.toRVB_hexa();
 	}
 }
 
@@ -113,7 +109,8 @@ var MeVoici = SC.evt("Me voici");
 var progSweet = SC.par(
 	SC.action(SC.my("move"), SC.forever),
 	SC.action(SC.my("draw"), SC.forever), 
-	SC.generate(MeVoici, SC.my('me'), SC.forever)
+	SC.generate(MeVoici, SC.my('me'), SC.forever),
+	SC.actionOn(MeVoici, SC.my("gereRencontre"), undefined, SC.forever)
 );
 
 //Création des cubes SC
