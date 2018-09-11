@@ -1,7 +1,8 @@
 /** je crée la classe*/
 
 class Sweet{
-	constructor(couleur, x, y){
+	constructor(id, couleur, x, y){
+		this.id = id;
 		this.couleur = couleur;
 		this.x = x;
 		this.y = y;
@@ -13,19 +14,22 @@ class Sweet{
 	}
 	
 	draw(){
-		let color = "#"+this.couleur
-		let lienSVG = "http://www.w3.org/2000/svg"
-		let zoneDeJeu = document.getElementById("zoneDeJeu");
-		let svg = document.createElementNS(lienSVG,"svg");
-		let rect = document.createElementNS(lienSVG,"rect");;
-		rect.setAttribute( 'x', this.x);
-		rect.setAttribute( 'y', this.y);
-		rect.setAttribute( 'width', this.width);
-		rect.setAttribute( 'height', this.height);
-		rect.setAttribute( 'rx', "15");
-		rect.setAttribute( 'fill', color);
-		svg.appendChild(rect);
-		zoneDeJeu.appendChild(svg);
+		console.log("sweet numero : " + document.getElementById(this.id));
+		if(! document.getElementById(this.id))
+		{
+			let color = "#"+this.couleur
+			let lienSVG = "http://www.w3.org/2000/svg"
+			let zoneDeJeu = document.getElementById("zoneDeJeu");
+			let rect = document.createElementNS(lienSVG,"rect");;
+			rect.id = this.id;
+			rect.setAttribute( 'x', this.x);
+			rect.setAttribute( 'y', this.y);
+			rect.setAttribute( 'width', this.width);
+			rect.setAttribute( 'height', this.height);
+			rect.setAttribute( 'rx', "15");
+			rect.setAttribute( 'fill', color);
+			zoneDeJeu.appendChild(rect);
+		}
 	}
 	
 	move(){
@@ -85,11 +89,15 @@ class Sweet{
 
 //le viewPort
 var viewPort = {'w':innerWidth, 'h':innerHeight};
+//je met le svg à la taille du viewPort
+let svg = document.getElementById("zoneDeJeu");
+svg.setAttribute('width', viewPort.w);
+svg.setAttribute('height', viewPort.h);
 
 //les miniSweets originels.
-var miniSweet1 = new Sweet("ff0000", 10, 10);
-var miniSweet2 = new Sweet("008000", 40, 20);
-var miniSweet3 = new Sweet("0000ff", 60, 30);
+var miniSweet1 = new Sweet("sweet1","ff0000", 10, 10);
+var miniSweet2 = new Sweet("sweet2","008000", viewPort.w/3, viewPort.h/3);
+var miniSweet3 = new Sweet("sweet3","0000ff", viewPort.w*0.75, viewPort.h*0.25);
 
 
 /** Utilisation de SugarCubes */
