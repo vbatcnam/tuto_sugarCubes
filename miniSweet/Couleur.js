@@ -95,6 +95,13 @@ class Couleur {
 		// return l_obj;
 	}
 	
+	static getMoyenne(couleur1, couleur2){
+		let r = (couleur1.ai_r + couleur2.ai_r)/2 ;
+		let v = (couleur1.ai_v + couleur2.ai_v)/2 ;
+		let b = (couleur1.ai_b + couleur2.ai_b)/2 ;
+		return this.fromRVB_255_int(r, v, b);
+	}
+
 	//=========================================
 	// conversions
 	//=========================================
@@ -177,11 +184,5 @@ class Couleur {
 	}
 	// eclairciToi(){A faire}
 
-	getMoyenne(couleur1, couleur2){
-		let r = (couleur1.ai_r + couleur2.ai_r)/2 ;
-		let v = (couleur1.ai_v + couleur2.ai_v)/2 ;
-		let b = (couleur1.ai_b + couleur2.ai_b)/2 ;
-	 return {'r':r, 'v':v, 'b':b};
-	}
 }
 
