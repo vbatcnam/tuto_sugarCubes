@@ -263,7 +263,7 @@ C'est *valeurAssocieAEvt* qui sera envoyé comme info.
 
 *valeurAssocieAEvt* remplacera le paramètre de ma fonction JS *obj_all* 
 
-```
+
 Dans le cas de mon jeu *les miniSweets* :
 ```javascript 
 	SC.generate(MeVoici, SC.my('me'), SC.forever)
@@ -272,7 +272,7 @@ Dans le cas de mon jeu *les miniSweets* :
 
 C'est *SC.my('me')* qui sera envoyé comme info.
 
-*SC.my('me')* est un objet, d'où mon idée d'apeller le paramètre de ma fonction JS *obj_all* 
+*SC.my('me')* est un objet, d'où mon idée d'appeler le paramètre de ma fonction JS *obj_all* 
 
 
 #### Mais comment aller chercher les infos qui ont été émises avec l’événement ?
