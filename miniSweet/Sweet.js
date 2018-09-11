@@ -64,17 +64,23 @@ class Sweet{
 	
 	melangeCouleurs(couleurDeObjetRencontre){
 		//on transforme les couleurs "#FF0000" en objet Couleur avec pour variables this.ai_r, this.ai_v, this.ai_b} 
-		let couleurOrigineSweet1 = Couleur.fromRVB_hexa(this.couleur);
-		let couleurOrigineSweet21 = Couleur.fromRVB_hexa(couleurDeObjetRencontre);
+		let couleurSweet1 = Couleur.fromRVB_hexa(this.couleur);
+		let couleurSweet2 = Couleur.fromRVB_hexa(couleurDeObjetRencontre);
 		
 		//on calcule la moyenne des r,v,b
-		let moyenne = Couleur.getMoyenne(couleurOrigineSweet1, couleurOrigineSweet2)
+		let moyenne = Couleur.getMoyenne(couleurSweet1, couleurSweet2)
 		
 		//on change les couleurs
-		couleurOrigineSweet1.ai_r = moyenne.r;
+		couleurSweet1.ai_r = moyenne.r;
+		couleurSweet1.ai_v = moyenne.v;
+		couleurSweet1.ai_b = moyenne.b;
+		
+		couleurSweet2.ai_r = moyenne.r;
+		couleurSweet2.ai_v = moyenne.v;
+		couleurSweet2.ai_b = moyenne.b;
 			
-			this.color = objetRencontre.color ; 
-			objetRencontre.color = 
+			this.color = couleurSweet1.toRVB_hexa() ; 
+			objetRencontre.color = couleurSweet2.toRVB_hexa();
 	}
 }
 
@@ -84,9 +90,9 @@ class Sweet{
 var viewPort = {'w':innerWidth, 'h':innerHeight};
 
 //les miniSweets originels.
-var miniSweetR = new Sweet(null, null, "ff0000", 10, 10);
-var miniSweetV = new Sweet(null, null, "008000", 10, 10);
-var miniSweetB = new Sweet(null, null, "0000ff", 10, 10);
+var miniSweet1 = new Sweet(null, null, "ff0000", 10, 10);
+var miniSweet2 = new Sweet(null, null, "008000", 10, 10);
+var miniSweet3 = new Sweet(null, null, "0000ff", 10, 10);
 
 
 /** Utilisation de SugarCubes */
@@ -104,12 +110,19 @@ var progSweet = SC.par(
 	SC.generate(MeVoici, SC.my('me'), SC.forever)
 );
 
+//Création des cubes SC
+var cubeSweet1 = SC.cube(miniSweet1, progSweet);
+var cubeSweet2 = SC.cube(miniSweet2, progSweet);
+var cubeSweet3 = SC.cube(miniSweet3, progSweet);
+
 //le moteur qui exécute les programmes
 //-------------------------------------
 var monde = SC.machine(30);// toutes les 30 millisecondes il y a une macro étape (ou instant)
 
 //On ajoute le programme du cube à la machine
-monde.addProgram(progSweet);
+monde.addProgram(cubeSweet1);
+monde.addProgram(cubeSweet2);
+monde.addProgram(cubeSweet3);
 
 
 /** brouillon et tests */

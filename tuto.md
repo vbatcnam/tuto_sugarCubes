@@ -186,26 +186,30 @@ var comportementDeMonCube = SC.par(
 );
 ```
 
+## le cube
+Maintenant il faut créer les cubes (cf sweet.js)
+```javascript 
+SC.cube( objetJS, comportementDuCube)
+```
+
 ## La machine de SugarCubes
 La machine (ou le moteur) sont des sortes de mondes indépendants.
 Chaque machine a sa propre horloge.
 
-Dans mon programme, je doit donc créer une machine qui sera le mone des miniSweets :  Je vais donc appeler ma machine, monde. 
+Dans mon programme, je doit donc créer une machine qui sera le monde des miniSweets :  Je vais donc appeler ma machine, monde. 
 La syntaxe pour créer une machineSC est :
 
 ```javascript 
 var monde = SC.machine(nbreInstantsEnMiliSecondes)
 ```
 
-Ensuite il faut ajouter le programme du cube :
+Ensuite il faut ajouter le cube (cf sweet.js):
 ```javascript 
-monde.addProgram(progDuCube)
+monde.addProgram(cube)
 ```
 
-Ce qui fait :
-```javascript 
-monde.addProgram(comportementDeMonCube)
-```
 
 ### ok ! Et comment lance-t-on la machine ?
-En fait elle se lance automatiquement dès qu'on lui ajoute un programme.
+En fait elle se lance automatiquement dès qu'on lui ajoute un cube.
+
+Et maintenant je teste mon programme :)
