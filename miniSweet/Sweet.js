@@ -14,7 +14,6 @@ class Sweet{
 	}
 	
 	draw(){
-		console.log("sweet numero : " + document.getElementById(this.id));
 		if(! document.getElementById(this.id))
 		{
 			let color = "#"+this.couleur
@@ -30,9 +29,15 @@ class Sweet{
 			rect.setAttribute( 'fill', color);
 			zoneDeJeu.appendChild(rect);
 		}
+		else{
+			let rect = document.getElementById(this.id);
+			rect.setAttribute( 'x', this.x);
+			rect.setAttribute( 'y', this.y);
+		}
 	}
 	
 	move(){
+		this.gereBordureViewPort();
 		this.x += this.dx;
 		this.y += this.dy;
 	}
@@ -44,8 +49,6 @@ class Sweet{
 			&& this.y >= objetRencontre.y 
 			&& this.y < objetRencontre.y + objetRencontre.height
 		){
-			//on change l'axe de déplacement
-			this.dy = -this.dy;
 			//on change les couleurs des objets
 			fromDetection(objetRencontre.couleur);
 		}
@@ -53,11 +56,9 @@ class Sweet{
 	
 	//pour plus tard
 	gereBordureViewPort(){
-		if( this.x >= viewPort.w 
-			|| this.x <= 0
-			|| this.y >= viewPort.h 
-			|| this.y <= 0
-		){
+		if(this.x + this.width >= viewPort.w || this.x <= 0){
+			this.dx = -this.dx;
+		}if(this.y + this.height >= viewPort.h || this.y <= 0){
 			this.dy = -this.dy;
 		}
 	}
