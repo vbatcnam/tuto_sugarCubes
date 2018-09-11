@@ -54,7 +54,7 @@ Ensuite je crée un fichier Sweets.js dans le quel je crée la classe Sweet, des
 Attention ! 
 Il faut rajouter une propriété this.me = this qui va servir pour SugarCubes.
 Pourquoi ?
-Heu là je laisse parler JF Susini...
+Heu là je ne sais pas... (voir JFS pour plus d'infos)
 
 
 Dans ce même fichier, je crée mes cubes SC. La syntaxe est :
@@ -88,7 +88,13 @@ var monInstruction = SC.par(JeMeDessineEtJeMAffiche, JAvance, JeMeSignale);
 ```
 
 ### l'instruction *JeMeDessineEtJeMAffiche*
-Pour l'instruction *JeMeDessineEtJeMAffiche* j'utilise la syntaxe *SC.action(fonctionAExecuter, nbreDeFois_parDefaut1Fois )*
+
+Pour l'instruction *JeMeDessineEtJeMAffiche* j'utilise la syntaxe
+
+```javascript 
+SC.action(fonctionAExecuter, nbreDeFois_parDefaut1Fois )
+```
+ 
 Je veux que mes miniSweets s'affichent tout le temps
 
 ```javascript 
@@ -118,9 +124,9 @@ Les instructions ci-dessus servaient à faire des actions : C'est-à-dire à lan
 
 En revanche,l'instruction *JeMeSignale* ne lance pas de fonction mais génère un événement.
 
-####Pourquoi ne fait-on pas une fonctionJS "signaleToi" ?
+#### Pourquoi ne fait-on pas une fonctionJS "signaleToi" ?
 
-Parce qu'on veut que cet événement soit entendu par tous les autres cubes. C'est en quelque sorte du broadcaste ;) enfin je crois... 
+Parce qu'on veut que cet événement soit entendu par tous les autres cubes. C'est en quelque sorte du broadcaste ;) enfin je crois... (voir JFS pour plus d'infos)
 
 Il faut générer donc l’événement avec SC.generate() : je vais utiliser la syntaxe 
 ```javascript 
@@ -135,7 +141,8 @@ Il faut créer l'evt bien avant de le générer. (CF Sweets.js)
 var EvtDuSweet = SC.evt("Me voici");// la phrase entre "" sert pour le debug
 ```
 
-####Pourquoi ?
+#### Pourquoi ?
+
 Je ne sais pas encore ;)
 
 Pour en savoir plus sur les evt :
@@ -193,14 +200,15 @@ SC.cube( objetJS, comportementDuCube)
 ```
 
 ## La machine de SugarCubes
-La machine (ou le moteur) sont des sortes de mondes indépendants.
-Chaque machine a sa propre horloge.
+DAns SugarCubes, les machines (ou moteurs) sont des sortes de mondes indépendants.
+Chaque machine a sa propre horloge. (voir JFS pour plus d'infos)
 
-Dans mon programme, je doit donc créer une machine qui sera le monde des miniSweets :  Je vais donc appeler ma machine, monde. 
+Dans mon programme, je doit donc créer une machine qui sera le monde des miniSweets :  Je vais donc appeler ma machine, *monde*.
+ 
 La syntaxe pour créer une machineSC est :
 
 ```javascript 
-var monde = SC.machine(nbreInstantsEnMiliSecondes)
+SC.machine(nbreInstantsEnMiliSecondes)
 ```
 
 Ensuite il faut ajouter le cube (cf sweet.js):
