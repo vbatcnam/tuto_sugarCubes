@@ -74,8 +74,10 @@ class Sweet{
 	//pour plus tard
 	melangeCouleurs(objetRencontre){
 		//on transforme les couleurs "#FF0000" en objet Couleur avec pour variables this.ai_r, this.ai_v, this.ai_b} 
-		let couleurSweet1 = Couleur.fromRVB_hexa(Couleur.fromDetection(this.couleur));
-		let couleurSweet2 = Couleur.fromRVB_hexa(Couleur.fromDetection(objetRencontre.couleur));
+	    let couleurSweet1 = 
+		Couleur.fromDetection(this.couleur);
+	    let couleurSweet2 = 
+		Couleur.fromDetection(objetRencontre.couleur);
 		console.log("ma couleur");
 		console.log(couleurSweet1.ai_r);
 		console.log(couleurSweet1.ai_v);
