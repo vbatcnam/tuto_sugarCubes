@@ -1,11 +1,11 @@
 /** je crée la classe*/
 
 class Sweet{
-	constructor(id, couleur, x, y){
-		this.id = id;
-		this.couleur = "#" + couleur;
-		this.x = x;
-		this.y = y;
+	constructor(ps_id, pCouleur, pn_x, pn_y){
+		this.id = ps_id;
+		this.couleur = pCouleur;
+		this.x = pn_x;
+		this.y = pn_y;
 		this.dx = 2;
 		this.dy = -2;
 		this.width = 100;
@@ -31,11 +31,9 @@ class Sweet{
 		}
 		rect.setAttribute( 'x', this.x);
 		rect.setAttribute( 'y', this.y);
-		rect.setAttribute( 'fill', this.couleur);// le # y est dejà
-		console.log("ma couleur est : " + this.couleur);
-
+		rect.setAttribute( 'fill', this.couleur.toRVB_CSS() );
 	}
-	
+
 	move(){
 		this.gereBordureViewPort();
 		this.x += this.dx;
@@ -47,13 +45,13 @@ class Sweet{
 			obj_all[MeVoici] contient 3 cubes
 		*/
 		for(let cube of obj_all[MeVoici]){
-			if( this.x > cube.x
+			if( this.x >= cube.x
 				&& this.x <= cube.x + cube.width 
 				&& this.y >= cube.y 
-				&& this.y < cube.y + cube.height
+				&& this.y <= cube.y + cube.height
 			){
-				console.log("coucou");
-				/**  fait coucou tout le long de la rencontre or je ne le eut qu'une seule fois
+				//console.log("coucou");
+				/**  fait coucou tout le long de la rencontre or je ne le veut qu'une seule fois !
 					tester quand il entre en contact et quand il quitte le contact
 				*/
 				//on change les couleurs des objets
@@ -73,25 +71,12 @@ class Sweet{
 
 	//pour plus tard
 	melangeCouleurs(objetRencontre){
-		//on transforme les couleurs "#FF0000" en objet Couleur avec pour variables this.ai_r, this.ai_v, this.ai_b} 
-		let couleurSweet1 = Couleur.fromRVB_hexa(Couleur.fromDetection(this.couleur));
-		let couleurSweet2 = Couleur.fromRVB_hexa(Couleur.fromDetection(objetRencontre.couleur));
-		console.log("ma couleur");
-		console.log(couleurSweet1.ai_r);
-		console.log(couleurSweet1.ai_v);
-		console.log(couleurSweet1.ai_b);
-		console.log("============================");
-		console.log("ta couleur");
-		console.log(couleurSweet2.ai_r);
-		console.log(couleurSweet2.ai_v);
-		console.log(couleurSweet2.ai_b);
-		//on calcule la moyenne des r,v,b
-		let moyenne = Couleur.getMoyenne(couleurSweet1, couleurSweet2)
-		
+		let couleurSweet1 = this.couleur;
+		let couleurSweet2 = objetRencontre.couleur;
+
 		//on change les couleurs
-		this.couleur = moyenne.toRVB_hexa();
-		console.log("nouvelle couleur : " + this.couleur);
-		objetRencontre.couleur = moyenne.toRVB_hexa();
+		this.couleur = Couleur.getMoyenne(couleurSweet1, couleurSweet2)
+		objetRencontre.couleur = Couleur.getMoyenne(couleurSweet1, couleurSweet2)
 	}
 }
 
@@ -105,9 +90,15 @@ svg.setAttribute('width', viewPort.w);
 svg.setAttribute('height', viewPort.h);
 
 //les miniSweets originels.
-var miniSweet1 = new Sweet("sweet1","ff0000", 10, 10);
-var miniSweet2 = new Sweet("sweet2","008000", viewPort.w/3, viewPort.h/3);
-var miniSweet3 = new Sweet("sweet3","0000ff", viewPort.w*0.75, viewPort.h*0.25);
+var rouge = Couleur.fromRVB_255_int(255, 0, 0);
+var vert = Couleur.fromRVB_255_int(0, 255, 0);
+var bleu = Couleur.fromRVB_255_int(0, 0, 255);
+var jaune = Couleur.fromRVB_255_int(255, 255, 0);
+
+var miniSweet1 = new Sweet("sweet1", rouge, 10, 10);
+var miniSweet2 = new Sweet("sweet2", vert, viewPort.w/3, viewPort.h/3);
+var miniSweet3 = new Sweet("sweet3", bleu, viewPort.w*0.75, viewPort.h*0.25);
+var miniSweet4 = new Sweet("sweet4", jaune, viewPort.w*0.75, viewPort.h*0.75);
 
 
 /** Utilisation de SugarCubes */
@@ -130,6 +121,7 @@ var progSweet = SC.par(
 var cubeSweet1 = SC.cube(miniSweet1, progSweet);
 var cubeSweet2 = SC.cube(miniSweet2, progSweet);
 var cubeSweet3 = SC.cube(miniSweet3, progSweet);
+var cubeSweet4 = SC.cube(miniSweet4, progSweet);
 
 //le moteur qui exécute les programmes
 //-------------------------------------
@@ -139,6 +131,7 @@ var monde = SC.machine(30);// toutes les 30 millisecondes il y a une macro étap
 monde.addProgram(cubeSweet1);
 monde.addProgram(cubeSweet2);
 monde.addProgram(cubeSweet3);
+monde.addProgram(cubeSweet4);
 
 
 /** brouillon et tests 
