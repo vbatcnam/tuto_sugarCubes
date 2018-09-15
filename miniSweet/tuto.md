@@ -41,7 +41,7 @@ A chaque instant SC execute :
 	
 	et ainsi de suite.
 
-## Codage du jeu les miniSweets 
+## Codage du jeu *les miniSweets*
 Je crée un fichier index.html (voir le fichier pour les détails)
 Je n'oublie surtout pas d'écrire
 ```html 
@@ -88,7 +88,6 @@ var monInstruction = SC.par(JeMeDessineEtJeMAffiche, JAvance, JeMeSignale);
 ```
 
 ### l'instruction *JeMeDessineEtJeMAffiche*
-
 Pour l'instruction *JeMeDessineEtJeMAffiche* j'utilise la syntaxe
 
 ```javascript 
@@ -111,7 +110,6 @@ var monAction1 = SC.action(SC.my("draw"), SC.forever);
 #### SC.my ça sert à quoi ?
 Ca sert à aller chercher une propriété de l'objet du cube. 
 
-
 ### l'instruction *JAvance*
 Pour l'instruction *JAvance* j'utilise la syntaxe *SC.action()*
 
@@ -125,7 +123,6 @@ Les instructions ci-dessus servaient à faire des actions : C'est-à-dire à lan
 En revanche,l'instruction *JeMeSignale* ne lance pas de fonction mais génère un événement.
 
 #### Pourquoi ne fait-on pas une fonctionJS "signaleToi" ?
-
 Parce qu'on veut que cet événement soit entendu par tous les autres cubes. C'est en quelque sorte du broadcaste ;) enfin je crois... (voir JFS pour plus d'infos)
 
 Il faut générer donc l’événement avec SC.generate() : je vais utiliser la syntaxe 
@@ -142,7 +139,6 @@ var EvtDuSweet = SC.evt("Me voici");// la phrase entre "" sert pour le debug
 ```
 
 #### Pourquoi ?
-
 Je ne sais pas encore ;)
 
 Pour en savoir plus sur les evt :
@@ -195,6 +191,9 @@ var comportementDeMonCube = SC.par(
 
 ## le cube
 Maintenant il faut créer les cubes (cf sweet.js)
+Un cube, dans SugarCubes, est un moyen de mettre du lien entre un programme réactif (ici sugarCubes) et un objet JS (voir avec JFS)
+
+la syntaxe pour créer un cube est :
 ```javascript 
 SC.cube( objetJS, comportementDuCube)
 ```
@@ -293,3 +292,6 @@ var comportementDeMonCube = SC.par(
 	SC.actionOn(MeVoici, SC.my("gereRencontre"), undefined, SC.forever)
 );
 ```
+
+Et maintenant nous pouvons exécuter notre petit jeu :)
+cf index.html
