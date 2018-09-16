@@ -11,7 +11,7 @@ Je vous conseil fortement de lire le  README.md  sur https://github.com/LordMant
 ## SugarCubes kesako ?
 Voir http://jeanferdysusini.free.fr/index.php?action=SCJS
 
-En résumé, SugarCubes est une bibliothèque qui permet de gérer des événements en   parallèle dans son programme. 
+En résumé, SugarCubes est une bibliothèque qui permet de gérer des événements en parallèle dans son programme. 
 Par exemple, dans un jeu de simulation, il y a plusieurs événements qui se passent en même temps.
 SC permet d’exécuter plus facilement du code (içi javascript) en parallèle.
 
