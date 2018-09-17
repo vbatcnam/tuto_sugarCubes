@@ -90,8 +90,10 @@ class Sweet{
 	
 	verifSiTouched(autreSweet)
 	{
-		//est-ce qu'ils se touchent en x ?
-		//est-ce qu'ils se touchent en y ?
+		//cas 1 : contact par la droite
+		//cas 2 : contact par la gauche
+		//cas 3 : contact par le haut
+		//cas 4 : contact par le bas
 			if( this.x >= cube.x
 				&& this.x <= cube.x + cube.width 
 				&& this.y >= cube.y 
