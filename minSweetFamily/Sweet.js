@@ -79,6 +79,9 @@ class Sweet{
 		return Couleur.getMoyenne(couleurSweet1, couleurSweet2)
 	}
 	
+	/** Au  premier test :
+	Cette fonction ne marche pas avec SC !
+		car SC fonctionne en étapes et entre 2 étapes la rencontre peut avoir lieu. Du coup, SC ne l'a pas vu.
 	verifSiTouched(autreSweet)
 	{
 		//cas 1 : contact par les angles
@@ -102,8 +105,44 @@ class Sweet{
 			console.log("Contact par le coté gauche ! ");
 		}
 	}
+	*/
+	
+	verifSiTouched(autreSweet)
+	{
+		if( this.x >= cube.x
+				&& this.x <= cube.x + cube.width 
+				&& this.y >= cube.y 
+				&& this.y <= cube.y + cube.height
+			){
+				
+				console.log("coucou");
+			}
+	}
+
 }
 
+
+/**
+collision
+		for(let cube of obj_all[MeVoici]){
+			if( this.x >= cube.x
+				&& this.x <= cube.x + cube.width 
+				&& this.y >= cube.y 
+				&& this.y <= cube.y + cube.height
+			){
+				
+				console.log("coucou");
+			}				  
+fait coucou tout le long de la rencontre or je ne le veut qu'une seule fois !
+	tester quand il entre en contact et quand il quitte le contact
+	quand il entre an contact générer un cube et signaler que c'est fait pour ne pas en faire 2
+	signaler la fin du contact
+
+Suggestion d'Olivier
+Tu mets un booléen a vrais quand tu détecte qu'ils se touchent. si ils se touchent et qu'il est déjà vrai tu fait rien
+tu le remet a faux quand ils ne se touche pas
+le booléen marche a priori sauf si a cause d'un rebond il y a contact plus contact contact en un temps très court
+*/
 /** je crée mes objets*/
 
 //le viewPort
