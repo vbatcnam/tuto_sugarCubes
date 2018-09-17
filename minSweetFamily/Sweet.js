@@ -82,6 +82,7 @@ class Sweet{
 	/** Au  premier test :
 	Cette fonction ne marche pas avec SC !
 		car SC fonctionne en étapes et entre 2 étapes la rencontre peut avoir lieu. Du coup, SC ne l'a pas vu.
+	*/
 	verifSiTouched(autreSweet)
 	{
 		//cas 1 : contact par les angles
@@ -105,20 +106,21 @@ class Sweet{
 			console.log("Contact par le coté gauche ! ");
 		}
 	}
-	*/
-	
-	verifSiTouched(autreSweet)
-	{
-		if( this.x >= cube.x
-				&& this.x <= cube.x + cube.width 
-				&& this.y >= cube.y 
-				&& this.y <= cube.y + cube.height
-			){
-				
-				console.log("coucou");
-			}
-	}
 
+	
+	/**
+		ajouter un booléen
+	// verifSiTouched(autreSweet) 
+	// {
+		// if( this.x >= autreSweet.x
+				// && this.x <= autreSweet.x + autreSweet.width 
+				// && this.y >= autreSweet.y 
+				// && this.y <= autreSweet.y + autreSweet.height
+			// ){
+				// console.log("coucou");
+			// }
+	// }
+	*/
 }
 
 
