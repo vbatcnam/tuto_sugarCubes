@@ -1,11 +1,11 @@
 /** je crée la classe*/
 
 class Sweet{
-	constructor(id, couleurRGB, x, y){
-		this.id = id;
-		this.couleur = couleurRGB; //objet couleur
-		this.x = x;
-		this.y = y;
+	constructor(ps_id, pCouleur, pn_x, pn_y){
+		this.id = ps_id;
+		this.couleur = pCouleur;
+		this.x = pn_x;
+		this.y = pn_y;
 		this.dx = 2;
 		this.dy = -2;
 		this.width = 100;
@@ -31,9 +31,9 @@ class Sweet{
 		}
 		rect.setAttribute( 'x', this.x);
 		rect.setAttribute( 'y', this.y);
-		rect.setAttribute( 'fill','rgb(' +this.couleur.r+','+this.couleur.v+',' +this.couleur.b +')');
+		rect.setAttribute( 'fill', this.couleur.toRVB_CSS() );
 	}
-	
+
 	move(){
 		this.gereBordureViewPort();
 		this.x += this.dx;
@@ -45,17 +45,28 @@ class Sweet{
 			obj_all[MeVoici] contient 3 cubes
 		*/
 		for(let cube of obj_all[MeVoici]){
-			if( this.x > cube.x
+			if( this.x >= cube.x
 				&& this.x <= cube.x + cube.width 
 				&& this.y >= cube.y 
-				&& this.y < cube.y + cube.height
+				&& this.y <= cube.y + cube.height
+				&& this != cube //ce n'est pas lui-même
 			){
 				console.log("coucou");
 				/**  fait coucou tout le long de la rencontre or je ne le veut qu'une seule fois !
 					tester quand il entre en contact et quand il quitte le contact
 				*/
-				//on change les couleurs des objets
-				this.melangeCouleurs(cube);
+				
+				//on mélange les couleurs des parents
+				let coulEnfant = this.melangeCouleurs(cube);
+				let idEnfant = nombreDeSweets + 1 //pour aller le chercher dans le dom
+				
+				//faire naître un sweet
+				let enfant = new Sweet(idEnfant, coulEnfant, this.x, this.y);
+				var cubeEnfant = SC.cube(enfant, progSweet);
+				monde.addProgram(cubeEnfant);
+				
+				//mise à jour du nombre de miniSweets
+				nombreDeSweets +=1 ;
 			}
 		}
 	}
@@ -69,26 +80,24 @@ class Sweet{
 		}
 	}
 
-	//pour plus tard
 	melangeCouleurs(objetRencontre){
-		let couleurSweet1 =this.couleur;
+		let couleurSweet1 = this.couleur;
 		let couleurSweet2 = objetRencontre.couleur;
-		console.log("ma couleur");
-		console.log(couleurSweet1.ai_r);
-		console.log(couleurSweet1.ai_v);
-		console.log(couleurSweet1.ai_b);
-		console.log("============================");
-		console.log("ta couleur");
-		console.log(couleurSweet2.ai_r);
-		console.log(couleurSweet2.ai_v);
-		console.log(couleurSweet2.ai_b);
-		//on calcule la moyenne des r,v,b
-		let moyenne = Couleur.getMoyenne(couleurSweet1, couleurSweet2)
 		
-		//on change les couleurs
-		this.couleur = moyenne.toRVB_hexa();
-		console.log("nouvelle couleur : " + this.couleur);
-		objetRencontre.couleur = moyenne.toRVB_hexa();
+		//on retourne la moyenne des r,v,b
+		return Couleur.getMoyenne(couleurSweet1, couleurSweet2)
+	}
+	
+	verifSiTouched(autreSweet)
+	{
+		//est-ce qu'ils se touchent en x ?
+		//est-ce qu'ils se touchent en y ?
+			if( this.x >= cube.x
+				&& this.x <= cube.x + cube.width 
+				&& this.y >= cube.y 
+				&& this.y <= cube.y + cube.height
+				&& this != cube //ce n'est pas lui-même
+			)
 	}
 }
 
@@ -96,19 +105,25 @@ class Sweet{
 
 //le viewPort
 var viewPort = {'w':innerWidth, 'h':innerHeight};
+
 //je met le svg à la taille du viewPort
 let svg = document.getElementById("zoneDeJeu");
 svg.setAttribute('width', viewPort.w);
 svg.setAttribute('height', viewPort.h);
 
 //les miniSweets originels.
-var rouge = {'r':255, 'v':0, 'b':0};
-var vert = {'r':0, 'v':255, 'b':0};
-var bleu = {'r':0, 'v':0, 'b':255};
+var rouge = Couleur.fromRVB_255_int(255, 0, 0);
+var vert = Couleur.fromRVB_255_int(0, 255, 0);
+var bleu = Couleur.fromRVB_255_int(0, 0, 255);
+var jaune = Couleur.fromRVB_255_int(255, 255, 0);
+
 var miniSweet1 = new Sweet("sweet1", rouge, 10, 10);
 var miniSweet2 = new Sweet("sweet2", vert, viewPort.w/3, viewPort.h/3);
 var miniSweet3 = new Sweet("sweet3", bleu, viewPort.w*0.75, viewPort.h*0.25);
+var miniSweet4 = new Sweet("sweet4", jaune, viewPort.w*0.75, viewPort.h*0.75);
 
+//Sert pour l'id des miniSweets
+var nombreDeSweets = 4;
 
 /** Utilisation de SugarCubes */
 /** ========================= */
