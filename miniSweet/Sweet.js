@@ -73,10 +73,13 @@ class Sweet{
 	melangeCouleurs(objetRencontre){
 		let couleurSweet1 = this.couleur;
 		let couleurSweet2 = objetRencontre.couleur;
-
+		
+		//on calcule la moyenne des r,v,b
+		let moyenne = Couleur.getMoyenne(couleurSweet1, couleurSweet2)
+		
 		//on change les couleurs
-		this.couleur = Couleur.getMoyenne(couleurSweet1, couleurSweet2)
-		objetRencontre.couleur = Couleur.getMoyenne(couleurSweet1, couleurSweet2)
+		this.couleur = moyenne;
+		objetRencontre.couleur = moyenne;
 	}
 }
 
