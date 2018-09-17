@@ -257,6 +257,7 @@ Rappelons-nous de :
 ```javascript 
 	SC.generate(EvtDuSweet, valeurAssocieAEvt, SC.forever)
 );
+```
 
 C'est *valeurAssocieAEvt* qui sera envoyé comme info.
 
