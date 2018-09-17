@@ -45,16 +45,7 @@ class Sweet{
 			obj_all[MeVoici] contient 3 cubes
 		*/
 		for(let cube of obj_all[MeVoici]){
-			if( this.x >= cube.x
-				&& this.x <= cube.x + cube.width 
-				&& this.y >= cube.y 
-				&& this.y <= cube.y + cube.height
-				&& this != cube //ce n'est pas lui-même
-			){
-				console.log("coucou");
-				/**  fait coucou tout le long de la rencontre or je ne le veut qu'une seule fois !
-					tester quand il entre en contact et quand il quitte le contact
-				*/
+			if( this.verifSiTouched(cube) ){
 				
 				//on mélange les couleurs des parents
 				let coulEnfant = this.melangeCouleurs(cube);
@@ -90,19 +81,26 @@ class Sweet{
 	
 	verifSiTouched(autreSweet)
 	{
-		//cas 1 : contact par la droite
-		//cas 2 : contact par la gauche
-		//cas 3 : contact par le haut
-		//cas 4 : contact par le bas
-			if( this.x >= cube.x
-				&& this.x <= cube.x + cube.width 
-				&& this.y >= cube.y 
-				&& this.y <= cube.y + cube.height
-				&& this != cube //ce n'est pas lui-même
+		//cas 1 : contact par les angles
+		if(
+			(this.x == autreSweet.x + autreSweet.width
+				|| this.x + this.width == autreSweet.x)
+			&& (this.y == autreSweet.y + autreSweet.height
+				|| this.y + this.height == autreSweet.y)
+		){
+			console.log("Contact par les angles ! ");
+		}
+		
+		//cas 2 : contact par le coté gauche
+		if(this.x == autreSweet.x + autreSweet.width
+			&& ( 
+				(autreSweet.y >= this.y && autreSweet.y <= this.y + this.height)
+				||(autreSweet.y + autreSweet.height <= this.y + this.height
+					&& autreSweet.y + autreSweet.height >= this.y)
 			)
-			{
-				return "";
-			}
+		){
+			console.log("Contact par le coté gauche ! ");
+		}
 	}
 }
 
