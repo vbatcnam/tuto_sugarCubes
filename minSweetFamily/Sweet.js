@@ -100,6 +100,9 @@ class Sweet{
 				&& this.y <= cube.y + cube.height
 				&& this != cube //ce n'est pas lui-même
 			)
+			{
+				return "";
+			}
 	}
 }
 
