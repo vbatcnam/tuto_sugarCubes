@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.726"
-     inkscape:cx="192.78538"
-     inkscape:cy="430.18811"
+     inkscape:zoom="2.904"
+     inkscape:cx="132.79238"
+     inkscape:cy="441.59654"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -44,7 +44,9 @@
      inkscape:snap-bbox="true"
      inkscape:bbox-nodes="true"
      inkscape:snap-others="false"
-     inkscape:snap-grids="false">
+     inkscape:snap-grids="false"
+     showguides="true"
+     inkscape:guide-bbox="true">
     <inkscape:grid
        type="xygrid"
        id="grid4696"
@@ -56,6 +58,16 @@
        snapvisiblegridlinesonly="true"
        spacingx="1"
        spacingy="1" />
+    <sodipodi:guide
+       position="152.54821,480.02944"
+       orientation="1,0"
+       id="guide818"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="107.99249,461.79705"
+       orientation="1,0"
+       id="guide820"
+       inkscape:locked="false" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -65,7 +77,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -82,8 +94,8 @@
          style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-opacity:1" />
     </g>
     <rect
-       y="-144.30331"
-       x="-1028.3301"
+       y="-14.758053"
+       x="-964.96906"
        height="45"
        width="45.000179"
        id="rect902"
@@ -93,8 +105,8 @@
        id="rect904"
        width="45.000179"
        height="45"
-       x="-898.85303"
-       y="-146.28705" />
+       x="-919.96887"
+       y="-104.75806" />
     <rect
        y="-59.758053"
        x="-964.96906"
@@ -102,5 +114,47 @@
        width="45.000179"
        id="rect906"
        style="opacity:1;fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:2.00000811;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.51419175;stroke-opacity:1" />
+    <rect
+       style="opacity:1;fill:#000080;fill-opacity:1;stroke:none;stroke-width:2.00000811;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.51419175;stroke-opacity:1"
+       id="rect822"
+       width="45.000179"
+       height="45"
+       x="-1009.9692"
+       y="-104.75806" />
+    <rect
+       y="-104.75806"
+       x="-964.96906"
+       height="45"
+       width="45.000179"
+       id="rect824"
+       style="opacity:1;fill:#ff00ff;fill-opacity:1;stroke:none;stroke-width:2.00000811;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.51419175;stroke-opacity:1" />
+    <rect
+       y="-59.758053"
+       x="-1009.9692"
+       height="45"
+       width="45.000179"
+       id="rect826"
+       style="opacity:1;fill:#ffff00;fill-opacity:1;stroke:none;stroke-width:2.00000811;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.51419175;stroke-opacity:1" />
+    <rect
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:2.00000811;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.51419175;stroke-opacity:1"
+       id="rect828"
+       width="45.000179"
+       height="45"
+       x="-919.96887"
+       y="-59.758053" />
+    <rect
+       style="opacity:1;fill:#800000;fill-opacity:1;stroke:none;stroke-width:2.00000811;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.51419175;stroke-opacity:1"
+       id="rect830"
+       width="45.000179"
+       height="45"
+       x="-1009.9692"
+       y="-14.758053" />
+    <rect
+       y="-14.758053"
+       x="-919.96887"
+       height="45"
+       width="45.000179"
+       id="rect832"
+       style="opacity:1;fill:#000080;fill-opacity:1;stroke:none;stroke-width:2.00000811;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.51419175;stroke-opacity:1" />
   </g>
 </svg>
