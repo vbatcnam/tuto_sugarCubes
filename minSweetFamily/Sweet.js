@@ -10,6 +10,7 @@ class Sweet{
 		this.dy = -2;
 		this.width = 100;
 		this.height = 100;
+		this.enContactAvecAutreSweet = false;
 		this.me = this // sert pour SugarCubes
 	}
 	
@@ -62,7 +63,6 @@ class Sweet{
 		}
 	}
 
-	//pour plus tard
 	gereBordureViewPort(){
 		if(this.x + this.width >= viewPort.w || this.x <= 0){
 			this.dx = -this.dx;
@@ -91,6 +91,7 @@ class Sweet{
 				|| this.x + this.width == autreSweet.x)
 			&& (this.y == autreSweet.y + autreSweet.height
 				|| this.y + this.height == autreSweet.y)
+			&& this != autreSweet
 		){
 			console.log("Contact par les angles ! ");
 		}
@@ -102,25 +103,53 @@ class Sweet{
 				||(autreSweet.y + autreSweet.height <= this.y + this.height
 					&& autreSweet.y + autreSweet.height >= this.y)
 			)
+			&& this != autreSweet
+
 		){
 			console.log("Contact par le coté gauche ! ");
 		}
 	}
 
 	
-	/**
-		ajouter un booléen
-	// verifSiTouched(autreSweet) 
-	// {
-		// if( this.x >= autreSweet.x
-				// && this.x <= autreSweet.x + autreSweet.width 
-				// && this.y >= autreSweet.y 
-				// && this.y <= autreSweet.y + autreSweet.height
-			// ){
-				// console.log("coucou");
-			// }
-	// }
-	*/
+/**
+	Ajouter un booléen : Il faut ajouter une propriété enContact = false;
+	crée le même problème...
+
+	gereRencontre(obj_all){
+		for(let cube of obj_all[MeVoici]){
+			this.enContactAvecAutreSweet = this.verifSiTouched(cube);
+			if( this.enContactAvecAutreSweet ){
+				//on mélange les couleurs des parents
+				let coulEnfant = this.melangeCouleurs(cube);
+				let idEnfant = nombreDeSweets + 1 //pour aller le chercher dans le dom
+				
+				//faire naître un sweet
+				let enfant = new Sweet(idEnfant, coulEnfant, this.x, this.y);
+				var cubeEnfant = SC.cube(enfant, progSweet);
+				monde.addProgram(cubeEnfant);
+				
+				//mise à jour du nombre de miniSweets
+				nombreDeSweets +=1 ;
+			}
+			//mise à jour de enContactAvecAutreSweet;
+			this.enContactAvecAutreSweet = false;
+		}
+	}
+
+	verifSiTouched(autreSweet) 
+	{
+		if( this.x >= autreSweet.x
+				&& this.x <= autreSweet.x + autreSweet.width 
+				&& this.y >= autreSweet.y 
+				&& this.y <= autreSweet.y + autreSweet.height
+				&& this != autreSweet
+			){
+				console.log("contact !");
+				return true;
+			}
+			
+	}
+*/
 }
 
 
