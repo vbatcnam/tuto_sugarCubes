@@ -96,6 +96,8 @@ class Sweet{
 	si c'est vide on positionne une identification du cube avec qui on entre en contact dans «contact avec»...
 quand plus de contact avec ce cube ... on crée le bébé
 Mais le pb est de savoir lequel des parents crée le bébé car sinon tu créeras au moins 2 bébés
+
+Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de ses parents ou un de ses enfants. On pourrait faire une généalogie.
 	*/
 	gereRencontre(obj_all){
 		/** 
@@ -169,7 +171,7 @@ var vert = Couleur.fromRVB_255_int(0, 255, 0);
 var bleu = Couleur.fromRVB_255_int(0, 0, 255);
 var jaune = Couleur.fromRVB_255_int(255, 255, 0);
 
-var miniSweet1 = new Sweet(1, 'F', rouge, 10, 10);
+var miniSweet1 = new Sweet(1, 'F', rouge, 20, 10);
 var miniSweet2 = new Sweet(2, 'F', vert, viewPort.w/3, viewPort.h/3);
 var miniSweet3 = new Sweet(3, 'M', bleu, viewPort.w*0.75, viewPort.h*0.25);
 var miniSweet4 = new Sweet(4, 'M', jaune, viewPort.w*0.25, viewPort.h*0.75);

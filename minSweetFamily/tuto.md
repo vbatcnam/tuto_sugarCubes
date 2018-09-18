@@ -42,23 +42,33 @@ Je vais aussi faire quelques modifs dans mon objet Sweet :
 
 Chaque Sweet aura dans son état une information *contactAvec*.
 
-Par contre, a chaque rencontre il risque d'y avoir au moins 2 bébés à chaque rencontre.
+Par contre, a chaque rencontre il risque d'y avoir au moins 2 bébés.
 
 Dans le même instant de contact nous avons :
+
 	A rencontre B => 1 bébé
+	
 	B rencontre A => 1 bébé
 
-Il faut donc des miniSweets mal et femelle.
+Il faut donc des miniSweets *mal* et *femelle*.
 
 Chaque Sweet aura dans son état une information *sexe*.
 
 Voir le code JS dans *Swwet.js*
 
+Je pourrais améliorer les choses : Un miniSweet ne peux se reproduire avec un de ses parents ou un de ses enfants. On pourrait faire une généalogie.
+
+Je ne l'ai pas encore fait... Vous pouvez le faire si vous le souhaitez.
+
 
 ## Période de reproduction 
-Donc lorsque 2 miniSweets se rencontrent, ils font un bébés. C'est cool :) Il y a pleins de bébés miniSweets qui peuplent mon écran !
 
-Maintenant, je voudrais qu'un bébé naisse uniquement pendant la periode de reproduction. 
+Ce chapitre en cours 
+====================
+
+Donc lorsque 2 miniSweets se rencontrent, ils font un bébés. C'est cool :)
+
+Maintenant, je voudrais qu'un bébé naisse uniquement pendant la période de reproduction. 
 
 Lorsque 2 miniSweets se rencontrent, si ils sont en période de reproduction, de leur union naît un miniSweet.
  
@@ -83,5 +93,5 @@ C'est une instruction qui contrôle l'exécution d'un programme
 elle fait ce qu'on appelle communément du sous échantillonnage 
 en gros elle exécute pour un instant le programme contrôlé *prog* si et seulement si l'événement de contrôle *evt* est présent.
 
-
+A suivre...
 
