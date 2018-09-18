@@ -104,7 +104,10 @@ Mais le pb est de savoir lequel des parents crée le bébé car sinon tu créera
 		for(let cube of obj_all[MeVoici]){
 			if( this.verifSiNewContact(cube) ){
 				//faire naître un sweet si c'est un sweet femelle
-				if(this.sexe == 'F'){
+				if(this.sexe == 'F' && cube.sexe == 'M' 
+					&& !this.contactAvec && !cube.contactAvec){
+					this.contactAvec = cube;
+					cube.contactAvec = this;
 					this.genereNouveauSweet(cube);
 				}
 			}
@@ -119,12 +122,7 @@ Mais le pb est de savoir lequel des parents crée le bébé car sinon tu créera
 			&& this.y <= autreSweet.y + autreSweet.height
 			&& this != autreSweet
 		){
-			if(! this.contactAvec){
-				this.contactAvec = autreSweet;
-				return true;
-			}else{
-				return false; //dejà en contact
-			}
+			return true; 
 		}
 	}
 	
@@ -150,7 +148,6 @@ Mais le pb est de savoir lequel des parents crée le bébé car sinon tu créera
 		enfant.papaSweet = cubePapa; // pour la reproduction
 		console.log('maman : '+ enfant.mamanSweet.id);
 		console.log('papa : '+ enfant.papaSweet.id);
-
 		//mise à jour du nombre de miniSweets
 		nombreDeSweets +=1;
 	}
