@@ -1,7 +1,7 @@
 /** je crée la classe*/
 
 class Sweet{
-	constructor(ps_id, pCouleur, pn_x, pn_y){
+	constructor(ps_id, ps_sexe, pCouleur, pn_x, pn_y){
 		this.id = ps_id;
 		this.couleur = pCouleur;
 		this.x = pn_x;
@@ -10,7 +10,8 @@ class Sweet{
 		this.dy = -2;
 		this.width = 100;
 		this.height = 100;
-		this.enContactAvecAutreSweet = false;
+		this.sexe = ps_sexe; // pour la reproduction
+		this.contactAvec = null; // pour la reproduction
 		this.me = this // sert pour SugarCubes
 	}
 	
@@ -41,28 +42,6 @@ class Sweet{
 		this.y += this.dy;
 	}
 	
-	gereRencontre(obj_all){
-		/** 
-			obj_all[MeVoici] contient 3 cubes
-		*/
-		for(let cube of obj_all[MeVoici]){
-			if( this.verifSiTouched(cube) ){
-				
-				//on mélange les couleurs des parents
-				let coulEnfant = this.melangeCouleurs(cube);
-				let idEnfant = nombreDeSweets + 1 //pour aller le chercher dans le dom
-				
-				//faire naître un sweet
-				let enfant = new Sweet(idEnfant, coulEnfant, this.x, this.y);
-				var cubeEnfant = SC.cube(enfant, progSweet);
-				monde.addProgram(cubeEnfant);
-				
-				//mise à jour du nombre de miniSweets
-				nombreDeSweets +=1 ;
-			}
-		}
-	}
-
 	gereBordureViewPort(){
 		if(this.x + this.width >= viewPort.w || this.x <= 0){
 			this.dx = -this.dx;
@@ -78,11 +57,11 @@ class Sweet{
 		//on retourne la moyenne des r,v,b
 		return Couleur.getMoyenne(couleurSweet1, couleurSweet2)
 	}
-	
-	/** Au  premier test :
+
+/** Reproduction => premier test :
 	Cette fonction ne marche pas avec SC !
 		car SC fonctionne en étapes et entre 2 étapes la rencontre peut avoir lieu. Du coup, SC ne l'a pas vu.
-	*/
+
 	verifSiTouched(autreSweet)
 	{
 		//cas 1 : contact par les angles
@@ -109,71 +88,62 @@ class Sweet{
 			console.log("Contact par le coté gauche ! ");
 		}
 	}
-
+*/
 	
-/**
-	Ajouter un booléen : Il faut ajouter une propriété enContact = false;
-	crée le même problème...
-
+/** Reproduction => Second test :
+	Quand un contact est détecté, on vérifie que contactAvec est vide.
+	si contact est non vide on ignore (on pourrait rafiner en verifiant avec qui on contact mais bon ...)
+	si c'est vide on positionne une identification du cube avec qui on entre en contact dans «contact avec»...
+quand plus de contact avec ce cube ... on crée le bébé
+Mais le pb est de savoir lequel des parents crée le bébé car sinon tu créeras au moins 2 bébés
+	*/
 	gereRencontre(obj_all){
+		/** 
+			obj_all[MeVoici] contient 3 cubes
+		*/
 		for(let cube of obj_all[MeVoici]){
-			this.enContactAvecAutreSweet = this.verifSiTouched(cube);
-			if( this.enContactAvecAutreSweet ){
+			if( this.verifSiNewContact(cube) ){
+				
 				//on mélange les couleurs des parents
 				let coulEnfant = this.melangeCouleurs(cube);
 				let idEnfant = nombreDeSweets + 1 //pour aller le chercher dans le dom
 				
-				//faire naître un sweet
-				let enfant = new Sweet(idEnfant, coulEnfant, this.x, this.y);
-				var cubeEnfant = SC.cube(enfant, progSweet);
-				monde.addProgram(cubeEnfant);
-				
-				//mise à jour du nombre de miniSweets
-				nombreDeSweets +=1 ;
+				//faire naître un sweet si c'est un sweet femelle
+				if(this.sexe == 'F'){
+					let sexe = Math.floor(Math.random()*2);
+					let position = Math.floor(Math.random()*10)
+					if(sexe == 0){sexe = 'F'}else{sexe = 'M'}
+					let enfant = new Sweet(idEnfant, sexe, coulEnfant, this.x+position, this.y+position);
+					var cubeEnfant = SC.cube(enfant, progSweet);
+					monde.addProgram(cubeEnfant);
+					
+					//mise à jour du nombre de miniSweets
+					nombreDeSweets +=1 ;
+				}
 			}
-			//mise à jour de enContactAvecAutreSweet;
-			this.enContactAvecAutreSweet = false;
 		}
 	}
 
-	verifSiTouched(autreSweet) 
+	verifSiNewContact(autreSweet) 
 	{
 		if( this.x >= autreSweet.x
-				&& this.x <= autreSweet.x + autreSweet.width 
-				&& this.y >= autreSweet.y 
-				&& this.y <= autreSweet.y + autreSweet.height
-				&& this != autreSweet
-			){
-				console.log("contact !");
+			&& this.x <= autreSweet.x + autreSweet.width 
+			&& this.y >= autreSweet.y 
+			&& this.y <= autreSweet.y + autreSweet.height
+			&& this != autreSweet
+		){
+			console.log("contact !");
+			if(! this.contactAvec){
+				this.contactAvec = autreSweet;
 				return true;
+			}else{
+				return false; //dejà en contact
 			}
-			
+		}
 	}
-*/
+	
 }
 
-
-/**
-collision
-		for(let cube of obj_all[MeVoici]){
-			if( this.x >= cube.x
-				&& this.x <= cube.x + cube.width 
-				&& this.y >= cube.y 
-				&& this.y <= cube.y + cube.height
-			){
-				
-				console.log("coucou");
-			}				  
-fait coucou tout le long de la rencontre or je ne le veut qu'une seule fois !
-	tester quand il entre en contact et quand il quitte le contact
-	quand il entre an contact générer un cube et signaler que c'est fait pour ne pas en faire 2
-	signaler la fin du contact
-
-Suggestion d'Olivier
-Tu mets un booléen a vrais quand tu détecte qu'ils se touchent. si ils se touchent et qu'il est déjà vrai tu fait rien
-tu le remet a faux quand ils ne se touche pas
-le booléen marche a priori sauf si a cause d'un rebond il y a contact plus contact contact en un temps très court
-*/
 /** je crée mes objets*/
 
 //le viewPort
@@ -190,10 +160,10 @@ var vert = Couleur.fromRVB_255_int(0, 255, 0);
 var bleu = Couleur.fromRVB_255_int(0, 0, 255);
 var jaune = Couleur.fromRVB_255_int(255, 255, 0);
 
-var miniSweet1 = new Sweet("sweet1", rouge, 10, 10);
-var miniSweet2 = new Sweet("sweet2", vert, viewPort.w/3, viewPort.h/3);
-var miniSweet3 = new Sweet("sweet3", bleu, viewPort.w*0.75, viewPort.h*0.25);
-var miniSweet4 = new Sweet("sweet4", jaune, viewPort.w*0.75, viewPort.h*0.75);
+var miniSweet1 = new Sweet("sweet1", 'F', rouge, 10, 10);
+var miniSweet2 = new Sweet("sweet2", 'F', vert, viewPort.w/3, viewPort.h/3);
+var miniSweet3 = new Sweet("sweet3", 'M', bleu, viewPort.w*0.75, viewPort.h*0.25);
+var miniSweet4 = new Sweet("sweet4", 'M', jaune, viewPort.w*0.75, viewPort.h*0.75);
 
 //Sert pour l'id des miniSweets
 var nombreDeSweets = 4;
@@ -230,11 +200,9 @@ monde.addProgram(cubeSweet3);
 
 
 /** brouillon et tests 
-	Bonjour,
-	En exécutant mon programme j'ai un comportement rigolo : les cubes s'affichent de plus en plus tronqués...
-	C'est interagissant mais  n'est pas e que je voulais...
+	
+	miniSweetR.draw();
 */
-	//miniSweetR.draw();
 
 
 

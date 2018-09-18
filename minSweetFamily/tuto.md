@@ -1,12 +1,12 @@
 # La famille miniSweet
 
 ## Préambule
-Ce qui va suivre est le deuxième tuto : Il fait suite au tuto 
+Ce qui va suivre est le deuxième chapitre : Il fait suite au tuto 
 	Créer mon premier jeu avec SugarCubes(SC)
 
 ## Les miniSweets font des enfants
 
-Nous allons améliorer notre jeu : 
+Nous allons améliorer notre jeu afin de voir ce que l'on peut faire avec les propriétés SC mentionnées dans le premier chapitre : 
 
 Nous allons créer plusieurs familles de miniSweets.
 Lorsque 2 miniSweets se rencontrent, ils ne changent pas de couleur mais de leur rencontre, naît un miniSweet.
@@ -34,31 +34,42 @@ if( this.x >= cube.x
 *fait coucou tout le long de la rencontre* 
 Pour le changement de couleur, je m'en fichais un peu car ça n'avait pas de conséquence...
 
-Mais là, si on laisse le programme ainsi, j'aurais une flopée de petits miniSweets qui seront générés tout le long de la rencontre.
-Le navigateur plante très rapidement.
+Mais là, si on laisse le programme ainsi, j'aurais une flopée de petits miniSweets qui seront générés tout le long de la rencontre; Ce n'est pas du tout ce que je veux... De plus, le navigateur plante très rapidement !
 
-Je vais donc réécrire mon code pour que cela ne se reproduise pas.
-Je vais commencer par créer un fonction *verifSiTouched()* cf Swwet.js
+Je vais donc réécrire ma fonction *gereRencontre()*.
 
-Je teste... Ça ne marche pas !!! Pourquoi ?
-Parce que je lui ai dit : "Dès que tu entre en contact avec un autre miniSweet.
+Je vais aussi faire quelques modifs dans mon objet Sweet :
 
-Or cette fonction ne marche pas avec SugarCubes car SC fonctionne en étapes et entre 2 étapes la rencontre peut avoir lieu. Du coup, SC ne l'a pas vu :
-Instant 1 de SC ils ne se touchent pas
-Instant 2 de SC ils sont déjà entrés en contact.
+Chaque Sweet aura dans son état une information *contactAvec*.
 
-La solution d'Olivier : 
-	*Tu mets un booléen à vrais quand tu détectes qu'ils se touchent. 
-	si ils se touchent et qu'il est déjà vrai tu fait rien
-	Ensuite tu le remets à faux quand ils ne se touche pas.
-	
-	le booléen marche à priori sauf si, à cause d'un rebond, il y a contact +  contact + contact en un temps très court.*
+Par contre, a chaque rencontre il risque d'y avoir au moins 2 bébés à chaque rencontre.
 
-A cause de cet histoire de rebond, je décide pour ce 2e tuto de simplifier mon scénario. Je reparlerai de ce problème de rebond dans un autre tuto.
+Dans le même instant de contact nous avons :
+	A rencontre B => 1 bébé
+	B rencontre A => 1 bébé
 
-Donc lorsque 2 miniSweets se rencontrent, si ils sont en pèriode de reproduction, de leur union naît un miniSweet.
+Il faut donc des miniSweets mal et femelle.
 
-La période de reproduction dure 1 instant SC. Mes miniSweets peuvent donc se reproduire tous les 100 instants.
+Chaque Sweet aura dans son état une information *sexe*.
+
+Voir le code JS dans *Swwet.js*
+
+
+## Période de reproduction 
+Donc lorsque 2 miniSweets se rencontrent, ils font un bébés. C'est cool :) Il y a pleins de bébés miniSweets qui peuplent mon écran !
+
+Maintenant, je voudrais qu'un bébé naisse uniquement pendant la periode de reproduction. 
+
+Lorsque 2 miniSweets se rencontrent, si ils sont en période de reproduction, de leur union naît un miniSweet.
+ 
+Mes miniSweets peuvent donc se reproduire tous les 3 secondes.
+
+Rappelons-nous que j'avais écrit dans *Swwet.js*:
+```javascript 
+var monde = SC.machine(30);// toutes les 30 millisecondes il y a une macro étape (ou instant)
+``` 
+
+Mes miniSweets pourront donc se reproduire tous les 100 instants SC.
 
 Pour implémenter cela, j'utilise *SC.control()*
 
@@ -68,5 +79,9 @@ SC.control(evt, prog);
 ``` 
 
 #### Que fait SC.control ?
-SC.control() c'est une instruction qui contrôle l'exécution d'un programme
+C'est une instruction qui contrôle l'exécution d'un programme
+elle fait ce qu'on appelle communément du sous échantillonnage 
+en gros elle exécute pour un instant le programme contrôlé *prog* si et seulement si l'événement de contrôle *evt* est présent.
+
+
 
