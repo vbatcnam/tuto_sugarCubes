@@ -62,11 +62,11 @@ La période de reproduction dure 1 instant SC. Mes miniSweets peuvent donc se re
 
 Pour implémenter cela, j'utilise *SC.control()*
 
-#### Que fait SC.control ?
-
 la syntaxe est : 
 ```javascript 
-SC.control();
+SC.control(evt, prog);
 ``` 
 
-Pour le savoir j'ai besoin d'entrer en contact avec JFS...
+#### Que fait SC.control ?
+SC.control() c'est une instruction qui contrôle l'exécution d'un programme
+
