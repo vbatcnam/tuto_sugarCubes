@@ -138,11 +138,9 @@ monde.addProgram(cubeSweet4);
 
 
 /** brouillon et tests 
-	Bonjour,
-	En exécutant mon programme j'ai un comportement rigolo : les cubes s'affichent de plus en plus tronqués...
-	C'est interagissant mais  n'est pas e que je voulais...
+	miniSweetR.draw(
 */
-	//miniSweetR.draw();
+
 
 
 
