@@ -111,12 +111,13 @@ Mais le pb est de savoir lequel des parents crée le bébé car sinon tu créera
 				//faire naître un sweet si c'est un sweet femelle
 				if(this.sexe == 'F'){
 					let sexe = Math.floor(Math.random()*2);
-					let position = Math.floor(Math.random()*10)
+					let position = Math.floor(Math.random()*100)
 					if(sexe == 0){sexe = 'F'}else{sexe = 'M'}
+					console.log("sexe : "+ sexe);
 					let enfant = new Sweet(idEnfant, sexe, coulEnfant, this.x+position, this.y+position);
 					var cubeEnfant = SC.cube(enfant, progSweet);
 					monde.addProgram(cubeEnfant);
-					
+					console.log("enfant : "+ enfant.id);
 					//mise à jour du nombre de miniSweets
 					nombreDeSweets +=1 ;
 				}
@@ -132,7 +133,6 @@ Mais le pb est de savoir lequel des parents crée le bébé car sinon tu créera
 			&& this.y <= autreSweet.y + autreSweet.height
 			&& this != autreSweet
 		){
-			console.log("contact !");
 			if(! this.contactAvec){
 				this.contactAvec = autreSweet;
 				return true;
@@ -163,7 +163,7 @@ var jaune = Couleur.fromRVB_255_int(255, 255, 0);
 var miniSweet1 = new Sweet("sweet1", 'F', rouge, 10, 10);
 var miniSweet2 = new Sweet("sweet2", 'F', vert, viewPort.w/3, viewPort.h/3);
 var miniSweet3 = new Sweet("sweet3", 'M', bleu, viewPort.w*0.75, viewPort.h*0.25);
-var miniSweet4 = new Sweet("sweet4", 'M', jaune, viewPort.w*0.75, viewPort.h*0.75);
+var miniSweet4 = new Sweet("sweet4", 'M', jaune, viewPort.w*0.25, viewPort.h*0.75);
 
 //Sert pour l'id des miniSweets
 var nombreDeSweets = 4;
@@ -188,6 +188,7 @@ var progSweet = SC.par(
 var cubeSweet1 = SC.cube(miniSweet1, progSweet);
 var cubeSweet2 = SC.cube(miniSweet2, progSweet);
 var cubeSweet3 = SC.cube(miniSweet3, progSweet);
+var cubeSweet4 = SC.cube(miniSweet4, progSweet);
 
 //le moteur qui exécute les programmes
 //-------------------------------------
@@ -197,6 +198,7 @@ var monde = SC.machine(30);// toutes les 30 millisecondes il y a une macro étap
 monde.addProgram(cubeSweet1);
 monde.addProgram(cubeSweet2);
 monde.addProgram(cubeSweet3);
+monde.addProgram(cubeSweet4);
 
 
 /** brouillon et tests 
