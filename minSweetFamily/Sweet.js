@@ -105,6 +105,10 @@ Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de se
 		*/
 		for(let cube of obj_all[MeVoici]){
 			if( this.verifSiNewContact(cube) ){
+				console.log("miniSweet : " + cube.id);
+				console.log("miniSweet : " + this.id);
+				//console.log("en contact avec : " + cube.contactAvec);
+				
 				//faire naître un sweet si c'est un sweet femelle
 				if(this.sexe == 'F' && cube.sexe == 'M' 
 					&& !this.contactAvec && !cube.contactAvec){
@@ -113,9 +117,14 @@ Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de se
 					this.genereNouveauSweet(cube);
 				}
 			}
+			else{
+				console.log("aucun contact")
+				this.contactAvec = null;
+			}
 		}
 	}
 
+	//verifie si en contat avec un autre que lui même
 	verifSiNewContact(autreSweet) 
 	{
 		if( this.x >= autreSweet.x
@@ -136,14 +145,14 @@ Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de se
 		let idEnfant = nombreDeSweets + 1 //pour aller le chercher dans le dom
 		let sexeEnfant = Math.floor(Math.random()*2);
 		if(sexeEnfant == 0){sexeEnfant = 'F'}else{sexeEnfant = 'M'}
-		console.log("sexe du bébé : "+ sexeEnfant);
+		//console.log("sexe du bébé : "+ sexeEnfant);
 		let position = Math.floor(Math.random()*100);
 		
 		//Création du nouveau miniSweet
 		let enfant = new Sweet(idEnfant, sexeEnfant, coulEnfant, this.x+position, this.y+position);
 		var cubeEnfant = SC.cube(enfant, progSweet);
 		monde.addProgram(cubeEnfant);
-		console.log("enfant : "+ enfant.id);
+		//console.log("enfant : "+ enfant.id);
 		
 		//renseignement des parents du bébé
 		enfant.mamanSweet = this; // pour la reproduction
@@ -203,7 +212,7 @@ var cubeSweet4 = SC.cube(miniSweet4, progSweet);
 
 //le moteur qui exécute les programmes
 //-------------------------------------
-var monde = SC.machine(30);// toutes les 30 millisecondes il y a une macro étape (ou instant)
+var monde = SC.machine(100);// toutes les 30 millisecondes il y a une macro étape (ou instant)
 
 //On ajoute le programme du cube à la machine
 monde.addProgram(cubeSweet1);
