@@ -12,6 +12,7 @@ class Sweet{
 		this.height = 100;
 		this.sexe = ps_sexe; // pour la reproduction
 		this.contactAvec = null; // pour la reproduction
+		this.listeContacts = []; // pour la reproduction
 		this.me = this // sert pour SugarCubes
 	}
 	
@@ -92,7 +93,7 @@ class Sweet{
 	
 /** Reproduction => Second test :
 	Quand un contact est détecté, on vérifie que contactAvec est vide.
-	si contact est non vide on ignore (on pourrait rafiner en verifiant avec qui on contact mais bon ...)
+	si contact est non vide on ignore (on pourrait raffiner en vérifiant avec qui on contact mais bon ...)
 	si c'est vide on positionne une identification du cube avec qui on entre en contact dans «contact avec»...
 quand plus de contact avec ce cube ... on crée le bébé
 Mais le pb est de savoir lequel des parents crée le bébé car sinon tu créeras au moins 2 bébés
@@ -105,21 +106,42 @@ Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de se
 		*/
 		for(let cube of obj_all[MeVoici]){
 			if( this.verifSiNewContact(cube) ){
-				console.log("miniSweet : " + cube.id);
-				console.log("miniSweet : " + this.id);
+				console.log("miniSweet N° " + this.id + " est en contact avec miniSweet N° " + cube.id);
 				//console.log("en contact avec : " + cube.contactAvec);
 				
 				//faire naître un sweet si c'est un sweet femelle
-				if(this.sexe == 'F' && cube.sexe == 'M' 
-					&& !this.contactAvec && !cube.contactAvec){
-					this.contactAvec = cube;
-					cube.contactAvec = this;
-					this.genereNouveauSweet(cube);
+				// if(this.sexe == 'F' && cube.sexe == 'M' 
+					// && !this.contactAvec && !cube.contactAvec){
+					// this.contactAvec = cube;
+					// cube.contactAvec = this;
+					// this.genereNouveauSweet(cube);
+				// }
+				if(this.sexe == 'F' && cube.sexe == 'M'
+					|| cube.sexe == 'F' && this.sexe == 'M'){
+					console.log("Couple formé")
+					//parcourir la liste de ses contacts
+					for(let sweet of this.listeContacts){
+						//si le cube est dans la liste des contacts
+						if(sweet.id == cube.id){
+							return;
+						}
+					}
+					this.listeContacts.push(cube);
+					cube.listeContacts.push(this);
+					if(this.sexe == 'F')
+						this.genereNouveauSweet(cube);
+					else
+						cube.genereNouveauSweet(this);
 				}
 			}
-			else{
-				console.log("aucun contact")
-				this.contactAvec = null;
+			else{//il n'y a pas ou plus contact
+				//parcourir la liste de ses contacts
+				for(let sweet of this.listeContacts){
+					if(sweet.id == cube.id){
+						this.listeContacts.splice(this.listeContacts.indexOf(cube),1);
+						cube.listeContacts.splice(cube.listeContacts.indexOf(this),1);
+					}
+				}
 			}
 		}
 	}
@@ -157,10 +179,11 @@ Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de se
 		//renseignement des parents du bébé
 		enfant.mamanSweet = this; // pour la reproduction
 		enfant.papaSweet = cubePapa; // pour la reproduction
-		console.log('maman : '+ enfant.mamanSweet.id);
-		console.log('papa : '+ enfant.papaSweet.id);
+		console.log('miniSweet N° '+ enfant.id + ' est né.');
+		console.log('Sa maman est miniSweet N° '+ enfant.mamanSweet.id + ' et son papa est miniSweet N° '+ enfant.papaSweet.id);
 		//mise à jour du nombre de miniSweets
 		nombreDeSweets +=1;
+		console.log('Nous avons maintenant ' + nombreDeSweets + ' miniSweets.');
 	}
 }
 
