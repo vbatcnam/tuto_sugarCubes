@@ -12,7 +12,6 @@ class Sweet{
 		this.height = 100;
 		this.sexe = ps_sexe; // pour la reproduction
 		this.contactAvec = null; // pour la reproduction
-		this.listeContacts = []; // pour la reproduction
 		this.me = this // sert pour SugarCubes
 	}
 	
@@ -59,47 +58,6 @@ class Sweet{
 		return Couleur.getMoyenne(couleurSweet1, couleurSweet2)
 	}
 
-/** Reproduction => premier test :
-	Cette fonction ne marche pas avec SC !
-		car SC fonctionne en étapes et entre 2 étapes la rencontre peut avoir lieu. Du coup, SC ne l'a pas vu.
-
-	verifSiTouched(autreSweet)
-	{
-		//cas 1 : contact par les angles
-		if(
-			(this.x == autreSweet.x + autreSweet.width
-				|| this.x + this.width == autreSweet.x)
-			&& (this.y == autreSweet.y + autreSweet.height
-				|| this.y + this.height == autreSweet.y)
-			&& this != autreSweet
-		){
-			console.log("Contact par les angles ! ");
-		}
-		
-		//cas 2 : contact par le coté gauche
-		if(this.x == autreSweet.x + autreSweet.width
-			&& ( 
-				(autreSweet.y >= this.y && autreSweet.y <= this.y + this.height)
-				||(autreSweet.y + autreSweet.height <= this.y + this.height
-					&& autreSweet.y + autreSweet.height >= this.y)
-			)
-			&& this != autreSweet
-
-		){
-			console.log("Contact par le coté gauche ! ");
-		}
-	}
-*/
-	
-/** Reproduction => Second test :
-	Quand un contact est détecté, on vérifie que contactAvec est vide.
-	si contact est non vide on ignore (on pourrait raffiner en vérifiant avec qui on contact mais bon ...)
-	si c'est vide on positionne une identification du cube avec qui on entre en contact dans «contact avec»...
-quand plus de contact avec ce cube ... on crée le bébé
-Mais le pb est de savoir lequel des parents crée le bébé car sinon tu créeras au moins 2 bébés
-
-Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de ses parents ou un de ses enfants. On pourrait faire une généalogie.
-	*/
 	gereRencontre(obj_all){
 		/** 
 			obj_all[MeVoici] contient 3 cubes
@@ -107,32 +65,20 @@ Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de se
 		for(let cube of obj_all[MeVoici]){
 			if( this.verifSiNewContact(cube) ){
 				console.log("miniSweet N° " + this.id + " est en contact avec miniSweet N° " + cube.id);
-				//console.log("en contact avec : " + cube.contactAvec);
-				
-				//faire naître un sweet si c'est un sweet femelle
-				// if(this.sexe == 'F' && cube.sexe == 'M' 
-					// && !this.contactAvec && !cube.contactAvec){
-					// this.contactAvec = cube;
-					// cube.contactAvec = this;
-					// this.genereNouveauSweet(cube);
-				// }
-				if(this.sexe == 'F' && cube.sexe == 'M'
-					|| cube.sexe == 'F' && this.sexe == 'M'){
-					console.log("Couple formé")
-					//parcourir la liste de ses contacts
-					for(let sweet of this.listeContacts){
-						//si le cube est dans la liste des contacts
-						if(sweet.id == cube.id){
-							return;
-						}
+				console.log("Couple formé")
+				//parcourir la liste de ses contacts
+				for(let sweet of this.listeContacts){
+					//si le cube est dans la liste des contacts
+					if(sweet.id == cube.id){
+						return;
 					}
-					this.listeContacts.push(cube);
-					cube.listeContacts.push(this);
-					if(this.sexe == 'F')
-						this.genereNouveauSweet(cube);
-					else
-						cube.genereNouveauSweet(this);
 				}
+				this.listeContacts.push(cube);
+				cube.listeContacts.push(this);
+				if(this.sexe == 'F')
+					this.genereNouveauSweet(cube);
+				else
+					cube.genereNouveauSweet(this);
 			}
 			else{//il n'y a pas ou plus contact
 				//parcourir la liste de ses contacts
@@ -198,23 +144,18 @@ svg.setAttribute('width', viewPort.w);
 svg.setAttribute('height', viewPort.h);
 
 //les miniSweets originels.
-var rouge = Couleur.fromRVB_255_int(255, 0, 0);
+
 var vert = Couleur.fromRVB_255_int(0, 255, 0);
 var bleu = Couleur.fromRVB_255_int(0, 0, 255);
-var jaune = Couleur.fromRVB_255_int(255, 255, 0);
 
-var miniSweet1 = new Sweet(1, 'F', rouge, 20, 10);
 var miniSweet2 = new Sweet(2, 'F', vert, viewPort.w/3, viewPort.h/3);
 var miniSweet3 = new Sweet(3, 'M', bleu, viewPort.w*0.75, viewPort.h*0.25);
-var miniSweet4 = new Sweet(4, 'M', jaune, viewPort.w*0.25, viewPort.h*0.75);
 
 //Sert pour l'id des miniSweets
 var nombreDeSweets = 4;
 
 /** Utilisation de SugarCubes */
 /** ========================= */
-
-/** Dans sugarCubes, les cubes ont des événements : Ce sont des messages qu'ils envoient aux autres cubes. */
 
 //L'événement du cube à créer en tout premier 
 var MeVoici = SC.evt("Me voici");
@@ -228,26 +169,18 @@ var progSweet = SC.par(
 );
 
 //Création des cubes SC
-var cubeSweet1 = SC.cube(miniSweet1, progSweet);
 var cubeSweet2 = SC.cube(miniSweet2, progSweet);
 var cubeSweet3 = SC.cube(miniSweet3, progSweet);
-var cubeSweet4 = SC.cube(miniSweet4, progSweet);
+
 
 //le moteur qui exécute les programmes
 //-------------------------------------
 var monde = SC.machine(100);// toutes les 30 millisecondes il y a une macro étape (ou instant)
 
 //On ajoute le programme du cube à la machine
-monde.addProgram(cubeSweet1);
 monde.addProgram(cubeSweet2);
 monde.addProgram(cubeSweet3);
-monde.addProgram(cubeSweet4);
 
-
-/** brouillon et tests 
-	
-	miniSweetR.draw();
-*/
 
 
 
