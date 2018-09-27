@@ -111,6 +111,7 @@ Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de se
 					&& !this.contactAvec && !cube.contactAvec){
 					this.contactAvec = cube;
 					cube.contactAvec = this;
+					console.log("miniSweet N° " + this.id + " (" + this.sexe + ") est en contact avec miniSweet N° " + cube.id + "(" + cube.sexe + ")" );
 					if(this.sexe == 'F')
 						this.genereNouveauSweet(cube);
 					else
