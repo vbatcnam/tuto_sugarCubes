@@ -106,16 +106,20 @@ Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de se
 		for(let cube of obj_all[MeVoici]){
 			if( this.verifSiNewContact(cube) ){
 				//faire naître un sweet si c'est un sweet femelle
-				if(this.sexe == 'F' && cube.sexe == 'M' 
+				if( (this.sexe == 'F' && cube.sexe == 'M' 
+					|| cube.sexe == 'F' && this.sexe == 'M')
 					&& !this.contactAvec && !cube.contactAvec){
 					this.contactAvec = cube;
 					cube.contactAvec = this;
-					this.genereNouveauSweet(cube);
+					if(this.sexe == 'F')
+						this.genereNouveauSweet(cube);
+					else
+						cube.genereNouveauSweet(this);
 				}
 			}
 		}
 	}
-
+	
 	verifSiNewContact(autreSweet) 
 	{
 		if( this.x >= autreSweet.x
