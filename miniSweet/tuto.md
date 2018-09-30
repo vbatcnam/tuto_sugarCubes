@@ -6,17 +6,17 @@ Lorsque deux miniSweets se rencontrent, ils changent de couleur.
 Par exemple : si un miniSweet bleu rencontre un miniSweet rouge, ils deviennent violet.
 
 Mais tout d'abord c'est quoi SugarCubes (SC pour simplifier)?
-Je vous conseil fortement de lire le  README.md  sur https://github.com/LordManta/SugarCubesJS
+Je vous conseille fortement de lire le  README.md  sur https://github.com/LordManta/SugarCubesJS
 
 ## SugarCubes kesako ?
 Voir http://jeanferdysusini.free.fr/index.php?action=SCJS
 
 En résumé, SugarCubes est une bibliothèque qui permet de gérer des événements en parallèle dans son programme. 
 Par exemple, dans un jeu de simulation, il y a plusieurs événements qui se passent en même temps.
-SC permet d’exécuter plus facilement du code (içi javascript) en parallèle.
+SC permet d’exécuter plus facilement du code (ici javascript) en parallèle.
 
-La méthode d’exécution de SC c'est de rythmer l’exécution par une série d'instants : 
-A chaque instant SC exécute un petit bout de code parallèle.
+La méthode d’exécution de SC, c'est de rythmer l’exécution par une série d'instants : 
+A chaque instant, SC exécute un petit bout de code parallèle.
 Par exemple pour les sweets, je veux qu'ils avancent tout en signalant leur position aux autres sweets. 
  
 	prog1 => Avance
@@ -49,7 +49,7 @@ Je n'oublie surtout pas d'écrire
 ```
 sinon ça ne marche pas !
 
-Ensuite je crée un fichier Sweets.js dans le quel je crée la classe Sweet, des objets issus de cette classe. CF Sweets.js
+Ensuite je crée un fichier Sweets.js dans le quel je crée la classe Sweet, des objets issus de cette classe. Cf Sweets.js
 
 Attention ! 
 Il faut rajouter une propriété this.me = this qui va servir pour SugarCubes.
@@ -65,7 +65,7 @@ var monCube = SC.cube( objet, progDeObjet);
 *objet* on sait le renseigner mais *progDeObjet* ...
 
 ## progDeObjet CKOI ?
-progDeObjet c'est un programme qui se lance tout seul sans qu'on aie besoin de l'appeler. C'est ce qu'on appelle le comportement du cube.
+progDeObjet c'est un programme qui se lance tout seul sans qu'on ait besoin de l'appeler. C'est ce qu'on appelle le comportement du cube.
 Ici, les minSweets se déplacent aléatoirement sur la surface du viewport tout en indiquant aux autres sweets leur position. 
 
 La syntaxe est : 
@@ -123,7 +123,7 @@ Les instructions ci-dessus servaient à faire des actions : C'est-à-dire à lan
 En revanche,l'instruction *JeMeSignale* ne lance pas de fonction mais génère un événement.
 
 #### Pourquoi ne fait-on pas une fonctionJS "signaleToi" ?
-Parce qu'on veut que cet événement soit entendu par tous les autres cubes. C'est en quelque sorte du broadcaste ;) enfin je crois... (voir JFS pour plus d'infos)
+Parce qu'on veut que cet événement soit entendu par tous les autres cubes. C'est en quelque sorte du broadcast ;) enfin je crois... (voir JFS pour plus d'infos)
 
 Il faut générer donc l’événement avec SC.generate() : je vais utiliser la syntaxe 
 ```javascript 
@@ -166,7 +166,7 @@ il me manque le paramètre *valeurAssocieAEvt*
 
 
 ### valeurAssocieAEvt CKOI ?
-Tous mes miniSweets vont envoyer le signal à tout les autres miniSweets
+Tous mes miniSweets vont envoyer le signal à tous les autres miniSweets
 "MeVoici"
 C'est beau... mais qui me parle ? 
 Que me veut-on ?
@@ -175,7 +175,7 @@ Chaque miniSweet doit envoyer aux autres le signal + une info qu'il va prendre d
 Pour cela, j'utilise utilise SC.my().
 Par facilité (voir JFS pour plus d'infos) j'utilise le fameux this.me qui contient tout l'objet (this.me=this)
 
-Ce *SC.my('me')* je le met comme à la place de *valeurAssocieAEvt*  
+Ce *SC.my('me')* je le mets à la place de *valeurAssocieAEvt*  
 ```javascript 
 SC.generate(MeVoici, SC.my('me'), SC.forever)
 ```
@@ -221,18 +221,18 @@ En fait elle se lance automatiquement dès qu'on lui ajoute un cube.
 
 Et maintenant je teste mon programme :)
 Mes sweets se déplacent et rebondissent sur les bordures du viewPort.
-Pour l'instant il n'interagissent pas entre eux.
-Or je vousdrais que mes sweets changent de couleur lorsqu'ils rencontrent un autre sweet.
+Pour l'instant ils n'interagissent pas entre eux.
+Or je voudrais que mes sweets changent de couleur lorsqu'ils rencontrent un autre sweet.
 
 Mais comment un sweet peut savoir qu'il en rencontre un autre ?
-Rappelons nous de la condition plus haut dans le chapitre sur les évenements : 
+Rappelons-nous de la condition plus haut dans le chapitre sur les évenements : 
 
-Si l'evt est là 
+Si l'événement est là 
 		alors faire cela
 
 Et bien c'est le moment de le faire :)
 
-si l'evt est là et que celui qui l’émet est en contacte avec toi 
+si l'événement est là et que celui qui l’émet est en contact avec toi 
 	alors change de couleur
 
 Pour cela, je vais utiliser *actionOn()*. La syntaxe est :
@@ -245,11 +245,11 @@ Lorsque l'on utilise *actionOn* SugarCube appelle la fonction *actionDeclancheSi
 Nommons le paramètre de la fonction JS *actionDeclancheSiEvtPresent* *obj_all*
 
 #### Et c'est quoi ce paramètre ?
-C'est un objet avec autant de clé qu'il y d’événements.
+C'est un objet avec autant de clés qu'il y a d’événements.
  
 Ici dans mon jeu il n'y a qu'un événement que tous mes sweets émettent c'est *MeVoici*
 
-Donc dans ma fonction de l'objet js je met donc un paramètre (que je décide de nommer *obj_all* 
+Donc dans ma fonction de l'objet js, je mets donc un paramètre (que je décide de nommer *obj_all* )
 
 #### Quelles sont les infos qui ont été émises avec l’événement *MeVoici* ?
 
