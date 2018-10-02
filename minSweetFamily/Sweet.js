@@ -12,6 +12,7 @@ class Sweet{
 		this.height = 100;
 		this.sexe = ps_sexe; // pour la reproduction
 		this.contactAvec = null; // pour la reproduction
+		this.listeContacts = []; // pour la reproduction
 		this.me = this // sert pour SugarCubes
 	}
 	
