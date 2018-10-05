@@ -14,7 +14,7 @@
    viewBox="0 0 1000 600.00237"
    id="svg2"
    version="1.1"
-   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="sweet.svg"
    enable-background="new">
   <defs
@@ -27,8 +27,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.904"
-     inkscape:cx="132.79238"
-     inkscape:cy="259.01343"
+     inkscape:cx="67.193206"
+     inkscape:cy="479.3991"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -199,5 +199,16 @@
        width="45.000179"
        id="rect852"
        style="opacity:1;fill:#800000;fill-opacity:1;stroke:none;stroke-width:2.00000811;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.51419175;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.66674042px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.00000405"
+       x="-992.03882"
+       y="-117.59116"
+       id="text4538"><tspan
+         sodipodi:role="line"
+         id="tspan4536"
+         x="-992.03882"
+         y="-117.59116"
+         style="stroke-width:1.00000405">Collisions</tspan></text>
   </g>
 </svg>
