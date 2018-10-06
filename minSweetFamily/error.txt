@@ -1,0 +1,12 @@
+miniSweet N° 142 est en contact avec miniSweet N° 673 
+Couple formé, un bébé va naître. 
+miniSweet N° 33985 est né. 
+Sa maman est miniSweet N° 142 et son papa est miniSweet N° 673 
+
+Error: Script terminated by timeout at:
+gereRencontre@file:///E:/formation/sugarCube/tuto_sugarCubes/minSweetFamily/Sweet.js:77:22
+react@http://jeanferdysusini.free.fr/SugarCubes.js:4470:11
+SC_Machine/this.timer</<@http://jeanferdysusini.free.fr/SugarCubes.js:4212:41
+Sweet.js:77:22
+Nous avons maintenant 33985 miniSweets. 
+miniSweet N° 142 est en contact avec miniSweet N° 676 

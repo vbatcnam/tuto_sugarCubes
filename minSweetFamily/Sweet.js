@@ -1,5 +1,11 @@
-/** je crée la classe*/
+/** 
+	Dans cette branche, il y a une flopée de miniSweets qui naissent.
+	Je ne comprend pas pourquoi... 
 
+*/
+
+/** je crée la classe*/
+/** ========================= */
 class Sweet{
 	constructor(ps_id, ps_sexe, pCouleur, pn_x, pn_y){
 		this.id = ps_id;
@@ -11,7 +17,6 @@ class Sweet{
 		this.width = 100;
 		this.height = 100;
 		this.sexe = ps_sexe; // pour la reproduction
-		this.contactAvec = null; // pour la reproduction
 		this.listeContacts = []; // pour la reproduction
 		this.me = this // sert pour SugarCubes
 	}
@@ -59,48 +64,66 @@ class Sweet{
 		return Couleur.getMoyenne(couleurSweet1, couleurSweet2)
 	}
 
+/** 
+	Cette fonction génère une flopée de cubes car dès qu'un cube est crée, comme il n'est pas dans la liste des contacts de ses parents, il génère 2 cubes (1 avec chaque Parent avec les quels il est toujours en contact et ainsi de suite...)
+	La solution : Utiliser addContact(cube) dans la génération des cubes
+		Cela ne marche toujours pas !!!
+*/
 	gereRencontre(obj_all){
 		/** 
 			obj_all[MeVoici] contient 3 cubes
 		*/
 		for(let cube of obj_all[MeVoici]){
+			if(this.id == cube.id)
+			{
+				//console.log("C'est moi " + this.id + " et " + cube.id);
+				return; // pas la peine de traiter avec lui même
+			}
 			if( this.verifSiNewContact(cube) ){
 				console.log("miniSweet N° " + this.id + " est en contact avec miniSweet N° " + cube.id);
-				console.log("Couple formé")
+				
 				//parcourir la liste de ses contacts
 				for(let sweet of this.listeContacts){
 					//si le cube est dans la liste des contacts
 					if(sweet.id == cube.id){
+						console.log("Déjà en couple, il n'y aura pas de bébé")
 						return;
 					}
 				}
-				this.listeContacts.push(cube);
-				cube.listeContacts.push(this);
+				this.addContact(cube);
+				cube.addContact(this);
+				console.log("Couple formé, un bébé va naître.")
 				if(this.sexe == 'F')
 					this.genereNouveauSweet(cube);
 				else
 					cube.genereNouveauSweet(this);
 			}
-			else{//il n'y a pas ou plus contact
+			else{/**il n'y a pas ou plus contact*/
 				//parcourir la liste de ses contacts
 				for(let sweet of this.listeContacts){
 					if(sweet.id == cube.id){
 						this.listeContacts.splice(this.listeContacts.indexOf(cube),1);
 						cube.listeContacts.splice(cube.listeContacts.indexOf(this),1);
+						console.log("fin de contact entre " + this.id + " et " + cube.id);
+						return;
 					}
 				}
 			}
 		}
 	}
 
-	//verifie si en contat avec un autre que lui même
+	addContact(cube){
+		this.listeContacts.push(cube);
+		cube.listeContacts.push(this);
+	}
+
+	//verifie si en contact avec un autre que lui même
 	verifSiNewContact(autreSweet) 
 	{
 		if( this.x >= autreSweet.x
 			&& this.x <= autreSweet.x + autreSweet.width 
 			&& this.y >= autreSweet.y 
 			&& this.y <= autreSweet.y + autreSweet.height
-			&& this != autreSweet
 		){
 			return true; 
 		}
@@ -126,6 +149,14 @@ class Sweet{
 		//renseignement des parents du bébé
 		enfant.mamanSweet = this; // pour la reproduction
 		enfant.papaSweet = cubePapa; // pour la reproduction
+		
+		/** Cela ne permet pas de réparer le bug des génération infinies*/
+		//Remplissage de la liste de contact des parents avec leur enfant
+		this.addContact(enfant);// this c'est la mère
+		cubePapa.addContact(enfant);
+		enfant.addContact(this);
+		enfant.addContact(cubePapa);
+
 		console.log('miniSweet N° '+ enfant.id + ' est né.');
 		console.log('Sa maman est miniSweet N° '+ enfant.mamanSweet.id + ' et son papa est miniSweet N° '+ enfant.papaSweet.id);
 		//mise à jour du nombre de miniSweets
@@ -135,7 +166,7 @@ class Sweet{
 }
 
 /** je crée mes objets*/
-
+/** ========================= */
 //le viewPort
 var viewPort = {'w':innerWidth, 'h':innerHeight};
 
@@ -145,7 +176,6 @@ svg.setAttribute('width', viewPort.w);
 svg.setAttribute('height', viewPort.h);
 
 //les miniSweets originels.
-
 var vert = Couleur.fromRVB_255_int(0, 255, 0);
 var bleu = Couleur.fromRVB_255_int(0, 0, 255);
 
@@ -176,7 +206,7 @@ var cubeSweet3 = SC.cube(miniSweet3, progSweet);
 
 //le moteur qui exécute les programmes
 //-------------------------------------
-var monde = SC.machine(100);// toutes les 30 millisecondes il y a une macro étape (ou instant)
+var monde = SC.machine(30);// toutes les 30 millisecondes il y a une macro étape (ou instant)
 
 //On ajoute le programme du cube à la machine
 monde.addProgram(cubeSweet2);
