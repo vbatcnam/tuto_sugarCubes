@@ -80,19 +80,19 @@ class Sweet{
 				return; // pas la peine de traiter avec lui même
 			}
 			if( this.verifSiNewContact(cube) ){
-				console.log("miniSweet N° " + this.id + " est en contact avec miniSweet N° " + cube.id);
+				// console.log("miniSweet N° " + this.id + " est en contact avec miniSweet N° " + cube.id);
 				
 				//parcourir la liste de ses contacts
 				for(let sweet of this.listeContacts){
 					//si le cube est dans la liste des contacts
 					if(sweet.id == cube.id){
-						console.log("Déjà en couple, il n'y aura pas de bébé")
+						// console.log("Déjà en couple, il n'y aura pas de bébé")
 						return;
 					}
 				}
 				this.addContact(cube);
 				cube.addContact(this);
-				console.log("Couple formé, un bébé va naître.")
+				// console.log("Couple formé, un bébé va naître.")
 				if(this.sexe == 'F')
 					this.genereNouveauSweet(cube);
 				else
@@ -104,7 +104,7 @@ class Sweet{
 					if(sweet.id == cube.id){
 						this.listeContacts.splice(this.listeContacts.indexOf(cube),1);
 						cube.listeContacts.splice(cube.listeContacts.indexOf(this),1);
-						console.log("fin de contact entre " + this.id + " et " + cube.id);
+						// console.log("fin de contact entre " + this.id + " et " + cube.id);
 						return;
 					}
 				}
@@ -157,11 +157,11 @@ class Sweet{
 		enfant.addContact(this);
 		enfant.addContact(cubePapa);
 
-		console.log('miniSweet N° '+ enfant.id + ' est né.');
-		console.log('Sa maman est miniSweet N° '+ enfant.mamanSweet.id + ' et son papa est miniSweet N° '+ enfant.papaSweet.id);
+		// console.log('miniSweet N° '+ enfant.id + ' est né.');
+		// console.log('Sa maman est miniSweet N° '+ enfant.mamanSweet.id + ' et son papa est miniSweet N° '+ enfant.papaSweet.id);
 		//mise à jour du nombre de miniSweets
 		nombreDeSweets +=1;
-		console.log('Nous avons maintenant ' + nombreDeSweets + ' miniSweets.');
+		// console.log('Nous avons maintenant ' + nombreDeSweets + ' miniSweets.');
 	}
 }
 
