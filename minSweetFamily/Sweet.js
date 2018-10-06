@@ -17,7 +17,9 @@ class Sweet{
 		this.width = 100;
 		this.height = 100;
 		this.sexe = ps_sexe; // pour la reproduction
-		this.listeContacts = []; // pour la reproduction
+		this.partenaire = ""; // pour la reproduction
+		this.listeEnfants = []; // pour la reproduction
+		this.listeParents = []; // pour la reproduction
 		this.me = this // sert pour SugarCubes
 	}
 	
@@ -74,52 +76,58 @@ class Sweet{
 			obj_all[MeVoici] contient 3 cubes
 		*/
 		for(let cube of obj_all[MeVoici]){
-			if(this.id == cube.id)
-			{
+			if(this.id == cube.id){
 				//console.log("C'est moi " + this.id + " et " + cube.id);
 				return; // pas la peine de traiter avec lui même
 			}
+			
+			//C'est un autre cube que lui même
 			if( this.verifSiNewContact(cube) ){
 				// console.log("miniSweet N° " + this.id + " est en contact avec miniSweet N° " + cube.id);
 				
-				//parcourir la liste de ses contacts
-				for(let sweet of this.listeContacts){
-					//si le cube est dans la liste des contacts
-					if(sweet.id == cube.id){
-						// console.log("Déjà en couple, il n'y aura pas de bébé")
-						return;
-					}
+				//Est-il dans la liste de ses parents ?
+				if(this.verifIsInListe(cube, this.listeParents)){
+					// console.log("C'est mon parent, il n'y aura pas de bébé")
+					return;
 				}
-				this.addContact(cube);
-				cube.addContact(this);
-				// console.log("Couple formé, un bébé va naître.")
+				
+				//Est-il dans la liste de ses enfants ?
+				if(this.verifIsInListe(cube, this.listeEnfants)){
+					//console.log("c'est mon enfant, il n'y aura pas de bébé")
+					return;
+				}
+
+				//on met le cube comme partenaire 
+				this.partenaire = cube;
+				//console.log("Couple formé, un bébé va naître.")
 				if(this.sexe == 'F')
 					this.genereNouveauSweet(cube);
 				else
 					cube.genereNouveauSweet(this);
-			}
-			else{/**il n'y a pas ou plus contact*/
-				//parcourir la liste de ses contacts
-				for(let sweet of this.listeContacts){
-					if(sweet.id == cube.id){
-						this.listeContacts.splice(this.listeContacts.indexOf(cube),1);
-						cube.listeContacts.splice(cube.listeContacts.indexOf(this),1);
-						// console.log("fin de contact entre " + this.id + " et " + cube.id);
-						return;
-					}
-				}
+			}else{/**il n'y a pas ou plus contact*/
+					this.partenaire = "";
+					return;
 			}
 		}
 	}
 
-	addContact(cube){
-		this.listeContacts.push(cube);
-		cube.listeContacts.push(this);
+	addCubeInListe(cube, liste){
+		liste.push(cube);
 	}
 
+	verifIsInListe (cube, liste){
+		for(let sweet of liste){
+			//si le cube est dans la liste
+			if(sweet.id == cube.id){
+				// console.log("c'est mon enfant, il n'y aura pas de bébé")
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	//verifie si en contact avec un autre que lui même
-	verifSiNewContact(autreSweet) 
-	{
+	verifSiNewContact(autreSweet) {
 		if( this.x >= autreSweet.x
 			&& this.x <= autreSweet.x + autreSweet.width 
 			&& this.y >= autreSweet.y 
@@ -129,8 +137,7 @@ class Sweet{
 		}
 	}
 	
-	genereNouveauSweet(cubePapa)
-	{
+	genereNouveauSweet(cubePapa){
 		//on mélange les couleurs des parents
 		let coulEnfant = this.melangeCouleurs(cubePapa);
 		//Création des paramètres du nouveau miniSweet
@@ -150,12 +157,13 @@ class Sweet{
 		enfant.mamanSweet = this; // pour la reproduction
 		enfant.papaSweet = cubePapa; // pour la reproduction
 		
-		/** Cela ne permet pas de réparer le bug des génération infinies*/
-		//Remplissage de la liste de contact des parents avec leur enfant
-		this.addContact(enfant);// this c'est la mère
-		cubePapa.addContact(enfant);
-		enfant.addContact(this);
-		enfant.addContact(cubePapa);
+		//ajout de l'enfant à la liste des enfants des cubes parents
+		this.addCubeInListe(enfant, this.listeEnfants);// this c'est la mère
+		cubePapa.addCubeInListe(enfant, cubePapa.listeEnfants);
+		
+		//Remplissage de la liste des parents du bébé
+		enfant.addCubeInListe(this, enfant.listeParents);
+		enfant.addCubeInListe(cubePapa, enfant.listeParents);
 
 		// console.log('miniSweet N° '+ enfant.id + ' est né.');
 		// console.log('Sa maman est miniSweet N° '+ enfant.mamanSweet.id + ' et son papa est miniSweet N° '+ enfant.papaSweet.id);
