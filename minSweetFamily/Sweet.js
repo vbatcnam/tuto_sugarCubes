@@ -91,6 +91,8 @@ class Sweet{
 /**
 	Ajouter un booléen : Il faut ajouter une propriété enContact = false;
 	crée une infinité de cubes...
+	Il va falloir décider quel cube crée le miniSweet. Sexer les sweets
+	cf Branche master
 */
 	gereRencontre(obj_all){
 		for(let cube of obj_all[MeVoici]){
