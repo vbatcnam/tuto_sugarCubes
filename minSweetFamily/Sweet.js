@@ -109,10 +109,10 @@ class Sweet{
 	
 	verifSiTouched(autreSweet)
 	{
-		if( this.x >= cube.x
-				&& this.x <= cube.x + cube.width 
-				&& this.y >= cube.y 
-				&& this.y <= cube.y + cube.height
+		if( this.x >= autreSweet.x
+				&& this.x <= autreSweet.x + autreSweet.width 
+				&& this.y >= autreSweet.y 
+				&& this.y <= autreSweet.y + autreSweet.height
 			){
 				
 				console.log("coucou");
