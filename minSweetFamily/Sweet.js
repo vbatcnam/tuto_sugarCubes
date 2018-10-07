@@ -40,28 +40,6 @@ class Sweet{
 		this.x += this.dx;
 		this.y += this.dy;
 	}
-	
-	gereRencontre(obj_all){
-		/** 
-			obj_all[MeVoici] contient 3 cubes
-		*/
-		for(let cube of obj_all[MeVoici]){
-			if( this.verifSiTouched(cube) ){
-				
-				//on mélange les couleurs des parents
-				let coulEnfant = this.melangeCouleurs(cube);
-				let idEnfant = nombreDeSweets + 1 //pour aller le chercher dans le dom
-				
-				//faire naître un sweet
-				let enfant = new Sweet(idEnfant, coulEnfant, this.x, this.y);
-				var cubeEnfant = SC.cube(enfant, progSweet);
-				monde.addProgram(cubeEnfant);
-				
-				//mise à jour du nombre de miniSweets
-				nombreDeSweets +=1 ;
-			}
-		}
-	}
 
 	gereBordureViewPort(){
 		if(this.x + this.width >= viewPort.w || this.x <= 0){
@@ -82,7 +60,6 @@ class Sweet{
 	/** Au  premier test :
 	Cette fonction ne marche pas avec SC !
 		car SC fonctionne en étapes et entre 2 étapes la rencontre peut avoir lieu. Du coup, SC ne l'a pas vu.
-	*/
 	verifSiTouched(autreSweet)
 	{
 		//cas 1 : contact par les angles
@@ -91,7 +68,6 @@ class Sweet{
 				|| this.x + this.width == autreSweet.x)
 			&& (this.y == autreSweet.y + autreSweet.height
 				|| this.y + this.height == autreSweet.y)
-			&& this != autreSweet
 		){
 			console.log("Contact par les angles ! ");
 		}
@@ -110,13 +86,19 @@ class Sweet{
 		}
 	}
 
-	
+	*/
+
 /**
 	Ajouter un booléen : Il faut ajouter une propriété enContact = false;
-	crée le même problème...
-
+	crée une infinité de cubes...
+*/
 	gereRencontre(obj_all){
 		for(let cube of obj_all[MeVoici]){
+			//test si cube dans obj_all est this
+			if(cube.id == this.id)
+				return;
+
+			//test si cube est en contact avec this
 			this.enContactAvecAutreSweet = this.verifSiTouched(cube);
 			if( this.enContactAvecAutreSweet ){
 				//on mélange les couleurs des parents
@@ -130,10 +112,10 @@ class Sweet{
 				
 				//mise à jour du nombre de miniSweets
 				nombreDeSweets +=1 ;
-			}
-			//mise à jour de enContactAvecAutreSweet;
-			this.enContactAvecAutreSweet = false;
+			}else
+				this.enContactAvecAutreSweet = false;
 		}
+		
 	}
 
 	verifSiTouched(autreSweet) 
@@ -142,14 +124,11 @@ class Sweet{
 				&& this.x <= autreSweet.x + autreSweet.width 
 				&& this.y >= autreSweet.y 
 				&& this.y <= autreSweet.y + autreSweet.height
-				&& this != autreSweet
 			){
-				console.log("contact !");
 				return true;
-			}
-			
+		}else
+			return false;
 	}
-*/
 }
 
 
@@ -205,6 +184,8 @@ var nombreDeSweets = 4;
 
 //L'événement du cube à créer en tout premier 
 var MeVoici = SC.evt("Me voici");
+//var contact = SC.evt("contact");
+//var finContact = SC.evt("Fin de contact");
 
 //le comportement du cube
 var progSweet = SC.par(
