@@ -101,21 +101,10 @@ class Sweet{
 			//test si cube est en contact avec this
 			this.enContactAvecAutreSweet = this.verifSiTouched(cube);
 			if( this.enContactAvecAutreSweet ){
-				//on mélange les couleurs des parents
-				let coulEnfant = this.melangeCouleurs(cube);
-				let idEnfant = nombreDeSweets + 1 //pour aller le chercher dans le dom
-				
-				//faire naître un sweet
-				let enfant = new Sweet(idEnfant, coulEnfant, this.x, this.y);
-				var cubeEnfant = SC.cube(enfant, progSweet);
-				monde.addProgram(cubeEnfant);
-				
-				//mise à jour du nombre de miniSweets
-				nombreDeSweets +=1 ;
+				this.genereSweet(cube);
 			}else
 				this.enContactAvecAutreSweet = false;
 		}
-		
 	}
 
 	verifSiTouched(autreSweet) 
@@ -129,9 +118,21 @@ class Sweet{
 		}else
 			return false;
 	}
+	
+	genereSweet(cubePapa){
+		//on mélange les couleurs des parents
+		let coulEnfant = this.melangeCouleurs(cubePapa);
+		//pour aller le chercher dans le dom
+		let idEnfant = nombreDeSweets + 1 
+		//faire naître un sweet
+		let enfant = new Sweet(idEnfant, coulEnfant, this.x+this.width, this.y + this.height);
+		var cubeEnfant = SC.cube(enfant, progSweet);
+		monde.addProgram(cubeEnfant);
+		//mise à jour du nombre de miniSweets
+		nombreDeSweets +=1;
+	}
 }
-
-
+ 
 /**
 collision
 		for(let cube of obj_all[MeVoici]){
