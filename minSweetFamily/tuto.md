@@ -63,6 +63,8 @@ Je ne l'ai pas encore fait... Vous pouvez le faire si vous le souhaitez.
 
 ## Période de reproduction 
 
+cf branche sc_controle
+
 Ce chapitre en cours 
 ====================
 
