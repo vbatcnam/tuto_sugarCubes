@@ -1,0 +1,1 @@
+# Syntaxe simplifiée de SugarCubes
