@@ -25,25 +25,15 @@ class Sweet extends SCCube{
 			Ceci ne sert plus du coup
 			this.me = this // sert pour SugarCubes
 		*/
-		
-
-		//comportement du cube
-		this.setComportement(
-			0,//nbre de pauses avant e demarrage
-			SC.action(SC.my("move"), SC.forever),
-			SC.action(SC.my("draw"), SC.forever), 
-/** 
-				SC.generate(signalDePosition, SC.my('me'), SC.forever),
-				SC.actionOn(signalDePosition, SC.my("gereRencontre"), undefined, SC.forever)
-			devient 
-				SC.generate(signalDePosition, this, SC.forever),
-				SC.actionOn(signalDePosition, this.gereRencontre, undefined, SC.forever)
-*/
-			SC.generate(signalDePosition, this, SC.forever),
-			SC.actionOn(signalDePosition, this.gereRencontre.bind(this), undefined, SC.forever)
-		);
 	}
+/**
+	tout ce qui commence par $_ fait parti du comportement active du cube  
 	
+*/
+	//appelle draw()
+	$_draw(){
+		return SC.action(SC.my("draw"), SC.forever);
+	}
 	draw(){
 		let color;
 		let rect;
@@ -65,10 +55,19 @@ class Sweet extends SCCube{
 		rect.setAttribute( 'fill', this.couleur.toRVB_CSS() );
 	}
 
+	//appelle move()
+	$_move(){
+		return SC.action(SC.my("move"), SC.forever);
+	}
 	move(){
 		this.gereBordureViewPort();
 		this.x += this.dx;
 		this.y += this.dy;
+	}
+	
+	//genère à chaque instant la position
+	$_donnePosition(){
+		return SC.generate(signalDePosition, this, SC.forever);
 	}
 	
 	gereBordureViewPort(){
@@ -90,6 +89,10 @@ class Sweet extends SCCube{
 /** 
 Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de ses parents ou un de ses enfants. On pourrait faire une généalogie.
 */
+	//appelle gereRencontre en cas de signal de position
+	$_gereRencontre(){
+		return SC.actionOn(signalDePosition, this.gereRencontre.bind(this), undefined, SC.forever);
+	}
 	gereRencontre(obj_all){
 		/** 
 			obj_all[signalDePosition] contient 3 cubes
