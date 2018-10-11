@@ -8,17 +8,20 @@ var signalDePosition = SC.evt("Me voici");// en vrais se donne lui-même et non 
 
 /** je crée la classe*/
 //je crée l'objet et son cube
-class Sweet extends SCCube{
-	constructor(ps_id, ps_sexe, pCouleur, pn_x, pn_y){
+class Ghost extends SCCube{
+	constructor(ps_id, ps_sexe, pCouleur, pn_x, pn_y, pn_w, pn_h){
 		super();
 		this.id = ps_id;
 		this.couleur = pCouleur;
 		this.x = pn_x;
 		this.y = pn_y;
+		this.width = pn_w;
+		this.height = pn_h;
+		this.debutPath = "m";
+		this.forme_miniGhost = " c 3.8276,-25.98141 31.8223,-9.64389 22.1058,3.65243 0,0 17.2892,2.95548 12.9081,6.33383 -27.189,20.96594 -6.4006,19.65669 0,25.02747 4.238,3.55616 -4.4539,9.98627 -9.9862,9.98627 h -25.0277 c -5.5324,0 -10.8025,-4.51442 -9.9863,-9.98627 1.2444,-8.34249 15.8693,-15.711 -0.7305,-24.05349 -4.9432,-2.4843 9.0056,-5.69913 10.7168,-10.96024 z";
+
 		this.dx = 2;
 		this.dy = -2;
-		this.width = 50;
-		this.height = 50;
 		this.sexe = ps_sexe; // pour la reproduction
 		this.partenaire = ""; // pour la reproduction
 		this.listeEnfants = []; // pour la reproduction
@@ -38,29 +41,6 @@ class Sweet extends SCCube{
 	}
 	draw(){
 		let color;
-		let rect;
-		if(! document.getElementById(this.id))
-		{
-			let lienSVG = "http://www.w3.org/2000/svg";
-			let zoneDeJeu = document.getElementById("zoneDeJeu");
-			rect = document.createElementNS(lienSVG,"rect");
-			rect.id = this.id;
-			rect.setAttribute( 'width', this.width);
-			rect.setAttribute( 'height', this.height);
-			rect.setAttribute( 'rx', "15");
-			zoneDeJeu.appendChild(rect);
-		}else{
-			rect = document.getElementById(this.id);
-		}
-		
-		rect.setAttribute( 'x', this.x);
-		rect.setAttribute( 'y', this.y);
-		rect.setAttribute( 'fill', this.couleur.toRVB_CSS() );
-	}
-	
-/** path
-	draw(){
-		let color;
 		let path;
 		if(! document.getElementById(this.id))
 		{
@@ -68,18 +48,14 @@ class Sweet extends SCCube{
 			let zoneDeJeu = document.getElementById("zoneDeJeu");
 			path = document.createElementNS(lienSVG,"path");
 			path.id = this.id;
-			path.setAttribute( 'width', this.width);
-			path.setAttribute( 'height', this.height);
-			path.setAttribute( 'rx', "15");
 			zoneDeJeu.appendChild(path);
 		}else{
 			path = document.getElementById(this.id);
 		}
-		
-		path.setAttribute( 'd', "m -1059.5561,-161.57646 c 3.8276,-25.98141 31.8223,-9.64389 22.1058,3.65243 0,0 17.2892,2.95548 12.9081,6.33383 -27.189,20.96594 -6.4006,19.65669 0,25.02747 4.238,3.55616 -4.4539,9.98627 -9.9862,9.98627 h -25.0277 c -5.5324,0 -10.8025,-4.51442 -9.9863,-9.98627 1.2444,-8.34249 15.8693,-15.711 -0.7305,-24.05349 -4.9432,-2.4843 9.0056,-5.69913 10.7168,-10.96024 z");
+		path.setAttribute( 'd', this.debutPath + this.x + "," + this.y + this.forme_miniGhost);
 		path.setAttribute( 'fill', this.couleur.toRVB_CSS() );
 	}
-*/
+
 	//appelle move()
 	$_move(){
 		return SC.action(SC.my("move"), SC.forever);
@@ -104,11 +80,11 @@ class Sweet extends SCCube{
 	}
 
 	melangeCouleurs(objetRencontre){
-		let couleurSweet1 = this.couleur;
-		let couleurSweet2 = objetRencontre.couleur;
+		let couleurGhost1 = this.couleur;
+		let couleurGhost2 = objetRencontre.couleur;
 		
 		//on retourne la moyenne des r,v,b
-		return Couleur.getMoyenne(couleurSweet1, couleurSweet2)
+		return Couleur.getMoyenne(couleurGhost1, couleurGhost2)
 	}
 
 /** 
@@ -132,9 +108,9 @@ class Sweet extends SCCube{
 			
 			//C'est un autre cube que lui même
 			if( this.verifSiNewContact(cube) ){
-				// console.log("miniSweet N° " + this.id + " est en contact avec miniSweet N° " + cube.id);
+				// console.log("miniGhost N° " + this.id + " est en contact avec miniGhost N° " + cube.id);
 				
-				//Est-il parents avec ce sweet ?
+				//Est-il parents avec ce Ghost ?
 				if(this.verifIsInListe(cube, this.listeParents)){
 					// console.log("C'est mon parent, il n'y aura pas de bébé")
 					return;
@@ -150,9 +126,9 @@ class Sweet extends SCCube{
 				this.partenaire = cube;
 				//console.log("Couple formé, un bébé va naître.")
 				if(this.sexe == 'F')
-					this.genereNouveauSweet(cube);
+					this.genereNouveauGhost(cube);
 				else
-					cube.genereNouveauSweet(this);
+					cube.genereNouveauGhost(this);
 			}else{/**il n'y a pas ou plus contact*/
 					this.partenaire = "";
 					return;
@@ -165,9 +141,9 @@ class Sweet extends SCCube{
 	}
 
 	verifIsInListe (cube, liste){
-		for(let sweet of liste){
+		for(let Ghost of liste){
 			//si le cube est dans la liste
-			if(sweet.id == cube.id){
+			if(Ghost.id == cube.id){
 				// console.log("c'est mon enfant, il n'y aura pas de bébé")
 				return true;
 			}
@@ -176,30 +152,31 @@ class Sweet extends SCCube{
 	}
 	
 	//verifie si en contact avec un autre que lui même
-	verifSiNewContact(autreSweet) {
-		if( this.x >= autreSweet.x
-			&& this.x <= autreSweet.x + autreSweet.width 
-			&& this.y >= autreSweet.y 
-			&& this.y <= autreSweet.y + autreSweet.height
+	verifSiNewContact(autreGhost) {
+		if( this.x >= autreGhost.x
+			&& this.x <= autreGhost.x + autreGhost.width 
+			&& this.y >= autreGhost.y 
+			&& this.y <= autreGhost.y + autreGhost.height
+			&& this.sexe != autreGhost.sexe
 		){
 			return true; 
 		}
 	}
 	
-	genereNouveauSweet(cubePapa)
+	genereNouveauGhost(cubePapa)
 	{
 		//on mélange les couleurs des parents
 		let coulEnfant = this.melangeCouleurs(cubePapa);
-		//Création des paramètres du nouveau miniSweet
-		let idEnfant = nombreDeSweets + 1 //pour aller le chercher dans le dom
+		//Création des paramètres du nouveau miniGhost
+		let idEnfant = nombreDeGhosts + 1 //pour aller le chercher dans le dom
 		let sexeEnfant = Math.floor(Math.random()*2);
 		if(sexeEnfant == 0){sexeEnfant = 'F'}else{sexeEnfant = 'M'}
 		// console.log("sexe du bébé : "+ sexeEnfant);
 		let position = Math.floor(Math.random()*100);
 		
-		//Création du nouveau miniSweet
-		let enfant = new Sweet(idEnfant, sexeEnfant, coulEnfant, this.x+position, this.y+position);
-		// var cubeEnfant = SC.cube(enfant, progSweet);
+		//Création du nouveau miniGhost
+		let enfant = new Ghost(idEnfant, sexeEnfant, coulEnfant, this.x+position, this.y+position, this.width, this.height);
+		// var cubeEnfant = SC.cube(enfant, progGhost);
 		monde.addActor(enfant);
 		// console.log("enfant : "+ enfant.id);
 		
@@ -211,8 +188,8 @@ class Sweet extends SCCube{
 		enfant.addCubeInListe(this, enfant.listeParents);
 		enfant.addCubeInListe(cubePapa, enfant.listeParents);
 
-		//mise à jour du nombre de miniSweets
-		nombreDeSweets +=1;
+		//mise à jour du nombre de miniGhosts
+		nombreDeGhosts +=1;
 	}
 
 }
@@ -227,23 +204,24 @@ let svg = document.getElementById("zoneDeJeu");
 svg.setAttribute('width', viewPort.w);
 svg.setAttribute('height', viewPort.h);
 
-//couleurs miniSweets originels.
+//couleurs miniGhosts originels.
 var rouge = Couleur.fromRVB_255_int(255, 0, 0);
 var vert = Couleur.fromRVB_255_int(0, 255, 0);
 var bleu = Couleur.fromRVB_255_int(0, 0, 255);
 var jaune = Couleur.fromRVB_255_int(255, 255, 0);
+var w = 50;
+var h = 60;
+//création de mes miniGhosts 
+var miniGhost1 = new Ghost(1, 'F', rouge, 20, 10, w,h);
+var miniGhost2 = new Ghost(2, 'M', vert,  viewPort.w/3, viewPort.h/3, w,h);
+var miniGhost3 = new Ghost(3, 'F', bleu, viewPort.w*0.75, viewPort.h*0.25, w,h);
+var miniGhost4 = new Ghost(4, 'M', jaune, viewPort.w*0.25, viewPort.h*0.7, w,h);
 
-//création de mes miniSweets 
-var miniSweet1 = new Sweet(1, 'F', rouge, 20, 10);
-var miniSweet2 = new Sweet(2, 'F', vert, viewPort.w/3, viewPort.h/3);
-var miniSweet3 = new Sweet(3, 'M', bleu, viewPort.w*0.75, viewPort.h*0.25);
-var miniSweet4 = new Sweet(4, 'M', jaune, viewPort.w*0.25, viewPort.h*0.75);
-
-//Sert pour l'id des miniSweets ( document.getElementById() )
-var nombreDeSweets = 4;
+//Sert pour l'id des miniGhosts ( document.getElementById() )
+var nombreDeGhosts = 4;
 
 //On ajoute le programme du cube à la machine
-monde.addActor(miniSweet1);
-monde.addActor(miniSweet2);
-monde.addActor(miniSweet3);
-monde.addActor(miniSweet4);
+monde.addActor(miniGhost1);
+monde.addActor(miniGhost2);
+monde.addActor(miniGhost3);
+monde.addActor(miniGhost4);
