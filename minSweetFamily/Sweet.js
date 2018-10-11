@@ -28,7 +28,7 @@ class Sweet extends SCCube{
 	}
 /**
 	tout ce qui commence par $_ fait parti du comportement active du cube  
-	
+	cf lib/syntaxeSimplifieeSC.js
 */
 	//appelle draw()
 	$_draw(){
@@ -154,8 +154,6 @@ Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de se
 	}
 }
 
-/** je crée mes objets*/
-
 //le viewPort
 var viewPort = {'w':innerWidth, 'h':innerHeight};
 
@@ -164,6 +162,7 @@ let svg = document.getElementById("zoneDeJeu");
 svg.setAttribute('width', viewPort.w);
 svg.setAttribute('height', viewPort.h);
 
+/** je crée mes objets*/
 //couleurs miniSweets originels.
 var rouge = Couleur.fromRVB_255_int(255, 0, 0);
 var vert = Couleur.fromRVB_255_int(0, 255, 0);
@@ -180,6 +179,9 @@ var miniSweet4 = new Sweet(4, 'M', jaune, viewPort.w*0.25, viewPort.h*0.75);
 var nombreDeSweets = 4;
 
 //On ajoute le programme du cube à la machine
+/**
+	monde est un objet créé dans lib/syntaxeSimplifieeSC.js
+*/
 monde.addActor(miniSweet1);
 monde.addActor(miniSweet2);
 monde.addActor(miniSweet3);

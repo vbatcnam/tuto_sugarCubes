@@ -4,96 +4,44 @@
 Ce qui va suivre est le deuxième chapitre : Il fait suite au tuto 
 	Créer mon premier jeu avec SugarCubes(SC)
 
-## Les miniSweets font des enfants
 
-Nous allons améliorer notre jeu afin de voir ce que l'on peut faire avec les propriétés SC mentionnées dans le premier chapitre : 
+## La syntaxe simplifiée de SugarCubes pour JavaScript
+Comme vous l'avez vu dans le premier chapitre, j'ai d'abord créé une classe, des objets de cette classe puis des cubes SC dans lesquels je mettais les objets.
+Je créais des événements (SC.evt), des programmes (SC.par) et une machine (SC.machine)
 
-Nous allons créer plusieurs familles de miniSweets.
-Lorsque 2 miniSweets se rencontrent, ils ne changent pas de couleur mais de leur rencontre, naît un miniSweet.
-Ce miniSweet est un mélange de ses parents : Il a donc une couleur différente de celle de ses parents (un mélange des 2)
+Cela alourdi le fichier et on s'y perd un peu...(cf miniSweet/Sweet.js)
+Nous allons nous servir du fichier qui se trouve dans lib : syntaxeSimplifieeSC.js
 
-Je vais donc modifier ma classe Sweet.js
+Ensuite, nous allons modifier notre fichier Sweet.js (cf minSweetFamily/Sweet.js)
+J'ai mis  *SC.evt("Me voici")* tout au début du fichier.
+Je l'avais nomé *var meVoici* mais on ne savait pas trop ce que c'était :Je lui ai donc donné un nom plus parlant.
 
-### Gérer la rencontre.
-Dans le tuto précédent, le changement de couleur se faisait tout au long de la rencontre. 
-J'avais écrit :
-```javascript 
-if( this.x >= cube.x
-	&& this.x <= cube.x + cube.width 
-	&& this.y >= cube.y 
-	&& this.y <= cube.y + cube.height
-){
-	//console.log("coucou");
-	/**  fait coucou tout le long de la rencontre or je ne le veux qu'une seule fois !
-	*/
-	//on change les couleurs des objets
-	this.melangeCouleurs(cube);
-}
+En effet, *SC.evt("")* est en fait le type d'info qui sera diffusé au monde, par n'importe quel habitant de ce monde.
+
+	En fait *SC.evt* pourrait s'appeler *SC.titreInfoEmise* ou *SC.signalEmis*
+
+	J'ai donc écrit : 
+```javascript
+var signalDePosition = SC.evt("Me voici");
 ```
 
-*fait coucou tout le long de la rencontre* 
-Pour le changement de couleur, je m'en fichais un peu car ça n'avait pas de conséquence...
-
-Mais là, si on laisse le programme ainsi, j'aurais une flopée de petits miniSweets qui seront générés tout le long de la rencontre; Ce n'est pas du tout ce que je veux... De plus, le navigateur plante très rapidement !
-
-Je vais donc réécrire ma fonction *gereRencontre()*.
-
-Je vais aussi faire quelques modifs dans mon objet Sweet :
-
-Chaque Sweet aura dans son état une information *contactAvec*.
-
-Par contre, a chaque rencontre il risque d'y avoir au moins 2 bébés.
-
-Dans le même instant de contact nous avons :
-
-	A rencontre B => 1 bébé
-	
-	B rencontre A => 1 bébé
-
-Il faut donc des miniSweets *mal* et *femelle*.
-
-Chaque Sweet aura dans son état une information *sexe*.
-
-Voir le code JS dans *Swwet.js*
-
-Je pourrais améliorer les choses : Un miniSweet ne peux se reproduire avec un de ses parents ou un de ses enfants. On pourrait faire une généalogie.
-
-Je ne l'ai pas encore fait... Vous pouvez le faire si vous le souhaitez.
+En vrais l'objet se donne lui-même et non juste l'info. Pourquoi ? 
+Voir avec JFS...
 
 
-## Période de reproduction 
+## je crée la classe
 
-cf branche sc_controle
+Ma classe Sweet est une classe héritée de la classe *SCCube* qui se trouve dans 
+*lib/syntaxeSimplifieeSC.js* (cf minSweetFamily/Sweet.js)
 
-Ce chapitre en cours 
-====================
+Ensuite je crée mes cubes :
+```javascript
+var monCube = new Sweet(ps_id, ps_sexe, pCouleur, pn_x, pn_y);
+```
 
-Donc lorsque 2 miniSweets se rencontrent, ils font un bébés. C'est cool :)
+Je les ajoute à mon monde déjà créé dans lib/syntaxeSimplifieeSC.js
+```javascript
+monde.addActor(monCube);
+```
 
-Maintenant, je voudrais qu'un bébé naisse uniquement pendant la période de reproduction. 
-
-Lorsque 2 miniSweets se rencontrent, si ils sont en période de reproduction, de leur union naît un miniSweet.
- 
-Mes miniSweets peuvent donc se reproduire tous les 3 secondes.
-
-Rappelons-nous que j'avais écrit dans *Swwet.js*:
-```javascript 
-var monde = SC.machine(30);// toutes les 30 millisecondes il y a une macro étape (ou instant)
-``` 
-
-Mes miniSweets pourront donc se reproduire tous les 100 instants SC.
-
-Pour implémenter cela, j'utilise *SC.control()*
-
-la syntaxe est : 
-```javascript 
-SC.control(evt, prog);
-``` 
-
-#### Que fait SC.control ?
-C'est une instruction qui contrôle l'exécution d'un programme
-elle fait ce qu'on appelle communément du sous échantillonnage 
-en gros elle exécute pour un instant le programme contrôlé *prog* si et seulement si l'événement de contrôle *evt* est présent.
-
-A suivre...
 
