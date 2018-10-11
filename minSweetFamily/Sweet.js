@@ -1,15 +1,15 @@
 /** je crée la classe*/
 
 class Sweet{
-	constructor(ps_id, ps_sexe, pCouleur, pn_x, pn_y){
+	constructor(ps_id, ps_sexe, pCouleur, pn_x, pn_y, pn_w, pn_h){
 		this.id = ps_id;
 		this.couleur = pCouleur;
 		this.x = pn_x;
 		this.y = pn_y;
 		this.dx = 2;
 		this.dy = -2;
-		this.width = 100;
-		this.height = 100;
+		this.width = pn_w;
+		this.height = pn_h;
 		this.sexe = ps_sexe; // pour la reproduction
 		this.contactAvec = null; // pour la reproduction
 		this.me = this // sert pour SugarCubes
@@ -145,7 +145,7 @@ Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de se
 		let position = Math.floor(Math.random()*100);
 		
 		//Création du nouveau miniSweet
-		let enfant = new Sweet(idEnfant, sexeEnfant, coulEnfant, this.x+position, this.y+position);
+		let enfant = new Sweet(idEnfant, sexeEnfant, coulEnfant, this.x+position, this.y+position, this.width, this.height);
 		var cubeEnfant = SC.cube(enfant, progSweet);
 		monde.addProgram(cubeEnfant);
 		console.log("enfant : "+ enfant.id);
@@ -175,11 +175,12 @@ var rouge = Couleur.fromRVB_255_int(255, 0, 0);
 var vert = Couleur.fromRVB_255_int(0, 255, 0);
 var bleu = Couleur.fromRVB_255_int(0, 0, 255);
 var jaune = Couleur.fromRVB_255_int(255, 255, 0);
-
-var miniSweet1 = new Sweet(1, 'F', rouge, 20, 10);
-var miniSweet2 = new Sweet(2, 'F', vert, viewPort.w/3, viewPort.h/3);
-var miniSweet3 = new Sweet(3, 'M', bleu, viewPort.w*0.75, viewPort.h*0.25);
-var miniSweet4 = new Sweet(4, 'M', jaune, viewPort.w*0.25, viewPort.h*0.75);
+var w= 50;
+var h = 50;
+var miniSweet1 = new Sweet(1, 'F', rouge, 20, 10, w,h);
+var miniSweet2 = new Sweet(2, 'F', vert, viewPort.w/3, viewPort.h/3, w,h);
+var miniSweet3 = new Sweet(3, 'M', bleu, viewPort.w*0.75, viewPort.h*0.25, w,h);
+var miniSweet4 = new Sweet(4, 'M', jaune, viewPort.w*0.25, viewPort.h*0.75, w,h);
 
 //Sert pour l'id des miniSweets
 var nombreDeSweets = 4;

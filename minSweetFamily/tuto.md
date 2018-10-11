@@ -60,40 +60,16 @@ Je pourrais améliorer les choses : Un miniSweet ne peux se reproduire avec un d
 
 Je ne l'ai pas encore fait... Vous pouvez le faire si vous le souhaitez.
 
+#les autres branches
+J'ai fait plusieurs versions, 1 par branche :
 
-## Période de reproduction 
+##Syntaxe simplifiée 
+Pour faciliter le code et créer un cube en même temps que son objet, voici une syntaxe simplifiée de SugarCubes pour JS.
 
-cf branche sc_controle
+##Famille 
+Les miniSweets ne peuvent pas se reproduire avec leurs parents, frères et sœurs.
+J'ai utilisé la syntaxe simplifiée de SugarCubes pour JS.
 
-Ce chapitre en cours 
-====================
-
-Donc lorsque 2 miniSweets se rencontrent, ils font un bébés. C'est cool :)
-
-Maintenant, je voudrais qu'un bébé naisse uniquement pendant la période de reproduction. 
-
-Lorsque 2 miniSweets se rencontrent, si ils sont en période de reproduction, de leur union naît un miniSweet.
- 
-Mes miniSweets peuvent donc se reproduire tous les 3 secondes.
-
-Rappelons-nous que j'avais écrit dans *Swwet.js*:
-```javascript 
-var monde = SC.machine(30);// toutes les 30 millisecondes il y a une macro étape (ou instant)
-``` 
-
-Mes miniSweets pourront donc se reproduire tous les 100 instants SC.
-
-Pour implémenter cela, j'utilise *SC.control()*
-
-la syntaxe est : 
-```javascript 
-SC.control(evt, prog);
-``` 
-
-#### Que fait SC.control ?
-C'est une instruction qui contrôle l'exécution d'un programme
-elle fait ce qu'on appelle communément du sous échantillonnage 
-en gros elle exécute pour un instant le programme contrôlé *prog* si et seulement si l'événement de contrôle *evt* est présent.
-
-A suivre...
-
+##Halloween
+Ce ne sont plus des miniSweets mais des miniGoasts qui envahissent votre écran
+Une variante de Famille...
