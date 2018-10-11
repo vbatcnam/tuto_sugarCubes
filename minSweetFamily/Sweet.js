@@ -59,45 +59,6 @@ class Sweet{
 		return Couleur.getMoyenne(couleurSweet1, couleurSweet2)
 	}
 
-/** Reproduction => premier test :
-	Cette fonction ne marche pas avec SC !
-		car SC fonctionne en étapes et entre 2 étapes la rencontre peut avoir lieu. Du coup, SC ne l'a pas vu.
-
-	verifSiTouched(autreSweet)
-	{
-		//cas 1 : contact par les angles
-		if(
-			(this.x == autreSweet.x + autreSweet.width
-				|| this.x + this.width == autreSweet.x)
-			&& (this.y == autreSweet.y + autreSweet.height
-				|| this.y + this.height == autreSweet.y)
-			&& this != autreSweet
-		){
-			console.log("Contact par les angles ! ");
-		}
-		
-		//cas 2 : contact par le coté gauche
-		if(this.x == autreSweet.x + autreSweet.width
-			&& ( 
-				(autreSweet.y >= this.y && autreSweet.y <= this.y + this.height)
-				||(autreSweet.y + autreSweet.height <= this.y + this.height
-					&& autreSweet.y + autreSweet.height >= this.y)
-			)
-			&& this != autreSweet
-
-		){
-			console.log("Contact par le coté gauche ! ");
-		}
-	}
-*/
-	
-/** Reproduction => Second test :
-	Quand un contact est détecté, on vérifie que contactAvec est vide.
-	si contact est non vide on ignore (on pourrait raffiner en vérifiant avec qui on contact mais bon ...)
-	si c'est vide on positionne une identification du cube avec qui on entre en contact dans «contact avec»...
-quand plus de contact avec ce cube ... on crée le bébé
-Mais le pb est de savoir lequel des parents crée le bébé car sinon tu créeras au moins 2 bébés
-
 Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de ses parents ou un de ses enfants. On pourrait faire une généalogie.
 	*/
 	gereRencontre(obj_all){
