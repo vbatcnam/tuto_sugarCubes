@@ -59,8 +59,6 @@ class Sweet{
 		return Couleur.getMoyenne(couleurSweet1, couleurSweet2)
 	}
 
-Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de ses parents ou un de ses enfants. On pourrait faire une généalogie.
-	*/
 	gereRencontre(obj_all){
 		/** 
 			obj_all[MeVoici] contient 3 cubes
@@ -68,15 +66,6 @@ Je veux améliorer les choses : Un miniSweet ne peux se reproduire avec un de se
 		for(let cube of obj_all[MeVoici]){
 			if( this.verifSiNewContact(cube) ){
 				console.log("miniSweet N° " + this.id + " est en contact avec miniSweet N° " + cube.id);
-				//console.log("en contact avec : " + cube.contactAvec);
-				
-				//faire naître un sweet si c'est un sweet femelle
-				// if(this.sexe == 'F' && cube.sexe == 'M' 
-					// && !this.contactAvec && !cube.contactAvec){
-					// this.contactAvec = cube;
-					// cube.contactAvec = this;
-					// this.genereNouveauSweet(cube);
-				// }
 				if(this.sexe == 'F' && cube.sexe == 'M'
 					|| cube.sexe == 'F' && this.sexe == 'M'){
 					console.log("Couple formé")
