@@ -57,29 +57,7 @@ class Sweet extends SCCube{
 		rect.setAttribute( 'y', this.y);
 		rect.setAttribute( 'fill', this.couleur.toRVB_CSS() );
 	}
-	
-/** path
-	draw(){
-		let color;
-		let path;
-		if(! document.getElementById(this.id))
-		{
-			let lienSVG = "http://www.w3.org/2000/svg";
-			let zoneDeJeu = document.getElementById("zoneDeJeu");
-			path = document.createElementNS(lienSVG,"path");
-			path.id = this.id;
-			path.setAttribute( 'width', this.width);
-			path.setAttribute( 'height', this.height);
-			path.setAttribute( 'rx', "15");
-			zoneDeJeu.appendChild(path);
-		}else{
-			path = document.getElementById(this.id);
-		}
-		
-		path.setAttribute( 'd', "m -1059.5561,-161.57646 c 3.8276,-25.98141 31.8223,-9.64389 22.1058,3.65243 0,0 17.2892,2.95548 12.9081,6.33383 -27.189,20.96594 -6.4006,19.65669 0,25.02747 4.238,3.55616 -4.4539,9.98627 -9.9862,9.98627 h -25.0277 c -5.5324,0 -10.8025,-4.51442 -9.9863,-9.98627 1.2444,-8.34249 15.8693,-15.711 -0.7305,-24.05349 -4.9432,-2.4843 9.0056,-5.69913 10.7168,-10.96024 z");
-		path.setAttribute( 'fill', this.couleur.toRVB_CSS() );
-	}
-*/
+
 	//appelle move()
 	$_move(){
 		return SC.action(SC.my("move"), SC.forever);
@@ -111,11 +89,6 @@ class Sweet extends SCCube{
 		return Couleur.getMoyenne(couleurSweet1, couleurSweet2)
 	}
 
-/** 
-	Cette fonction génère une flopée de cubes car dès qu'un cube est crée, comme il n'est pas dans la liste des contacts de ses parents, il génère 2 cubes (1 avec chaque Parent avec les quels il est toujours en contact et ainsi de suite...)
-	La solution : Utiliser addContact(cube) dans la génération des cubes
-		Cela ne marche toujours pas !!!
-*/
 	//appelle gereRencontre en cas de signal de position
 	$_gereRencontre(){
 		return SC.actionOn(signalDePosition, this.gereRencontre.bind(this), undefined, SC.forever);
@@ -154,8 +127,8 @@ class Sweet extends SCCube{
 				else
 					cube.genereNouveauSweet(this);
 			}else{/**il n'y a pas ou plus contact*/
-					this.partenaire = "";
-					return;
+				this.partenaire = "";
+				return;
 			}
 		}
 	}
@@ -175,12 +148,13 @@ class Sweet extends SCCube{
 		return false;
 	}
 	
-	//verifie si en contact avec un autre que lui même
+	//vérifie si en contact avec un autre que lui même
 	verifSiNewContact(autreSweet) {
 		if( this.x >= autreSweet.x
 			&& this.x <= autreSweet.x + autreSweet.width 
 			&& this.y >= autreSweet.y 
 			&& this.y <= autreSweet.y + autreSweet.height
+			&& this.sexe != autreSweet.sexe
 		){
 			return true; 
 		}
