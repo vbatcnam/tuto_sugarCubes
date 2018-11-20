@@ -178,7 +178,7 @@ var miniSweet4 = new Sweet(4, 'M', jaune, viewPort.w*0.25, viewPort.h*0.75);
 //Sert pour l'id des miniSweets ( document.getElementById() )
 var nombreDeSweets = 4;
 
-//On ajoute le programme du cube à la machine
+//On ajoute le programme du cube à la monde
 /**
 	monde est un objet créé dans lib/syntaxeSimplifieeSC.js
 */
