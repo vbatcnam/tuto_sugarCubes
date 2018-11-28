@@ -13,7 +13,7 @@ Voir http://jeanferdysusini.free.fr/index.php?action=SCJS
 
 En résumé, SugarCubes est une bibliothèque qui permet de gérer des événements en parallèle dans son programme. 
 Par exemple, dans un jeu de simulation, il y a plusieurs événements qui se passent en même temps.
-SC permet d’exécuter plus facilement du code (ici javascript) en parallèle.
+SugarCubes permet d’exécuter plus facilement du code (ici javascript) en parallèle.
 
 La méthode d’exécution de SC, c'est de rythmer l’exécution par une série d'instants : 
 A chaque instant, SC exécute un petit bout de code parallèle.
@@ -40,6 +40,15 @@ A chaque instant SC execute :
 	puis une étape de la suite de signaleToi 
 	
 	et ainsi de suite.
+	
+On peut imaginer que la machine *SC.machine()* de SugarCubes est un monde dans lequel vivent des cubes qui inter agissent entre eux.
+Dans ce monde il y a une horloge qui gère le temps de ce monde
+On peut régler le temps entre deux tic 
+SC.machine(int_nombreDeMiliSecondesEntreDeuxTic); 
+
+SugarCubes permet de créer des objets actif (qui peuvent agir tout seul).
+On peut simaginer que les objets (cubes) de ce monde émettent des messages radio *SC.Evt()* 
+Certains cubes peuvent réagir à ces messages *actionOn()*
 
 ## Codage du jeu *les miniSweets*
 Je crée un fichier index.html (voir le fichier pour les détails)
