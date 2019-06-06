@@ -55,13 +55,13 @@ Il faut donc des miniSweets *mal* et *femelle*.
 Chaque Sweet aura dans son état une information *sexe*.
 
 Voir le code JS dans *Swwet.js*
+Voir la démo https://vbatcnam.github.io/tuto_sugarCubes/minSweetFamily/
 
 Je pourrais améliorer les choses : Un miniSweet ne peux se reproduire avec un de ses parents ou un de ses enfants. On pourrait faire une généalogie.
 
 Je ne l'ai pas encore fait... Vous pouvez le faire si vous le souhaitez.
 
-#les autres branches
-J'ai fait plusieurs versions, 1 par branche :
+#les autres branches possibles
 
 ##Syntaxe simplifiée 
 Pour faciliter le code et créer un cube en même temps que son objet, voici une syntaxe simplifiée de SugarCubes pour JS.
