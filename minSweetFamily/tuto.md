@@ -55,6 +55,7 @@ Il faut donc des miniSweets *mal* et *femelle*.
 Chaque Sweet aura dans son état une information *sexe*.
 
 Voir le code JS dans *Swwet.js*
+
 Voir la démo https://vbatcnam.github.io/tuto_sugarCubes/minSweetFamily/
 
 Je pourrais améliorer les choses : Un miniSweet ne peux se reproduire avec un de ses parents ou un de ses enfants. On pourrait faire une généalogie.
