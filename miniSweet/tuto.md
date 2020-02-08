@@ -1,9 +1,9 @@
 # Créer mon premier jeu avec SC
 
 ## Préambule
-Pour vous expliquer comment fonctionne SugarCubes, on va créer un petit jeu avec des carrés animés : les miniSweets.
+Pour vous expliquer comment fonctionne SugarCubes, on va créer une petite animation avec des carrés animés : les miniSweets.
 Lorsque deux miniSweets se rencontrent, ils changent de couleur. 
-Par exemple : si un miniSweet bleu rencontre un miniSweet rouge, ils deviennent violet.
+Par exemple, si un miniSweet bleu rencontre un miniSweet rouge, ils deviennent violet.
 
 Mais tout d'abord c'est quoi SugarCubes (SC pour simplifier)?
 Je vous conseille fortement de lire le  README.md  sur https://github.com/LordManta/SugarCubesJS
@@ -11,12 +11,12 @@ Je vous conseille fortement de lire le  README.md  sur https://github.com/LordMa
 ## SugarCubes kesako ?
 Voir http://jeanferdysusini.free.fr/index.php?action=SCJS
 
-En résumé, SugarCubes est une bibliothèque qui permet de gérer des événements en parallèle dans son programme. 
-Par exemple, dans un jeu de simulation, il y a plusieurs événements qui se passent en même temps.
+En résumé, SugarCubes est une bibliothèque qui permet de gérer des événements en parallèle dans son programme.<br>
+Par exemple, dans un jeu de simulation, il y a plusieurs événements qui se passent en même temps.<br>
 SugarCubes permet d’exécuter plus facilement du code (ici javascript) en parallèle.
 
 La méthode d’exécution de SC, c'est de rythmer l’exécution par une série d'instants : 
-A chaque instant, SC exécute un petit bout de code parallèle.
+A chaque instant, SC exécute un petit bout de code parallèle.<br>
 Par exemple pour les sweets, je veux qu'ils avancent tout en signalant leur position aux autres sweets. 
  
 	prog1 => Avance
@@ -41,16 +41,19 @@ A chaque instant SC execute :
 	
 	et ainsi de suite.
 	
-On peut imaginer que la machine *SC.machine()* de SugarCubes est un monde dans lequel vivent des cubes qui inter agissent entre eux.
-Dans ce monde il y a une horloge qui gère le temps de ce monde
-On peut régler le temps entre deux tic 
-SC.machine(int_nombreDeMiliSecondesEntreDeuxTic); 
+On peut imaginer que la machine *SC.machine()* de SugarCubes est un monde dans lequel vivent des cubes qui interagissent entre eux.<br>
+Dans ce monde il y a une horloge qui gère le temps de ce monde. On peut régler le temps entre deux tic.
 
-SugarCubes permet de créer des objets actif (qui peuvent agir tout seul).
+```javascript 
+	SC.machine(int_nombreDeMiliSecondesEntreDeuxTic);
+``` 
+
+SugarCubes permet de créer des objets actifs (qui peuvent agir tout seul).
 On peut simaginer que les objets (cubes) de ce monde émettent des messages radio *SC.Evt()* 
 Certains cubes peuvent réagir à ces messages *actionOn()*
 
 ## Codage du jeu *les miniSweets*
+
 Je crée un fichier index.html (voir le fichier pour les détails)
 Je n'oublie surtout pas d'écrire
 ```html 
@@ -58,12 +61,11 @@ Je n'oublie surtout pas d'écrire
 ```
 sinon ça ne marche pas !
 
-Ensuite je crée un fichier Sweets.js dans le quel je crée la classe Sweet, des objets issus de cette classe. Cf Sweets.js
+Ensuite je crée un fichier Sweets.js dans lequel je crée la classe Sweet, des objets issus de cette classe. Cf Sweets.js
 
-Attention ! 
-Il faut rajouter une propriété this.me = this qui va servir pour SugarCubes.
+:exclamation: Il faut rajouter une propriété *this.me = this* qui va servir pour SugarCubes.
 Pourquoi ?
-Heu là je ne sais pas... (voir JFS pour plus d'infos)
+C'est provisoir, sugarCubesJS est encore en cours d'écriture... (voir le site de Jean Ferdiand Susini pour plus d'infos)
 
 
 Dans ce même fichier, je crée mes cubes SC. La syntaxe est :
@@ -103,7 +105,7 @@ Pour l'instruction *JeMeDessineEtJeMAffiche* j'utilise la syntaxe
 SC.action(fonctionAExecuter, nbreDeFois_parDefaut1Fois )
 ```
  
-Je veux que mes miniSweets s'affichent tout le temps
+Je veux que mes miniSweets s'affichent tout le temps j'ajoute *SC.forever*
 
 ```javascript 
 var monAction1 = SC.action(functionJS_draw, SC.forever);
@@ -132,13 +134,13 @@ Les instructions ci-dessus servaient à faire des actions : C'est-à-dire à lan
 En revanche,l'instruction *JeMeSignale* ne lance pas de fonction mais génère un événement.
 
 #### Pourquoi ne fait-on pas une fonctionJS "signaleToi" ?
-Parce qu'on veut que cet événement soit entendu par tous les autres cubes. C'est en quelque sorte du broadcast ;) enfin je crois... (voir JFS pour plus d'infos)
+Parce qu'on veut que cet événement soit entendu par tous les autres cubes. C'est en quelque sorte du broadcast ;)
 
 Il faut générer donc l’événement avec SC.generate() : je vais utiliser la syntaxe 
 ```javascript 
 SC.generate(evt, valeurAssocieAEvt, nbreDInstant)
 ```
-Attention ! Il faut mettre l’événement dans une variable pour que les autres sweets puissent l’écouter :
+:exclamation: Il faut mettre l’événement dans une variable pour que les autres sweets puissent l’écouter :
 
 	Si l'evt est là 
 		alors faire cela
@@ -148,9 +150,7 @@ var EvtDuSweet = SC.evt("Me voici");// la phrase entre "" sert pour le debug
 ```
 
 #### Pourquoi ?
-Je ne sais pas encore ;)
-
-Pour en savoir plus sur les evt :
+Je ne sais pas encore :confused: Pour en savoir plus sur les evt :
 https://github.com/LordManta/SugarCubesJS
 
 ### Nous en étions là :
@@ -176,9 +176,8 @@ il me manque le paramètre *valeurAssocieAEvt*
 
 ### valeurAssocieAEvt CKOI ?
 Tous mes miniSweets vont envoyer le signal à tous les autres miniSweets
-"MeVoici"
-C'est beau... mais qui me parle ? 
-Que me veut-on ?
+"MeVoici"<br>
+- C'est beau... mais qui me parle ? Que me veut-on ?
 
 Chaque miniSweet doit envoyer aux autres le signal + une info qu'il va prendre dans son propre objet du cube.
 Pour cela, j'utilise utilise SC.my().
@@ -189,7 +188,7 @@ Ce *SC.my('me')* je le mets à la place de *valeurAssocieAEvt*
 SC.generate(MeVoici, SC.my('me'), SC.forever)
 ```
 
-Nous avons maintenant notre comportement au complet :)
+Nous avons maintenant notre comportement au complet :smiley:
 ```javascript 
 var comportementDeMonCube = SC.par(
 	SC.action(SC.my("move"), SC.forever),
@@ -199,8 +198,9 @@ var comportementDeMonCube = SC.par(
 ```
 
 ## le cube
-Maintenant il faut créer les cubes (cf sweet.js)
-Un cube, dans SugarCubes, est un moyen de mettre du lien entre un programme réactif (ici sugarCubes) et un objet JS (voir avec JFS)
+Maintenant il faut créer les cubes (cf sweet.js)<br>
+Un cube, dans SugarCubes, est un moyen de mettre du lien entre un programme réactif (ici sugarCubes) et un objet JS (voir avec JFS)<br>
+En fait, un cube est un objet vivant, réactif, capable de réagir tout seul.
 
 la syntaxe pour créer un cube est :
 ```javascript 
@@ -239,7 +239,7 @@ Rappelons-nous de la condition plus haut dans le chapitre sur les évenements :
 Si l'événement est là 
 		alors faire cela
 
-Et bien c'est le moment de le faire :)
+Et bien c'est le moment de le faire :wink:
 
 si l'événement est là et que celui qui l’émet est en contact avec toi 
 	alors change de couleur
@@ -303,5 +303,5 @@ var comportementDeMonCube = SC.par(
 );
 ```
 
-Et maintenant nous pouvons exécuter notre petit jeu :)
+Et maintenant nous pouvons exécuter notre petite animation :smiley:
 cf index.html
