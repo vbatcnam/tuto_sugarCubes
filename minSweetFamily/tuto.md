@@ -14,9 +14,12 @@ Nous allons nous servir du fichier qui se trouve dans lib : syntaxeSimplifieeSC.
 
 Ensuite, nous allons modifier notre fichier Sweet.js (cf minSweetFamily/Sweet.js)
 J'ai mis  *SC.evt("Me voici")* tout au début du fichier.
-Je l'avais nomé *var meVoici* mais on ne savait pas trop ce que c'était :Je lui ai donc donné un nom plus parlant.
-
+Je l'avais nommé *var meVoici* mais on ne savait pas trop ce que c'était : Je lui ai donc donné un nom plus parlant.<br>
 En effet, *SC.evt("")* est en fait le type d'info qui sera diffusé au monde, par n'importe quel habitant de ce monde.
+
+Voir la démo https://vbatcnam.github.io/tuto_sugarCubes/minSweetFamily/
+
+On pourrait faire une généalogie.
 
 	En fait *SC.evt* pourrait s'appeler *SC.titreInfoEmise* ou *SC.signalEmis*
 
@@ -25,23 +28,35 @@ En effet, *SC.evt("")* est en fait le type d'info qui sera diffusé au monde, pa
 var signalDePosition = SC.evt("Me voici");
 ```
 
-En vrais l'objet se donne lui-même et non juste l'info. Pourquoi ? 
+En vrai, l'objet se donne lui-même et non juste l'info. Pourquoi ? 
 Voir avec JFS...
 
-
-## je crée la classe
+## Je crée la classe
 
 Ma classe Sweet est une classe héritée de la classe *SCCube* qui se trouve dans 
 *lib/syntaxeSimplifieeSC.js* (cf minSweetFamily/Sweet.js)
 
 Ensuite je crée mes cubes :
+
 ```javascript
 var monCube = new Sweet(ps_id, ps_sexe, pCouleur, pn_x, pn_y);
 ```
 
 Je les ajoute à mon monde déjà créé dans lib/syntaxeSimplifieeSC.js
+
 ```javascript
 monde.addActor(monCube);
 ```
 
+#Les autres branches possibles
 
+##Syntaxe simplifiée 
+Pour faciliter le code et créer un cube en même temps que son objet, voici une syntaxe simplifiée de SugarCubes pour JS.
+
+##Famille 
+Les miniSweets ne peuvent pas se reproduire avec leurs parents, frères et sœurs.
+J'ai utilisé la syntaxe simplifiée de SugarCubes pour JS.
+
+##Halloween
+Ce ne sont plus des miniSweets mais des miniGoasts qui envahissent votre écran
+Une variante de Famille...
